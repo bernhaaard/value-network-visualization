@@ -1,103 +1,95 @@
-import Image from "next/image";
+"use client";
+
+import { Box, Button, Heading, Text } from "@chakra-ui/react";
+import { ColorModeButton } from "@/components/ui/color-mode";
 
 export default function Home() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+    <Box
+      minH="100vh"
+      bg="gray.50"
+      _dark={{ bg: "gray.900" }}
+      p={8}
+      display="flex"
+      alignItems="center"
+      justifyContent="center"
+    >
+      <Box
+        maxW="lg"
+        w="full"
+        bg="white"
+        _dark={{ bg: "gray.800" }}
+        borderRadius="xl"
+        boxShadow="xl"
+        p={10}
+        borderWidth={1}
+        borderColor="gray.200"
+      >
+        <Box display="flex" justifyContent="space-between" alignItems="center" mb={8}>
+          <Heading
+            size="2xl"
+            color="gray.800"
+            _dark={{ color: "white" }}
+            fontWeight="bold"
+          >
+            Value Network Viz
+          </Heading>
+          <ColorModeButton />
+        </Box>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+        <Text
+          fontSize="lg"
+          color="gray.600"
+          _dark={{ color: "gray.300" }}
+          mb={8}
+          lineHeight="tall"
+        >
+          Interactive platform for value network analysis
+        </Text>
+
+        <Box spaceY={4} mb={8}>
+          <Button
+            colorPalette="orange"
+            size="lg"
+            w="full"
+            py={6}
+            fontSize="md"
+            fontWeight="semibold"
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+            Button 1
+          </Button>
+          <Button
+            variant="outline"
+            size="lg"
+            w="full"
+            py={6}
+            fontSize="md"
+            colorPalette="orange"
           >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
+            Button 2
+          </Button>
+          <Button
+            variant="ghost"
+            size="lg"
+            w="full"
+            py={6}
+            fontSize="md"
+            colorPalette="orange"
+          >
+            Button 3
+          </Button>
+        </Box>
+
+        <Text
+          fontSize="sm"
+          color="gray.500"
+          _dark={{ color: "gray.400" }}
+          textAlign="center"
+          fontStyle="italic"
         >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
-  );
+          Chakra UI + Tailwind CSS integration test
+        </Text>
+      </Box>
+    </Box>
+  )
 }
