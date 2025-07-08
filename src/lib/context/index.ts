@@ -7,4 +7,4 @@
 // - VisualizationContext (2D/3D state, interactions)
 // - localStorage persistence hooks
 
-export const CONTEXT_VERSION = '1.0.0';
+export const CONTEXT_VERSION = "1.0.0";

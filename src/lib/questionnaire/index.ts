@@ -7,4 +7,4 @@
 // - Response validation
 // - Normalization logic
 
-export const QUESTIONNAIRE_VERSION = '1.0.0';
+export const QUESTIONNAIRE_VERSION = "1.0.0";

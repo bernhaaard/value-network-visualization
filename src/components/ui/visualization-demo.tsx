@@ -1,9 +1,9 @@
 "use client";
 
-import { useState } from 'react';
-import { Button, Heading } from '@chakra-ui/react';
-import { ThreeDScene } from './three-d-scene';
-import { TwoDScene } from './two-d-scene';
+import { useState } from "react";
+import { Button, Heading } from "@chakra-ui/react";
+import { ThreeDScene } from "./three-d-scene";
+import { TwoDScene } from "./two-d-scene";
 
 export function VisualizationDemo() {
   const [is3D, setIs3D] = useState(false);
@@ -14,16 +14,12 @@ export function VisualizationDemo() {
       <div className="flex justify-between items-center">
         <div>
           <Heading size="md" className="text-gray-800 dark:text-white">
-            {is3D ? '3D Test' : '2D Test'}
+            {is3D ? "3D Test" : "2D Test"}
           </Heading>
         </div>
 
-        <Button
-          onClick={() => setIs3D(!is3D)}
-          colorPalette="blue"
-          size="sm"
-        >
-          Switch to {is3D ? '2D' : '3D'}
+        <Button onClick={() => setIs3D(!is3D)} colorPalette="blue" size="sm">
+          Switch to {is3D ? "2D" : "3D"}
         </Button>
       </div>
 
@@ -31,4 +27,4 @@ export function VisualizationDemo() {
       {is3D ? <ThreeDScene /> : <TwoDScene />}
     </div>
   );
-} 
+}

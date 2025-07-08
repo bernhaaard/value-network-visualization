@@ -1,10 +1,10 @@
 "use client";
 
-import { Canvas } from '@react-three/fiber';
-import { OrbitControls, Box } from '@react-three/drei';
-import { Suspense, useRef } from 'react';
-import { useFrame } from '@react-three/fiber';
-import { Mesh } from 'three';
+import { Canvas } from "@react-three/fiber";
+import { OrbitControls, Box } from "@react-three/drei";
+import { Suspense, useRef } from "react";
+import { useFrame } from "@react-three/fiber";
+import { Mesh } from "three";
 
 // Simple rotating cube component
 function RotatingCube() {
@@ -29,7 +29,7 @@ export function ThreeDScene() {
   return (
     <div className="w-full h-full rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800">
       <div className="p-4">
-        <div className="w-full border rounded" style={{ height: '600px' }}>
+        <div className="w-full border rounded" style={{ height: "600px" }}>
           <Canvas camera={{ position: [3, 3, 3], fov: 50 }}>
             <Suspense fallback={null}>
               {/* Basic lighting */}
@@ -47,4 +47,4 @@ export function ThreeDScene() {
       </div>
     </div>
   );
-} 
+}

@@ -7,4 +7,4 @@
 // - Node2DRenderer (2D-specific node rendering)
 // - Edge2DRenderer (2D connection rendering)
 
-export const NETWORK_2D_VERSION = '1.0.0';
+export const NETWORK_2D_VERSION = "1.0.0";

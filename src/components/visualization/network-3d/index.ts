@@ -7,4 +7,4 @@
 // - Node3DRenderer (3D-specific node rendering)
 // - Edge3DRenderer (3D connection rendering)
 
-export const NETWORK_3D_VERSION = '1.0.0';
+export const NETWORK_3D_VERSION = "1.0.0";

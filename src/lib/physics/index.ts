@@ -7,4 +7,4 @@
 // - Position optimization algorithms
 // - Convergence detection
 
-export const PHYSICS_VERSION = '1.0.0';
+export const PHYSICS_VERSION = "1.0.0";

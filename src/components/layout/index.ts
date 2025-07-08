@@ -7,4 +7,4 @@
 // - QuestionnaireLayout (layout for questionnaires)
 // - AdminLayout (layout for researcher dashboard)
 
-export const LAYOUT_VERSION = '1.0.0';
+export const LAYOUT_VERSION = "1.0.0";

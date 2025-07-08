@@ -1,4 +1,4 @@
-import { createClient } from '@supabase/supabase-js';
+import { createClient } from "@supabase/supabase-js";
 
 // Optional Supabase setup - configure when ready for database features
 // Add to .env.local when needed:

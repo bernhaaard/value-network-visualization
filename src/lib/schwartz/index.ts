@@ -7,4 +7,4 @@
 // - Higher-order domain groupings
 // - Circular model → network graph translation
 
-export const SCHWARTZ_VERSION = '2019-refined';
+export const SCHWARTZ_VERSION = "2019-refined";

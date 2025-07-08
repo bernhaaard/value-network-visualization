@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import { Box, Button, Heading, Text } from '@chakra-ui/react';
-import { ColorModeButton, VisualizationDemo } from '@/components/ui';
+import { Box, Button, Heading, Text } from "@chakra-ui/react";
+import { ColorModeButton, VisualizationDemo } from "@/components/ui";
 
 export default function Home() {
   return (

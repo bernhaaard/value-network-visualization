@@ -7,4 +7,4 @@
 // - NetworkControls (zoom, pan, reset)
 // - InteractionTracker (for study metrics)
 
-export const VIZ_CORE_VERSION = '1.0.0';
+export const VIZ_CORE_VERSION = "1.0.0";

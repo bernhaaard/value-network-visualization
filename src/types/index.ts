@@ -16,13 +16,13 @@ export interface UserData {
 
 export interface StudyPhase {
   phase:
-    | 'signup'
-    | 'questionnaire'
-    | 'instructions'
-    | '2d-tasks'
-    | '3d-tasks'
-    | 'debrief'
-    | 'playground';
+    | "signup"
+    | "questionnaire"
+    | "instructions"
+    | "2d-tasks"
+    | "3d-tasks"
+    | "debrief"
+    | "playground";
   startTime?: Date;
   completedAt?: Date;
 }

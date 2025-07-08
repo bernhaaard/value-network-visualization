@@ -7,4 +7,4 @@
 // - useLocalStoragePersistence (Context ↔ localStorage sync)
 // - useInteractionTracking (study metrics collection)
 
-export const HOOKS_VERSION = '1.0.0';
+export const HOOKS_VERSION = "1.0.0";
