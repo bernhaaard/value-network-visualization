@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from 'react';
-import { Button, Heading, Text } from '@chakra-ui/react';
+import { Button, Heading } from '@chakra-ui/react';
 import { ThreeScene } from './three-d-scene';
 import { TwoDScene } from './two-d-scene';
 
