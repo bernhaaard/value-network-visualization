@@ -1,14 +1,12 @@
-"use client";
+'use client';
 
-import { Box, Button, Heading, Text } from "@chakra-ui/react";
-import { ColorModeButton } from "@/components/ui/color-mode";
-import { VisualizationDemo } from "@/components/ui/visualization-demo";
+import { Box, Button, Heading, Text } from '@chakra-ui/react';
+import { ColorModeButton, VisualizationDemo } from '@/components/ui';
 
 export default function Home() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800 flex items-center justify-center p-4">
       <div className="max-w-7xl w-full h-full space-y-6">
-
         {/* Header */}
         <Box className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-lg rounded-xl p-6 shadow-lg border border-gray-200/20">
           <div className="flex justify-between items-start mb-4">
@@ -35,16 +33,10 @@ export default function Home() {
 
           {/* Simple Actions */}
           <div className="flex gap-3">
-            <Button
-              colorPalette="blue"
-              size="lg"
-            >
+            <Button colorPalette="blue" size="lg">
               Button 1
             </Button>
-            <Button
-              variant="outline"
-              size="lg"
-            >
+            <Button variant="outline" size="lg">
               Button 2
             </Button>
           </div>
@@ -61,7 +53,8 @@ export default function Home() {
         {/* Tech Stack */}
         <div className="text-center pt-2">
           <Text className="text-gray-500 dark:text-gray-400 text-sm">
-            Built with Next.js 15 • React 19 • Chakra UI v3 • Tailwind CSS v4 • Three.js • TypeScript
+            Built with Next.js 15 • React 19 • Chakra UI v3 • Tailwind CSS v4 • Three.js •
+            TypeScript
           </Text>
         </div>
       </div>

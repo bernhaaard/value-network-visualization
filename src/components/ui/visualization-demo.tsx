@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { Button, Heading } from '@chakra-ui/react';
-import { ThreeScene } from './three-d-scene';
+import { ThreeDScene } from './three-d-scene';
 import { TwoDScene } from './two-d-scene';
 
 export function VisualizationDemo() {
@@ -28,7 +28,7 @@ export function VisualizationDemo() {
       </div>
 
       {/* Simple Test Container */}
-      {is3D ? <ThreeScene /> : <TwoDScene />}
+      {is3D ? <ThreeDScene /> : <TwoDScene />}
     </div>
   );
 } 

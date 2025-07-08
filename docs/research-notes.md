@@ -1,53 +1,88 @@
 # Research Notes & Decisions
 
-## Immediate Research Tasks
+## Updated Implementation Strategy
 
-- [ ] PVQ-RR scoring methodology
-- [ ] Schwartz 19-value framework implementation
-- [ ] Backend service selection (Firebase vs Supabase)
+**Data-First Approach:** Implement questionnaire → analyze raw data → design visualization based on actual data structure
 
-## Immediate Technical Tasks
+## Phase 1: Data Foundation & Directory Structure
 
-- [ ] Create React TypeScript app
-- [ ] Install Three.js and component library dependencies
-- [ ] Research PVQ-RR scoring methodology (57 items → 19 values)
-- [ ] Define Schwartz relationship matrix values
+### Immediate Tasks
 
-## Implementation Priorities
+- [ ] Create organized directory structure with barrel exports
+- [ ] Download PVQ-RR questionnaire (57 items, English/German)
+- [ ] Implement questionnaire interface and data collection
+- [ ] Set up React Context API for state management
+- [ ] Research localStorage persistence strategy for Context
 
-### Phase 1: Foundation
+### User Flow Definition
 
-- [ ] Basic Three.js scene setup
-- [ ] Simple node rendering (spheres/circles)
-- [ ] Camera switching (orthographic ↔ perspective)
+1. **Signup** → 2. **PVQ-RR Questionnaire** → 3. **Task Instructions** → 4. **2D Visualization Tasks** → 5. **3D Visualization Tasks** → 6. **Post-Task Questionnaire** → 7. **Free Exploration Playground** (both 2D/3D) + **Optional Additional Feedback**
 
-### Phase 2: Data Integration
+### Data Storage Strategy
 
-- [ ] PVQ-RR questionnaire form
-- [ ] Response processing to value scores
-- [ ] Node property mapping (size, color, position)
+- **Primary:** React Context API for state management
+- **Persistence:** localStorage (decision pending) → Supabase sync
+- **Question:** Should Context persist via localStorage before DB connection?
 
-### Phase 3: Physics System
+## Phase 2: Research & Data Structure **Design**
 
-- [ ] Relationship matrix implementation
-- [ ] Custom force calculation functions
-- [ ] Dynamic layout updates
+### Schwartz Framework Research Session
 
-### Phase 4: User Study
+- [ ] Analyze available 2D diagrams from papers
+- [ ] Research if 19x19 relationship matrix exists
+- [ ] Design translation from circular model to network graph
+- [ ] Define exact data structures based on questionnaire output
 
-- [ ] Task definition for both visualizations
-- [ ] Timing and interaction tracking
-- [ ] Insight collection interface
+### Data Analysis
+
+- [ ] Examine raw PVQ-RR response structure (57 items)
+- [ ] Understand normalization process (0-1 scores)
+- [ ] Map responses to 19 value dimensions
+- [ ] Design network node properties (size, color, position)
+
+## Phase 3: Visualization Implementation
+
+### After Data Structure is Clear
+
+- [ ] Three.js scene setup (2D/3D unified approach)
+- [ ] Custom physics engine for relationship-driven layout
+- [ ] Network rendering with actual user data
+- [ ] Experimentation with visual properties
+
+## Current Decisions
+
+### Questionnaire
+
+- **Items:** Full 57-item PVQ-RR questionnaire
+- **Languages:** English/German available (40+ others if needed)
+- **Normalization:** Instructions available, needs implementation
+
+### Technical Priorities
+
+- **Focus:** Directory structure and questionnaire implementation first
+- **Delay:** Exact relationship matrices until raw data analysis
+- **Flexibility:** Visual properties to be determined through experimentation
 
 ## Key Research Questions
 
-- **Schwartz relationships:** How to quantify compatibility/opposition between specific value pairs?
-- **Force balance:** What force strengths create stable, intuitive layouts?
-- **Individual weighting:** How much should personal importance affect positioning?
-- **Convergence criteria:** When does the layout reach stable equilibrium?
+### Data Storage
 
-## Backend Decision: Firebase vs Supabase
+- **Context Persistence:** Should React Context use localStorage backup?
+- **Sync Strategy:** How to handle Context ↔ Supabase synchronization?
 
-- **Consider:** Real-time capabilities, ease of setup, TypeScript support
-- **Timeline:** Decision needed before user study implementation
-- **Current lean:** Firebase (familiar, extensive documentation)
+### Schwartz Implementation
+
+- **Matrix Existence:** Does a standard 19x19 compatibility matrix exist?
+- **Graph Translation:** How to convert circular model to network layout?
+- **Force Calculations:** What algorithms best represent value relationships?
+
+### User Study Design
+
+- **Task Definition:** Specific exploration tasks for 2D vs 3D comparison
+- **Metrics:** Time, interactions, insights, user preferences
+- **Feedback Collection:** Structure for qualitative insights
+
+## Backend Decision: Supabase
+
+- **Rationale:** TypeScript support, real-time capabilities, ease of setup
+- **Implementation:** After Context API and localStorage strategy are finalized

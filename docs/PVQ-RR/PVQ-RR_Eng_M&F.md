@@ -15,7 +15,7 @@ The following 12-point scale should be used to indicate how much each person des
 **9** - Quite like me  
 **10** - Very much like me  
 **11** - Extremely like me  
-**12** - Completely like me  
+**12** - Completely like me
 
 ---
 

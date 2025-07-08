@@ -25,7 +25,7 @@ function RotatingCube() {
 }
 
 // Minimal 3D scene for testing
-export function ThreeScene() {
+export function ThreeDScene() {
   return (
     <div className="w-full h-full rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800">
       <div className="p-4">
