@@ -1,14 +1,27 @@
-# Value Network Visualization
+# Human Value System Visualization
 
-Interactive 2D/3D platform for value network analysis and exploration. Built for academic research with a focus on user studies and data visualization.
+Interactive 3D visualization of human value systems using Schwartz's framework - Bachelor thesis project comparing 2D vs 3D network representations.
 
-## Tech Stack
+## Project Overview
+
+This thesis investigates whether 3D network visualizations of human value systems improve user comprehension compared to traditional 2D approaches, using Schwartz's refined 19-value framework and the PVQ-RR questionnaire.
+
+**Key Innovation:** Relationship-driven network layout where similar values cluster spatially and opposing values are positioned apart, forming intuitive "value clouds."
+
+## Technology Stack
 
 - **Frontend:** Next.js 15 + React 19 + TypeScript
 - **Styling:** Tailwind CSS v4 + Chakra UI v3
 - **Visualization:** Three.js + React Three Fiber + Drei
 - **Backend:** Supabase (PostgreSQL + Auth + API)
 - **Physics:** Custom relationship-driven force calculations
+
+## Technical Approach
+
+- **Unified Rendering:** Three.js for both 2D (orthographic) and 3D (perspective) views
+- **Theoretical Layout:** Schwartz relationship matrix drives spatial positioning
+- **Individual Customization:** PVQ-RR responses affect node size, color, and positioning strength
+- **Value Clusters:** Four higher-order domains form spatial clusters
 
 ## Getting Started
 
@@ -43,21 +56,96 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000) to see the application.
 
+### 4. Available Scripts
+
+```bash
+npm run dev          # Start development server
+npm run build        # Build for production
+npm run start        # Start production server
+npm run lint         # Run ESLint
+npm run lint:fix     # Fix ESLint issues
+npm run format       # Format code with Prettier
+npm run format:check # Check if code is formatted
+npm run type-check   # Run TypeScript type checking
+```
+
 ## Project Structure
 
 ```dir
-src/
-├── app/                # Next.js App Router pages
-├── components/
-│   └── ui/             # Reusable UI components
-├── lib/                # Utilities and configurations
-└── docs/               # Documentation and SQL migrations
+.
+├── .env.local
+├── .gitignore
+├── .prettierignore
+├── .prettierrc
+├── docs
+│   ├── methodology.md
+│   ├── PVQ-RR
+│   │   └── PVQ-RR_Eng_M&F.md
+│   └── research-notes.md
+├── eslint.config.mjs
+├── next-env.d.ts
+├── next.config.ts
+├── package-lock.json
+├── package.json
+├── postcss.config.mjs
+├── public
+├── README.md
+├── src
+│   ├── app
+│   │   ├── (admin)        # Admin dashboard routes
+│   │   │   ├── analytics
+│   │   │   └── data-export
+│   │   ├── (playground)   # Free exploration routes
+│   │   │   ├── explore
+│   │   │   └── feedback
+│   │   ├── (public)       # Public access routes
+│   │   │   ├── questionnaire
+│   │   │   └── visualization
+│   │   ├── (study)        # User study routes
+│   │   │   ├── consent
+│   │   │   ├── debrief
+│   │   │   ├── task-2d
+│   │   │   └── task-3d
+│   │   ├── favicon.ico
+│   │   ├── globals.css
+│   │   ├── layout.tsx
+│   │   └── page.tsx
+│   ├── components
+│   │   ├── forms          # Form components (PVQ-RR, etc.)
+│   │   ├── layout         # Layout components
+│   │   ├── ui             # Reusable UI components
+│   │   └── visualization  # Visualization components
+│   │       ├── core       # Shared visualization logic
+│   │       ├── network-2d # 2D network components
+│   │       └── network-3d # 3D network components
+│   ├── hooks              # Custom React hooks
+│   ├── lib
+│   │   ├── context        # React Context API
+│   │   ├── database       # Database utilities
+│   │   ├── physics        # Custom physics calculations
+│   │   ├── questionnaire  # PVQ-RR questionnaire logic
+│   │   └── schwartz       # Schwartz framework utilities
+│   └── types              # TypeScript type definitions
+├── tsconfig.json
+└── tsconfig.tsbuildinfo
 ```
 
-## Contributing
+## Research Documentation
 
-This is a bachelor thesis project for Creative Computing at FH St. Pölten.
+- [Research Notes](./docs/research-notes.md) - Ongoing research decisions and findings
+- [Methodology](./docs/methodology.md) - User study design and procedures
+- [PVQ-RR Questionnaire](./docs/PVQ-RR/) - Portrait Values Questionnaire materials
+
+## Academic Context
+
+- **Student**: Bernhard Kofler
+- **Program**: Creative Computing, St. Pölten University of Applied Sciences
+- **Research Question**:
+"To what extent do 3D network visualizations of human value systems, compared
+to 2D approaches, affect users' comprehension of their personal values and their
+connections to overarching societal values, as measured by exploration time and
+self-reported insights?"
 
 ## License
 
-Academic use only.
+TBD (discuss with supervisor) // TODO
