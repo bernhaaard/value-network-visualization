@@ -8,8 +8,8 @@
 
 ### Immediate Tasks
 
-- [ ] Create organized directory structure with barrel exports
-- [ ] Download PVQ-RR questionnaire (57 items, English/German)
+- [x] Create organized directory structure with barrel exports
+- [x] Download PVQ-RR questionnaire (57 items, English/German)
 - [ ] Implement questionnaire interface and data collection
 - [ ] Set up React Context API for state management
 - [ ] Research localStorage persistence strategy for Context
