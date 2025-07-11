@@ -1,0 +1,366 @@
+{
+  "questionnaire": {
+    "id": "pvq-rr",
+    "version": "2019-refined",
+    "language": "en",
+    "title": "Portrait Values Questionnaire-Revised (PVQ-RR)",
+    "description": "Here we briefly describe different people. Please read each description and think about how much that person is or is not like you. Rate each item using the 6-point scale.",
+    "instructions": "Rate how much each person described is like you using the scale from 1 (Not like me at all) to 6 (Very much like me).",
+    "scale": {
+      "min": 1,
+      "max": 6,
+      "anchors": {
+        "1": "Not like me at all",
+        "2": "Not like me",
+        "3": "A little like me",
+        "4": "Moderately like me",
+        "5": "Like me",
+        "6": "Very much like me"
+      }
+    },
+    "questions": {
+      "pvq_rr_en_q001": {
+        "id": "pvq_rr_en_q001",
+        "male": "It is important to him to form his views independently.",
+        "female": "It is important to her to form her views independently.",
+        "valueCategory": "self_direction_thought"
+      },
+      "pvq_rr_en_q002": {
+        "id": "pvq_rr_en_q002",
+        "male": "It is important to him that his country is secure and stable.",
+        "female": "It is important to her that her country is secure and stable.",
+        "valueCategory": "security_national"
+      },
+      "pvq_rr_en_q003": {
+        "id": "pvq_rr_en_q003",
+        "male": "It is important to him to have a good time.",
+        "female": "It is important to her to have a good time.",
+        "valueCategory": "hedonism"
+      },
+      "pvq_rr_en_q004": {
+        "id": "pvq_rr_en_q004",
+        "male": "It is important to him to avoid upsetting other people.",
+        "female": "It is important to her to avoid upsetting other people.",
+        "valueCategory": "conformity_interpersonal"
+      },
+      "pvq_rr_en_q005": {
+        "id": "pvq_rr_en_q005",
+        "male": "It is important to him that the weak and vulnerable in society be protected.",
+        "female": "It is important to her that the weak and vulnerable in society be protected.",
+        "valueCategory": "universalism_concern"
+      },
+      "pvq_rr_en_q006": {
+        "id": "pvq_rr_en_q006",
+        "male": "It is important to him that people do what he says they should.",
+        "female": "It is important to her that people do what she says they should.",
+        "valueCategory": "power_dominance"
+      },
+      "pvq_rr_en_q007": {
+        "id": "pvq_rr_en_q007",
+        "male": "It is important to him never to think he deserves more than other people.",
+        "female": "It is important to her never to think she deserves more than other people.",
+        "valueCategory": "humility"
+      },
+      "pvq_rr_en_q008": {
+        "id": "pvq_rr_en_q008",
+        "male": "It is important to him to care for nature.",
+        "female": "It is important to her to care for nature.",
+        "valueCategory": "universalism_nature"
+      },
+      "pvq_rr_en_q009": {
+        "id": "pvq_rr_en_q009",
+        "male": "It is important to him that no one should ever shame him.",
+        "female": "It is important to her that no one should ever shame her.",
+        "valueCategory": "face"
+      },
+      "pvq_rr_en_q010": {
+        "id": "pvq_rr_en_q010",
+        "male": "It is important to him always to look for different things to do.",
+        "female": "It is important to her always to look for different things to do.",
+        "valueCategory": "stimulation"
+      },
+      "pvq_rr_en_q011": {
+        "id": "pvq_rr_en_q011",
+        "male": "It is important to him to take care of people he is close to.",
+        "female": "It is important to her to take care of people she is close to.",
+        "valueCategory": "benevolence_caring"
+      },
+      "pvq_rr_en_q012": {
+        "id": "pvq_rr_en_q012",
+        "male": "It is important to him to have the power that money can bring.",
+        "female": "It is important to her to have the power that money can bring.",
+        "valueCategory": "power_resources"
+      },
+      "pvq_rr_en_q013": {
+        "id": "pvq_rr_en_q013",
+        "male": "It is very important to him to avoid disease and protect his health.",
+        "female": "It is very important to her to avoid disease and protect her health.",
+        "valueCategory": "security_personal"
+      },
+      "pvq_rr_en_q014": {
+        "id": "pvq_rr_en_q014",
+        "male": "It is important to him to be tolerant toward all kinds of people and groups.",
+        "female": "It is important to her to be tolerant toward all kinds of people and groups.",
+        "valueCategory": "universalism_tolerance"
+      },
+      "pvq_rr_en_q015": {
+        "id": "pvq_rr_en_q015",
+        "male": "It is important to him never to violate rules or regulations.",
+        "female": "It is important to her never to violate rules or regulations.",
+        "valueCategory": "conformity_rules"
+      },
+      "pvq_rr_en_q016": {
+        "id": "pvq_rr_en_q016",
+        "male": "It is important to him to make his own decisions about his life.",
+        "female": "It is important to her to make her own decisions about her life.",
+        "valueCategory": "self_direction_action"
+      },
+      "pvq_rr_en_q017": {
+        "id": "pvq_rr_en_q017",
+        "male": "It is important to him to have ambitions in life.",
+        "female": "It is important to her to have ambitions in life.",
+        "valueCategory": "achievement"
+      },
+      "pvq_rr_en_q018": {
+        "id": "pvq_rr_en_q018",
+        "male": "It is important to him to maintain traditional values and ways of thinking.",
+        "female": "It is important to her to maintain traditional values and ways of thinking.",
+        "valueCategory": "tradition"
+      },
+      "pvq_rr_en_q019": {
+        "id": "pvq_rr_en_q019",
+        "male": "It is important to him that people he knows have full confidence in him.",
+        "female": "It is important to her that people she knows have full confidence in her.",
+        "valueCategory": "reputation"
+      },
+      "pvq_rr_en_q020": {
+        "id": "pvq_rr_en_q020",
+        "male": "It is important to him to be wealthy.",
+        "female": "It is important to her to be wealthy.",
+        "valueCategory": "power_resources"
+      },
+      "pvq_rr_en_q021": {
+        "id": "pvq_rr_en_q021",
+        "male": "It is important to him to take part in activities to defend nature.",
+        "female": "It is important to her to take part in activities to defend nature.",
+        "valueCategory": "universalism_nature"
+      },
+      "pvq_rr_en_q022": {
+        "id": "pvq_rr_en_q022",
+        "male": "It is important to him never to annoy anyone.",
+        "female": "It is important to her never to annoy anyone.",
+        "valueCategory": "conformity_interpersonal"
+      },
+      "pvq_rr_en_q023": {
+        "id": "pvq_rr_en_q023",
+        "male": "It is important to him to develop his own opinions.",
+        "female": "It is important to her to develop her own opinions.",
+        "valueCategory": "self_direction_thought"
+      },
+      "pvq_rr_en_q024": {
+        "id": "pvq_rr_en_q024",
+        "male": "It is important to him to protect his public image.",
+        "female": "It is important to her to protect her public image.",
+        "valueCategory": "face"
+      },
+      "pvq_rr_en_q025": {
+        "id": "pvq_rr_en_q025",
+        "male": "It is very important to him to help the people dear to him.",
+        "female": "It is very important to her to help the people dear to her.",
+        "valueCategory": "benevolence_caring"
+      },
+      "pvq_rr_en_q026": {
+        "id": "pvq_rr_en_q026",
+        "male": "It is important to him to be personally safe and secure.",
+        "female": "It is important to her to be personally safe and secure.",
+        "valueCategory": "security_personal"
+      },
+      "pvq_rr_en_q027": {
+        "id": "pvq_rr_en_q027",
+        "male": "It is important to him to be a dependable and trustworthy friend.",
+        "female": "It is important to her to be a dependable and trustworthy friend.",
+        "valueCategory": "benevolence_dependability"
+      },
+      "pvq_rr_en_q028": {
+        "id": "pvq_rr_en_q028",
+        "male": "It is important to him to take risks that make life exciting.",
+        "female": "It is important to her to take risks that make life exciting.",
+        "valueCategory": "stimulation"
+      },
+      "pvq_rr_en_q029": {
+        "id": "pvq_rr_en_q029",
+        "male": "It is important to him to have the power to make people do what he wants.",
+        "female": "It is important to her to have the power to make people do what she wants.",
+        "valueCategory": "power_dominance"
+      },
+      "pvq_rr_en_q030": {
+        "id": "pvq_rr_en_q030",
+        "male": "It is important to him to plan his activities independently.",
+        "female": "It is important to her to plan her activities independently.",
+        "valueCategory": "self_direction_action"
+      },
+      "pvq_rr_en_q031": {
+        "id": "pvq_rr_en_q031",
+        "male": "It is important to him to follow rules even when no-one is watching.",
+        "female": "It is important to her to follow rules even when no-one is watching.",
+        "valueCategory": "conformity_rules"
+      },
+      "pvq_rr_en_q032": {
+        "id": "pvq_rr_en_q032",
+        "male": "It is important to him to be very successful.",
+        "female": "It is important to her to be very successful.",
+        "valueCategory": "achievement"
+      },
+      "pvq_rr_en_q033": {
+        "id": "pvq_rr_en_q033",
+        "male": "It is important to him to follow his family's customs or the customs of a religion.",
+        "female": "It is important to her to follow her family's customs or the customs of a religion.",
+        "valueCategory": "tradition"
+      },
+      "pvq_rr_en_q034": {
+        "id": "pvq_rr_en_q034",
+        "male": "It is important to him to listen to and understand people who are different from him.",
+        "female": "It is important to her to listen to and understand people who are different from her.",
+        "valueCategory": "universalism_tolerance"
+      },
+      "pvq_rr_en_q035": {
+        "id": "pvq_rr_en_q035",
+        "male": "It is important to him to have a strong state that can defend its citizens.",
+        "female": "It is important to her to have a strong state that can defend its citizens.",
+        "valueCategory": "security_national"
+      },
+      "pvq_rr_en_q036": {
+        "id": "pvq_rr_en_q036",
+        "male": "It is important to him to enjoy life's pleasures.",
+        "female": "It is important to her to enjoy life's pleasures.",
+        "valueCategory": "hedonism"
+      },
+      "pvq_rr_en_q037": {
+        "id": "pvq_rr_en_q037",
+        "male": "It is important to him that every person in the world have equal opportunities in life.",
+        "female": "It is important to her that every person in the world have equal opportunities in life.",
+        "valueCategory": "universalism_concern"
+      },
+      "pvq_rr_en_q038": {
+        "id": "pvq_rr_en_q038",
+        "male": "It is important to him to be humble.",
+        "female": "It is important to her to be humble.",
+        "valueCategory": "humility"
+      },
+      "pvq_rr_en_q039": {
+        "id": "pvq_rr_en_q039",
+        "male": "It is important to him to figure things out himself.",
+        "female": "It is important to her to figure things out herself.",
+        "valueCategory": "self_direction_thought"
+      },
+      "pvq_rr_en_q040": {
+        "id": "pvq_rr_en_q040",
+        "male": "It is important to him to honor the traditional practices of his culture.",
+        "female": "It is important to her to honor the traditional practices of her culture.",
+        "valueCategory": "tradition"
+      },
+      "pvq_rr_en_q041": {
+        "id": "pvq_rr_en_q041",
+        "male": "It is important to him to be the one who tells others what to do.",
+        "female": "It is important to her to be the one who tells others what to do.",
+        "valueCategory": "power_dominance"
+      },
+      "pvq_rr_en_q042": {
+        "id": "pvq_rr_en_q042",
+        "male": "It is important to him to obey all the laws.",
+        "female": "It is important to her to obey all the laws.",
+        "valueCategory": "conformity_rules"
+      },
+      "pvq_rr_en_q043": {
+        "id": "pvq_rr_en_q043",
+        "male": "It is important to him to have all sorts of new experiences.",
+        "female": "It is important to her to have all sorts of new experiences.",
+        "valueCategory": "stimulation"
+      },
+      "pvq_rr_en_q044": {
+        "id": "pvq_rr_en_q044",
+        "male": "It is important to him to own expensive things that show his wealth",
+        "female": "It is important to her to own expensive things that show her wealth",
+        "valueCategory": "power_resources"
+      },
+      "pvq_rr_en_q045": {
+        "id": "pvq_rr_en_q045",
+        "male": "It is important to him to protect the natural environment from destruction or polution.",
+        "female": "It is important to her to protect the natural environment from destruction or pollution.",
+        "valueCategory": "universalism_nature"
+      },
+      "pvq_rr_en_q046": {
+        "id": "pvq_rr_en_q046",
+        "male": "It is important to him to take advantage of every opportunity to have fun.",
+        "female": "It is important to her to take advantage of every opportunity to have fun.",
+        "valueCategory": "hedonism"
+      },
+      "pvq_rr_en_q047": {
+        "id": "pvq_rr_en_q047",
+        "male": "It is important to him to concern himself with every need of his dear ones.",
+        "female": "It is important to her to concern herself with every need of her dear ones.",
+        "valueCategory": "benevolence_caring"
+      },
+      "pvq_rr_en_q048": {
+        "id": "pvq_rr_en_q048",
+        "male": "It is important to him that people recognize what he achieves.",
+        "female": "It is important to her that people recognize what she achieves.",
+        "valueCategory": "achievement"
+      },
+      "pvq_rr_en_q049": {
+        "id": "pvq_rr_en_q049",
+        "male": "It is important to him never to be humiliated.",
+        "female": "It is important to her never to be humiliated.",
+        "valueCategory": "face"
+      },
+      "pvq_rr_en_q050": {
+        "id": "pvq_rr_en_q050",
+        "male": "It is important to him that his country protect itself against all threats.",
+        "female": "It is important to her that her country protect itself against all threats.",
+        "valueCategory": "security_national"
+      },
+      "pvq_rr_en_q051": {
+        "id": "pvq_rr_en_q051",
+        "male": "It is important to him never to make other people angry.",
+        "female": "It is important to her never to make other people angry.",
+        "valueCategory": "conformity_interpersonal"
+      },
+      "pvq_rr_en_q052": {
+        "id": "pvq_rr_en_q052",
+        "male": "It is important to him that everyone be treated justly, even people he doesn't know.",
+        "female": "It is important to her that everyone be treated justly, even people she doesn't know.",
+        "valueCategory": "universalism_concern"
+      },
+      "pvq_rr_en_q053": {
+        "id": "pvq_rr_en_q053",
+        "male": "It is important to him to avoid anything dangerous.",
+        "female": "It is important to her to avoid anything dangerous.",
+        "valueCategory": "security_personal"
+      },
+      "pvq_rr_en_q054": {
+        "id": "pvq_rr_en_q054",
+        "male": "It is important to him to be satisfied with what he has and not ask for more.",
+        "female": "It is important to her to be satisfied with what she has and not ask for more.",
+        "valueCategory": "humility"
+      },
+      "pvq_rr_en_q055": {
+        "id": "pvq_rr_en_q055",
+        "male": "It is important to him that all his friends and family can rely on him completely.",
+        "female": "It is important to her that all her friends and family can rely on her completely.",
+        "valueCategory": "benevolence_dependability"
+      },
+      "pvq_rr_en_q056": {
+        "id": "pvq_rr_en_q056",
+        "male": "It is important to him to be free to choose what he does by himself.",
+        "female": "It is important to her to be free to choose what she does by herself.",
+        "valueCategory": "self_direction_action"
+      },
+      "pvq_rr_en_q057": {
+        "id": "pvq_rr_en_q057",
+        "male": "It is important to him to accept people even when he disagrees with them.",
+        "female": "It is important to her to accept people even when she disagrees with them.",
+        "valueCategory": "universalism_tolerance"
+      }
+    }
+  }
+}

@@ -2,20 +2,14 @@
 
 ## Response Scale
 
-The following 12-point scale should be used to indicate how much each person described is like you:
+The following 6-point scale should be used to indicate how much each person described is like you:
 
-**1** - Not like me at all  
-**2** - Extremely unlike me
-**3** - Very unlike me  
-**4** - Quite unlike me  
-**5** - Somewhat unlike me  
-**6** - A little unlike me  
-**7** - A little like me  
-**8** - Somewhat like me  
-**9** - Quite like me  
-**10** - Very much like me  
-**11** - Extremely like me  
-**12** - Completely like me
+**1** - Not like me at all
+**2** - Not like me
+**3** - A little like me
+**4** - Moderately like me
+**5** - Like me
+**6** - Very much like me
 
 ---
 
