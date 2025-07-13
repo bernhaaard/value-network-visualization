@@ -15,7 +15,7 @@ The following 6-point scale should be used to indicate how much each person desc
 
 ## Instructions
 
-Here we briefly describe different people. Please read each description and think about how much that person is or is not like you. Rate each item using the 12-point scale above.
+Here we briefly describe different people. Please read each description and think about how much that person is or is not like you. Rate each item using the 6-point scale above.
 
 ---
 
