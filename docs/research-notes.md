@@ -81,6 +81,7 @@
 - **Task Definition:** Specific exploration tasks for 2D vs 3D comparison
 - **Metrics:** Time, interactions, insights, user preferences
 - **Feedback Collection:** Structure for qualitative insights
+- **Demographic Data:** Does it make sense to collect Socioeconomic, Religious affiliations, or Political orientaion from participants?
 
 ## Backend Decision: Supabase
 
