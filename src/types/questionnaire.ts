@@ -1,5 +1,8 @@
 // PVQ-RR Questionnaire Type Definitions
 
+/**
+ * Schwartz's 19 refined value categories for measuring individual priorities.
+ */
 export type ValueCategory =
   | "self_direction_thought"
   | "self_direction_action"
@@ -21,24 +24,39 @@ export type ValueCategory =
   | "benevolence_care"
   | "benevolence_dependability";
 
+/**
+ * Question structure with gender-specific versions
+ */
 export interface PVQRRQuestion {
-  id: string;
   male: string;
   female: string;
 }
 
+/**
+ * Likert scale (1-6)
+ */
 export type ResponseValue = 1 | 2 | 3 | 4 | 5 | 6;
 
+/**
+ * Response scale anchors mapping numeric values to descriptive labels
+ */
 export type ScaleAnchors = {
   [Key in ResponseValue]: string;
 };
 
+/**
+ * Complete scale definition including range and descriptive anchors
+ */
 export interface QuestionnaireScale {
   min: number;
   max: number;
   anchors: ScaleAnchors;
 }
 
+/**
+ * PVQ-RR questionnaire structure with all metadata and questions.
+ * Central data structure ensuring type-safe access to questionnaire content and configuration.
+ */
 export interface PVQRRQuestionnaire {
   id: string;
   version: string;
@@ -47,41 +65,72 @@ export interface PVQRRQuestionnaire {
   description: string;
   instructions: string;
   scale: QuestionnaireScale;
-  questions: Record<string, PVQRRQuestion>;
+  questions: Record<QuestionId, PVQRRQuestion>;
 }
 
-export type QuestionnaireResponses = Record<string, ResponseValue>;
-
-// Utility type to generate number range from 1 to N
+/**
+ * Utility type generating consecutive numbers 1 to N for type-level validation
+ */
 type Enumerate<N extends number, Counter extends number[] = []> = Counter["length"] extends N
   ? Counter[number]
   : Enumerate<N, [...Counter, Counter["length"]]>;
 
-// Valid question numbers: 1 to 57
+/**
+ * Valid question numbers (1-57) for the PVQ-RR questionnaire.
+ */
 export type QuestionNumber = Exclude<Enumerate<58>, 0>;
 
-// Utility type for zero-padding single digit numbers
+/**
+ * Zero-pads single digit numbers for consistent ID formatting.
+ * Ensures uniform question IDs (01, 02...57).
+ */
 type PadSingleDigit<N extends number> = N extends 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
   ? `0${N}`
   : `${N}`;
 
-// Type-safe Question ID with proper zero-padding (matches runtime exactly)
+/**
+ * Type-safe question identifier with proper zero-padding matching runtime format
+ */
 export type QuestionId = `pvq_rr_en_q${PadSingleDigit<QuestionNumber>}`;
 
+/**
+ * Type-safe attention check identifiers.
+ * Enables detection of attention checks separate from actual questionnaire items.
+ */
+export type AttentionCheckId = `pvq_rr_en_attention_${"01" | "02"}`;
+
+/**
+ * User responses mapped by question ID for efficient lookup and progress tracking.
+ * Core data structure for collecting and analyzing individual value assessments.
+ */
+export type QuestionnaireResponses = Record<QuestionId, ResponseValue>;
+
+/**
+ * Progress tracking excluding attention checks.
+ */
 export interface QuestionnaireProgress {
-  currentQuestionIndex: number; // 0-based index
+  /** Current position in actual questions (0-based, excludes attention checks) */
+  currentQuestionIndex: number;
+  /** Total number of actual questions (57, excludes attention checks) */
   totalQuestions: number;
+  /** Number of completed questions */
   completedQuestions: number;
+  /** Completion percentage for progress indicators */
   percentComplete: number;
 }
 
-// Expected responses for attention checks (handled at UI level)
+/**
+ * Expected responses for attention check validation.
+ * Defines correct answers to verify participant engagement and data quality.
+ */
 export const ATTENTION_CHECK_RESPONSES = {
   1: "Not like me at all",
   6: "Very much like me",
 } as const;
 
-// Value Category to Question Numbers mapping (follows official Schwartz scoring instructions order)
+/**
+ * Official Schwartz mapping from value categories to question numbers.
+ */
 export const VALUE_QUESTION_MAPPING = {
   self_direction_thought: [1, 23, 39],
   self_direction_action: [16, 30, 56],
@@ -104,12 +153,21 @@ export const VALUE_QUESTION_MAPPING = {
   benevolence_dependability: [19, 27, 55],
 } as const;
 
-// Helper functions
-export const isAttentionCheck = (questionIndex: number): boolean => {
-  // Attention checks after questions 19 and 39 (0-based: positions 19 and 39)
-  return questionIndex === 19 || questionIndex === 39;
+/**
+ * Identifies attention checks using string matching for validation.
+ * @param questionId - Question or attention check ID to test
+ * @returns True if the ID represents an attention check item
+ */
+export const isAttentionCheckId = (questionId: QuestionId | AttentionCheckId): boolean => {
+  return questionId.includes("attention");
 };
 
+/**
+ * Maps question numbers to their corresponding value categories for scoring.
+ * Used to calculate individual value importance scores from raw responses.
+ * @param questionNumber - Question number (1-57) to categorize
+ * @returns Value category or null if not found
+ */
 export const getValueCategory = (questionNumber: QuestionNumber): ValueCategory | null => {
   for (const [category, numbers] of Object.entries(VALUE_QUESTION_MAPPING)) {
     if ((numbers as readonly number[]).includes(questionNumber)) {
@@ -119,6 +177,12 @@ export const getValueCategory = (questionNumber: QuestionNumber): ValueCategory 
   return null;
 };
 
+/**
+ * Generates properly formatted question ID from number with zero-padding.
+ * Ensures runtime IDs match TypeScript types exactly for type safety.
+ * @param questionNumber - Question number (1-57) to format
+ * @returns Formatted question ID matching QuestionId type
+ */
 export const getQuestionId = (questionNumber: QuestionNumber): QuestionId => {
   return `pvq_rr_en_q${questionNumber.toString().padStart(2, "0")}` as QuestionId;
 };

@@ -1,4 +1,8 @@
-// Main Types Barrel Export
+/**
+ * Main Types Barrel Export
+ *
+ * Centralizes all type definitions for clean imports and better developer experience.
+ */
 
 // Questionnaire Types
 export type {
@@ -10,13 +14,14 @@ export type {
   ResponseValue,
   QuestionnaireResponses,
   QuestionId,
+  AttentionCheckId,
   QuestionnaireProgress,
 } from "./questionnaire";
 
 export {
   ATTENTION_CHECK_RESPONSES,
   VALUE_QUESTION_MAPPING,
-  isAttentionCheck,
+  isAttentionCheckId,
   getValueCategory,
   getQuestionId,
 } from "./questionnaire";
@@ -29,7 +34,7 @@ export type {
   StudyPhase,
   SessionMetadata,
   QuestionnaireState,
-  QuestionnaireAction,
+  PersistenceStatus,
   QuestionnaireContextType,
 } from "./session";
 

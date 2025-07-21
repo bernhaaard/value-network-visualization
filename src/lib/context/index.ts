@@ -8,3 +8,7 @@
 // - localStorage persistence hooks
 
 export const CONTEXT_VERSION = "1.0.0";
+
+// Context Barrel Exports
+
+export { QuestionnaireProvider, useQuestionnaire } from "./QuestionnaireContext";
