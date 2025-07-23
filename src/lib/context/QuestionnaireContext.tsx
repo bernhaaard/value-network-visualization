@@ -19,63 +19,7 @@ import type {
 import type { UserDemographics } from "../../types/demographics";
 import { STORAGE_KEYS, QUESTIONNAIRE_CONFIG } from "../../types/constants";
 import { isAttentionCheckId } from "../../types/questionnaire";
-
-/**
- * Modular localStorage utilities for independent data persistence.
- * Prevents data loss and enables selective loading/saving of different concerns.
- */
-const storage = {
-  /**
-   * Saves data to localStorage with error handling.
-   * @param key - Storage key identifier
-   * @param data - Data to serialize and store
-   * @returns Success status for error handling
-   */
-  save: (key: string, data: unknown): boolean => {
-    try {
-      localStorage.setItem(key, JSON.stringify(data));
-      return true;
-    } catch (error) {
-      console.warn(`localStorage save failed for ${key}:`, error);
-      return false;
-    }
-  },
-
-  /**
-   * Loads data from localStorage with error handling.
-   * @param key - Storage key identifier
-   * @returns Parsed data or null if not found/error
-   */
-  load: (key: string): unknown => {
-    try {
-      const data = localStorage.getItem(key);
-      return data ? JSON.parse(data) : null;
-    } catch (error) {
-      console.warn(`localStorage load failed for ${key}:`, error);
-      return null;
-    }
-  },
-
-  /**
-   * Removes data from localStorage with error handling.
-   * @param key - Storage key identifier
-   */
-  remove: (key: string): void => {
-    try {
-      localStorage.removeItem(key);
-    } catch (error) {
-      console.warn(`localStorage remove failed for ${key}:`, error);
-    }
-  },
-
-  /** Removes all questionnaire-related data for clean reset */
-  clearAll: (): void => {
-    storage.remove(STORAGE_KEYS.DEMOGRAPHICS);
-    storage.remove(STORAGE_KEYS.RESPONSES);
-    storage.remove(STORAGE_KEYS.PROGRESS);
-    storage.remove(STORAGE_KEYS.SESSION_ID);
-  }
-};
+import { storage } from "../utils";
 
 /**
  * Calculates accurate progress excluding attention checks for user feedback.
@@ -87,17 +31,20 @@ const calculateProgress = (responses: QuestionnaireResponses): QuestionnaireProg
   const allResponseIds = Object.keys(responses);
 
   // Filter out attention checks for accurate progress tracking
-  const actualQuestionResponses = allResponseIds.filter(id => !isAttentionCheckId(id as QuestionId | AttentionCheckId));
+  const actualQuestionResponses = allResponseIds.filter(
+    id => !isAttentionCheckId(id as QuestionId | AttentionCheckId),
+  );
 
   const completedQuestions = actualQuestionResponses.length;
   const totalQuestions = QUESTIONNAIRE_CONFIG.TOTAL_QUESTIONS;
-  const percentComplete = totalQuestions > 0 ? Math.round((completedQuestions / totalQuestions) * 100) : 0;
+  const percentComplete =
+    totalQuestions > 0 ? Math.round((completedQuestions / totalQuestions) * 100) : 0;
 
   return {
     currentQuestionIndex: completedQuestions, // 0-based, actual questions only
     totalQuestions,
     completedQuestions,
-    percentComplete
+    percentComplete,
   };
 };
 
