@@ -154,12 +154,18 @@ export const VALUE_QUESTION_MAPPING = {
 } as const;
 
 /**
- * Identifies attention checks using string matching for validation.
- * @param questionId - Question or attention check ID to test
- * @returns True if the ID represents an attention check item
+ * Set of attention check IDs
+ * Type-safe constant ensures exact matching of known attention checks
  */
-export const isAttentionCheckId = (questionId: QuestionId | AttentionCheckId): boolean => {
-  return questionId.includes("attention");
+const ATTENTION_CHECK_IDS = new Set(["pvq_rr_en_attention_01", "pvq_rr_en_attention_02"] as const);
+
+/**
+ * Checks if a question ID is an attention check (type-safe)
+ * @param questionId - Question or attention check ID to test
+ * @returns True if the ID is an attention check item
+ */
+export const isAttentionCheckId = (questionId: string): questionId is AttentionCheckId => {
+  return ATTENTION_CHECK_IDS.has(questionId as AttentionCheckId);
 };
 
 /**
