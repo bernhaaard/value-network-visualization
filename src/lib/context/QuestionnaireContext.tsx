@@ -68,50 +68,8 @@ const storage = {
     }
   },
 
-  // Modular save functions for each concern
-  /** Persists user demographic data independently */
-  saveDemographics: (demographics: UserDemographics): boolean => {
-    return storage.save(STORAGE_KEYS.DEMOGRAPHICS, demographics);
-  },
-
-  /** Persists question responses independently */
-  saveResponses: (responses: QuestionnaireResponses): boolean => {
-    return storage.save(STORAGE_KEYS.RESPONSES, responses);
-  },
-
-  /** Persists progress tracking data independently */
-  saveProgress: (progress: QuestionnaireProgress): boolean => {
-    return storage.save(STORAGE_KEYS.PROGRESS, progress);
-  },
-
-  /** Persists session metadata independently */
-  saveSession: (metadata: SessionMetadata): boolean => {
-    return storage.save(STORAGE_KEYS.SESSION_ID, metadata);
-  },
-
-  // Modular load functions
-  /** Loads user demographic data with type safety */
-  loadDemographics: (): UserDemographics | null => {
-    return storage.load(STORAGE_KEYS.DEMOGRAPHICS) as UserDemographics | null;
-  },
-
-  /** Loads question responses with type safety */
-  loadResponses: (): QuestionnaireResponses | null => {
-    return storage.load(STORAGE_KEYS.RESPONSES) as QuestionnaireResponses | null;
-  },
-
-  /** Loads progress tracking data with type safety */
-  loadProgress: (): QuestionnaireProgress | null => {
-    return storage.load(STORAGE_KEYS.PROGRESS) as QuestionnaireProgress | null;
-  },
-
-  /** Loads session metadata with type safety */
-  loadSession: (): SessionMetadata | null => {
-    return storage.load(STORAGE_KEYS.SESSION_ID) as SessionMetadata | null;
-  },
-
   /** Removes all questionnaire-related data for clean reset */
-  clearAllQuestionnaire: (): void => {
+  clearAll: (): void => {
     storage.remove(STORAGE_KEYS.DEMOGRAPHICS);
     storage.remove(STORAGE_KEYS.RESPONSES);
     storage.remove(STORAGE_KEYS.PROGRESS);
@@ -144,14 +102,14 @@ const calculateProgress = (responses: QuestionnaireResponses): QuestionnaireProg
 };
 
 /**
- * Checks if session has exceeded 24-hour timeout for data privacy.
+ * Checks if session has exceeded 1-week timeout for data privacy.
  * @param metadata - Session metadata with timing information
  * @returns True if session should be cleared
  */
 const isSessionExpired = (metadata: SessionMetadata): boolean => {
   const now = new Date();
   const hoursSinceLastUpdate = (now.getTime() - metadata.lastUpdated.getTime()) / (1000 * 60 * 60);
-  return hoursSinceLastUpdate >= 24;
+  return hoursSinceLastUpdate >= 168; // 7 days * 24 hours = 168 hours
 };
 
 // Create context
@@ -184,17 +142,17 @@ export const QuestionnaireProvider: React.FC<QuestionnaireProviderProps> = ({ ch
 
     // Save each piece modularly
     if (demographics) {
-      const success = storage.saveDemographics(demographics);
+      const success = storage.save(STORAGE_KEYS.DEMOGRAPHICS, demographics);
       if (!success) allSuccess = false;
     }
 
     if (Object.keys(responses).length > 0) {
-      const success = storage.saveResponses(responses);
+      const success = storage.save(STORAGE_KEYS.RESPONSES, responses);
       if (!success) allSuccess = false;
     }
 
     if (progress.completedQuestions > 0) {
-      const success = storage.saveProgress(progress);
+      const success = storage.save(STORAGE_KEYS.PROGRESS, progress);
       if (!success) allSuccess = false;
     }
 
@@ -202,7 +160,7 @@ export const QuestionnaireProvider: React.FC<QuestionnaireProviderProps> = ({ ch
       // Update lastUpdated before saving
       const updatedMetadata = { ...metadata, lastUpdated: new Date() };
       setMetadata(updatedMetadata);
-      const success = storage.saveSession(updatedMetadata);
+      const success = storage.save(STORAGE_KEYS.SESSION_ID, updatedMetadata);
       if (!success) allSuccess = false;
     }
 
@@ -229,9 +187,9 @@ export const QuestionnaireProvider: React.FC<QuestionnaireProviderProps> = ({ ch
   useEffect(() => {
     const restoreSession = () => {
       // Load each piece separately
-      const savedDemographics = storage.loadDemographics();
-      const savedResponses = storage.loadResponses();
-      const savedSession = storage.loadSession();
+      const savedDemographics = storage.load(STORAGE_KEYS.DEMOGRAPHICS) as UserDemographics | null;
+      const savedResponses = storage.load(STORAGE_KEYS.RESPONSES) as QuestionnaireResponses | null;
+      const savedSession = storage.load(STORAGE_KEYS.SESSION_ID) as SessionMetadata | null;
 
       // Check if we have any saved data
       const hasData = savedDemographics || savedResponses || savedSession;
@@ -255,7 +213,7 @@ export const QuestionnaireProvider: React.FC<QuestionnaireProviderProps> = ({ ch
           if (process.env.NODE_ENV === "development") {
             console.log("🎯 Session expired, clearing data");
           }
-          storage.clearAllQuestionnaire();
+          storage.clearAll();
           return;
         }
 
@@ -338,7 +296,7 @@ export const QuestionnaireProvider: React.FC<QuestionnaireProviderProps> = ({ ch
     setDemographics(null);
     setResponses({} as QuestionnaireResponses);
     setError(null);
-    storage.clearAllQuestionnaire();
+    storage.clearAll();
 
     if (process.env.NODE_ENV === "development") {
       console.log("🎯 Session reset - all modular data cleared");
@@ -356,10 +314,10 @@ export const QuestionnaireProvider: React.FC<QuestionnaireProviderProps> = ({ ch
       console.log("Last saved:", lastSaved);
       console.log("Error:", error);
       console.log("Modular storage status:", {
-        demographics: !!storage.loadDemographics(),
-        responses: Object.keys(storage.loadResponses() || {}).length,
-        progress: !!storage.loadProgress(),
-        session: !!storage.loadSession()
+        demographics: !!storage.load(STORAGE_KEYS.DEMOGRAPHICS),
+        responses: Object.keys(storage.load(STORAGE_KEYS.RESPONSES) as QuestionnaireResponses || {}).length,
+        progress: !!storage.load(STORAGE_KEYS.PROGRESS),
+        session: !!storage.load(STORAGE_KEYS.SESSION_ID)
       });
       console.groupEnd();
     }
