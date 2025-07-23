@@ -79,7 +79,7 @@ Individuals and cultural groups differ in their use of the response scale.**<sup
    b. If the values are **predictor** variables:
 
       i. Enter **<u>un</u>**centered values as predictors in the regression.
-         
+
          a) If all 19 values are included, the single regression coefficients for the values are not clearly interpretable because the values are completely interdependent. This is so even if the multicollinearity statistics do not look problematic.
          
          b) If only some of the values are relevant to the topic, include only those *a priori*, to reduce interdependence and obtain more interpretable regression coefficients.
