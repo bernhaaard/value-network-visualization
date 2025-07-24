@@ -95,17 +95,26 @@ npm run type-check   # Run TypeScript type checking
 │   │   ├── (admin)        # Admin dashboard routes
 │   │   │   ├── analytics
 │   │   │   └── data-export
+│   │   ├── (debug)        # Development & evaluation tools
+│   │   │   ├── tests      # Testing infrastructure
+│   │   │   │   ├── context
+│   │   │   │   └── components
+│   │   │   └── tools      # Development utilities & dashboard
+│   │   │       ├── page.tsx (dashboard)
+│   │   │       ├── data-export
+│   │   │       └── system-status
 │   │   ├── (playground)   # Free exploration routes
 │   │   │   ├── explore
 │   │   │   └── feedback
-│   │   ├── (public)       # Public access routes
-│   │   │   ├── questionnaire
-│   │   │   └── visualization
-│   │   ├── (study)        # User study routes
+│   │   ├── (public)       # Static public pages
+│   │   │   ├── landing
+│   │   │   └── instructions
+│   │   ├── (study)        # Complete user study flow
 │   │   │   ├── consent
-│   │   │   ├── debrief
+│   │   │   ├── questionnaire
 │   │   │   ├── task-2d
-│   │   │   └── task-3d
+│   │   │   ├── task-3d
+│   │   │   └── debrief
 │   │   ├── favicon.ico
 │   │   ├── globals.css
 │   │   ├── layout.tsx
