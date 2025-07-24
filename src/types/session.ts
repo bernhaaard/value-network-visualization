@@ -12,7 +12,7 @@ import type { UserDemographics } from "./demographics";
 /**
  * Study phases for controlled progression through questionnaire workflow
  */
-export type StudyPhase = "demographics" | "instructions" | "questionnaire" | "complete";
+export type StudyPhase = "instructions" | "demographics" | "questionnaire" | "complete";
 
 /**
  * Session tracking metadata
