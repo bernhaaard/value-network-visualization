@@ -1,7 +1,6 @@
 "use client";
 
-import React, { createContext, useContext, useState, useEffect } from "react";
-import { debounce } from "lodash";
+import React, { createContext, useContext, useState, useEffect, useCallback } from "react";
 import type {
   StudyPhase,
   SessionMetadata,
@@ -15,11 +14,12 @@ import type {
   QuestionId,
   ResponseValue,
   AttentionCheckId,
-} from "../../types/questionnaire";
-import type { UserDemographics } from "../../types/demographics";
-import { STORAGE_KEYS, QUESTIONNAIRE_CONFIG } from "../../types/constants";
-import { isAttentionCheckId } from "../../types/questionnaire";
-import { storage } from "../utils";
+} from "@/types/questionnaire";
+import type { UserDemographics } from "@/types/demographics";
+import { STORAGE_KEYS, QUESTIONNAIRE_CONFIG } from "@/types/constants";
+import { isAttentionCheckId } from "@/types/questionnaire";
+import { storage } from "@/lib/utils";
+import { useIsClient, useDebouncedSave } from "@/hooks";
 
 /**
  * Calculates accurate progress excluding attention checks for user feedback.
@@ -82,53 +82,50 @@ export const QuestionnaireProvider: React.FC<QuestionnaireProviderProps> = ({ ch
   // Simple persistence status
   const [lastSaved, setLastSaved] = useState<Date | null>(null);
   const [persistenceError, setPersistenceError] = useState<string | null>(null);
+  const isClient = useIsClient();
 
-  // Debounced modular save function
-  const debouncedSave = debounce(() => {
+  // Clean debounced save implementation using hybrid approach
+  const saveAllData = useCallback(() => {
     let allSuccess = true;
 
-    // Save each piece modularly
+    // Save demographics if present
     if (demographics) {
       const success = storage.save(STORAGE_KEYS.DEMOGRAPHICS, demographics);
       if (!success) allSuccess = false;
     }
 
+    // Save responses if any exist
     if (Object.keys(responses).length > 0) {
       const success = storage.save(STORAGE_KEYS.RESPONSES, responses);
       if (!success) allSuccess = false;
     }
 
-    if (progress.completedQuestions > 0) {
-      const success = storage.save(STORAGE_KEYS.PROGRESS, progress);
-      if (!success) allSuccess = false;
-    }
-
+    // Save metadata with updated timestamp
     if (metadata) {
-      // Update lastUpdated before saving
-      const updatedMetadata = { ...metadata, lastUpdated: new Date() };
-      setMetadata(updatedMetadata);
-      const success = storage.save(STORAGE_KEYS.SESSION_ID, updatedMetadata);
+      const metadataToSave = { ...metadata, lastUpdated: new Date() };
+      const success = storage.save(STORAGE_KEYS.SESSION_ID, metadataToSave);
       if (!success) allSuccess = false;
     }
 
-    const now = new Date();
+    // Note: Progress is computed from responses, no need to save separately
+
+    // Update persistence status
     if (allSuccess) {
-      setLastSaved(now);
+      setLastSaved(new Date());
       setPersistenceError(null);
       if (process.env.NODE_ENV === "development") {
-        console.log("🎯 Modular state saved to localStorage");
+        console.log("🎯 All data saved to localStorage");
       }
     } else {
       setPersistenceError("Failed to save some data to localStorage");
+      if (process.env.NODE_ENV === "development") {
+        console.warn("🚨 Some data failed to save to localStorage");
+      }
     }
-  }, 500);
+  }, [demographics, responses, metadata]);
 
-  // Auto-save effect (triggers on state changes)
-  useEffect(() => {
-    if (demographics || Object.keys(responses).length > 0 || metadata) {
-      debouncedSave();
-    }
-  }, [demographics, responses, metadata, debouncedSave]);
+  // Use simple debounced save hook
+  useDebouncedSave(saveAllData, [demographics, responses, metadata]);
 
   // Session restoration on mount (modular loading)
   useEffect(() => {
@@ -263,8 +260,8 @@ export const QuestionnaireProvider: React.FC<QuestionnaireProviderProps> = ({ ch
       console.log("Modular storage status:", {
         demographics: !!storage.load(STORAGE_KEYS.DEMOGRAPHICS),
         responses: Object.keys(storage.load(STORAGE_KEYS.RESPONSES) as QuestionnaireResponses || {}).length,
-        progress: !!storage.load(STORAGE_KEYS.PROGRESS),
         session: !!storage.load(STORAGE_KEYS.SESSION_ID)
+        // Note: Progress computed from responses, not stored separately
       });
       console.groupEnd();
     }
@@ -272,7 +269,7 @@ export const QuestionnaireProvider: React.FC<QuestionnaireProviderProps> = ({ ch
 
   // Simple persistence status object
   const persistence: PersistenceStatus = {
-    isSupported: !!window.localStorage,
+    isSupported: isClient && !!window.localStorage,
     lastSaveTime: lastSaved,
     lastError: persistenceError,
     pendingSave: false
