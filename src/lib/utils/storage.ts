@@ -52,7 +52,7 @@ export const storage = {
   clearAll: (): void => {
     storage.remove(STORAGE_KEYS.DEMOGRAPHICS);
     storage.remove(STORAGE_KEYS.RESPONSES);
-    storage.remove(STORAGE_KEYS.PROGRESS);
     storage.remove(STORAGE_KEYS.SESSION_ID);
+    // Note: Progress is computed from responses, no separate storage needed
   },
 };
