@@ -12,8 +12,7 @@ export const STORAGE_KEYS = {
   DEMOGRAPHICS: "pvq_rr_demographics",
   /** Question responses only */
   RESPONSES: "pvq_rr_responses",
-  /** Progress tracking data */
-  PROGRESS: "pvq_rr_progress",
+  // Note: Progress computed from responses, no separate storage needed
 } as const;
 
 /**
