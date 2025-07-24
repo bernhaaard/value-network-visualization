@@ -152,10 +152,10 @@ describe("Storage Utilities", () => {
       storage.clearAll();
 
       // Check that all expected keys are removed (order may vary)
-      expect(mockLocalStorage.removeItem).toHaveBeenCalledTimes(4);
+      // Note: Progress is computed from responses, not stored separately
+      expect(mockLocalStorage.removeItem).toHaveBeenCalledTimes(3);
       expect(mockLocalStorage.removeItem).toHaveBeenCalledWith("pvq_rr_demographics");
       expect(mockLocalStorage.removeItem).toHaveBeenCalledWith("pvq_rr_responses");
-      expect(mockLocalStorage.removeItem).toHaveBeenCalledWith("pvq_rr_progress");
       expect(mockLocalStorage.removeItem).toHaveBeenCalledWith("pvq_rr_session_id");
     });
   });
