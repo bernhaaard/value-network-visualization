@@ -49,14 +49,14 @@ const calculateProgress = (responses: QuestionnaireResponses): QuestionnaireProg
 };
 
 /**
- * Checks if session has exceeded 1-week timeout for data privacy.
+ * Checks if session has exceeded configured timeout for data privacy.
  * @param metadata - Session metadata with timing information
  * @returns True if session should be cleared
  */
 const isSessionExpired = (metadata: SessionMetadata): boolean => {
   const now = new Date();
   const hoursSinceLastUpdate = (now.getTime() - metadata.lastUpdated.getTime()) / (1000 * 60 * 60);
-  return hoursSinceLastUpdate >= 168; // 7 days * 24 hours = 168 hours
+  return hoursSinceLastUpdate >= QUESTIONNAIRE_CONFIG.SESSION_TIMEOUT_HOURS;
 };
 
 // Create context
@@ -73,6 +73,7 @@ export const QuestionnaireProvider: React.FC<QuestionnaireProviderProps> = ({ ch
   const [metadata, setMetadata] = useState<SessionMetadata | null>(null);
   const [demographics, setDemographics] = useState<UserDemographics | null>(null);
   const [responses, setResponses] = useState<QuestionnaireResponses>({} as QuestionnaireResponses);
+  const [navigationIndex, setNavigationIndex] = useState<number>(0); // UI navigation separate from progress
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -185,6 +186,31 @@ export const QuestionnaireProvider: React.FC<QuestionnaireProviderProps> = ({ ch
     restoreSession();
   }, []);
 
+  // Load questionnaire data dynamically when entering questionnaire phase
+  useEffect(() => {
+    const loadQuestionnaireIfNeeded = async () => {
+      // Only load if we're in questionnaire phase and don't have it loaded yet
+      if (metadata?.currentPhase === "questionnaire" && !questionnaire) {
+        try {
+          setIsLoading(true);
+          const { default: questionnaireData } = await import("@/lib/questionnaire/pvq-rr-data.json");
+          setQuestionnaire(questionnaireData.questionnaire);
+
+          if (process.env.NODE_ENV === "development") {
+            console.log("🎯 Questionnaire data loaded dynamically");
+          }
+        } catch (error) {
+          setError("Failed to load questionnaire data");
+          console.error("Failed to load questionnaire:", error);
+        } finally {
+          setIsLoading(false);
+        }
+      }
+    };
+
+    loadQuestionnaireIfNeeded();
+  }, [metadata?.currentPhase, questionnaire]);
+
   // Convenience methods (synchronous, easy to understand)
   const startSession = (userDemographics: UserDemographics): void => {
     const sessionId = `session_${Date.now()}_${Math.random().toString(36).substr(2, 6)}`;
@@ -200,6 +226,7 @@ export const QuestionnaireProvider: React.FC<QuestionnaireProviderProps> = ({ ch
     });
 
     setDemographics(userDemographics);
+    setNavigationIndex(0); // Reset to first question
     setError(null);
 
     if (process.env.NODE_ENV === "development") {
@@ -208,6 +235,24 @@ export const QuestionnaireProvider: React.FC<QuestionnaireProviderProps> = ({ ch
   };
 
   const answerQuestion = (questionId: QuestionId, value: ResponseValue): void => {
+    // Validate response value range
+    if (value < 1 || value > 6) {
+      setError(`Invalid response value: ${value}. Must be between 1 and 6.`);
+      return;
+    }
+
+    // Validate questionnaire is loaded for question validation
+    if (!questionnaire) {
+      setError("Questionnaire not loaded. Cannot validate question.");
+      return;
+    }
+
+    // Validate question exists in questionnaire
+    if (!questionnaire.questions[questionId] && !isAttentionCheckId(questionId)) {
+      setError(`Invalid question ID: ${questionId}`);
+      return;
+    }
+
     setResponses(prev => ({
       ...prev,
       [questionId]: value
@@ -239,6 +284,7 @@ export const QuestionnaireProvider: React.FC<QuestionnaireProviderProps> = ({ ch
     setMetadata(null);
     setDemographics(null);
     setResponses({} as QuestionnaireResponses);
+    setNavigationIndex(0);
     setError(null);
     storage.clearAll();
 
@@ -283,6 +329,7 @@ export const QuestionnaireProvider: React.FC<QuestionnaireProviderProps> = ({ ch
     demographics,
     responses,
     progress,
+    navigationIndex,
     isLoading,
     error,
     persistence,
@@ -298,7 +345,16 @@ export const QuestionnaireProvider: React.FC<QuestionnaireProviderProps> = ({ ch
     // Convenience methods
     startSession,
     answerQuestion,
-    goToQuestion: () => { }, // UI navigation only, no state change needed
+    goToQuestion: (index: number) => {
+      // Validate index range
+      const totalQuestions = QUESTIONNAIRE_CONFIG.TOTAL_QUESTIONS + QUESTIONNAIRE_CONFIG.ATTENTION_CHECK_COUNT;
+      if (index < 0 || index >= totalQuestions) {
+        setError(`Invalid question index: ${index}. Must be between 0 and ${totalQuestions - 1}.`);
+        return;
+      }
+      setNavigationIndex(index);
+      setError(null);
+    },
     setPhase,
     completeQuestionnaire,
     resetSession,

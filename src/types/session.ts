@@ -86,6 +86,8 @@ export interface QuestionnaireContextType {
   responses: QuestionnaireResponses;
   /** Current completion progress */
   progress: QuestionnaireProgress;
+  /** Current question being viewed (for UI navigation, separate from progress) */
+  navigationIndex: number;
   /** Async operation loading state */
   isLoading: boolean;
   /** Current error message if any */

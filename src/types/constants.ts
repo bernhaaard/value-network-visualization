@@ -29,7 +29,7 @@ export const QUESTIONNAIRE_CONFIG = {
   /** Maximum reasonable participant age */
   MAX_AGE: 120,
   /** Session timeout in hours for data privacy */
-  SESSION_TIMEOUT_HOURS: 24,
+  SESSION_TIMEOUT_HOURS: 168,
   /** Application version for compatibility tracking */
   VERSION: "1.0.0",
   /** Default interface language */
