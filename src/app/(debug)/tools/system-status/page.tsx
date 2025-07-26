@@ -19,11 +19,11 @@ export default function SystemStatusPage() {
         <Box mt={8} p={6} bg="purple.50" borderRadius="md">
           <Text fontSize="sm" color="purple.700">
             📈 <strong>Monitoring Features:</strong> This dashboard will show:
-            <br />• Application performance metrics
-            <br />• Error logs and debugging information
-            <br />• localStorage usage and health
-            <br />• User session analytics
-            <br />• Browser compatibility status
+            <br/>• Application performance metrics
+            <br/>• Error logs and debugging information
+            <br/>• localStorage usage and health
+            <br/>• User session analytics
+            <br/>• Browser compatibility status
           </Text>
         </Box>
       </Box>
