@@ -18,8 +18,8 @@ import type {
 import type { UserDemographics } from "@/types/demographics";
 import { STORAGE_KEYS, QUESTIONNAIRE_CONFIG } from "@/types/constants";
 import { isAttentionCheckId } from "@/types/questionnaire";
-import { storage } from "@/lib/utils";
-import { useIsClient, useDebouncedSave } from "@/hooks";
+import { storage, isLocalStorageAvailable } from "@/lib/utils";
+import { useDebouncedSave } from "@/hooks";
 
 /**
  * Calculates accurate progress excluding attention checks for user feedback.
@@ -83,7 +83,7 @@ export const QuestionnaireProvider: React.FC<QuestionnaireProviderProps> = ({ ch
   // Simple persistence status
   const [lastSaved, setLastSaved] = useState<Date | null>(null);
   const [persistenceError, setPersistenceError] = useState<string | null>(null);
-  const isClient = useIsClient();
+
 
   // Clean debounced save implementation using hybrid approach
   const saveAllData = useCallback(() => {
@@ -315,7 +315,7 @@ export const QuestionnaireProvider: React.FC<QuestionnaireProviderProps> = ({ ch
 
   // Simple persistence status object
   const persistence: PersistenceStatus = {
-    isSupported: isClient && !!window.localStorage,
+    isSupported: isLocalStorageAvailable(),
     lastSaveTime: lastSaved,
     lastError: persistenceError,
     pendingSave: false

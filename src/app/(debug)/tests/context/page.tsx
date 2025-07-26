@@ -10,11 +10,10 @@ import {
   Grid,
   Badge,
   Code,
-  Separator,
+  ClientOnly,
 } from "@chakra-ui/react";
 import { Card } from "@chakra-ui/react";
 import { useQuestionnaire } from "@/lib/context";
-import { useIsClient } from "@/hooks";
 import { useState, useEffect } from "react";
 import type { UserDemographics, StudyPhase } from "@/types";
 
@@ -23,7 +22,6 @@ import type { UserDemographics, StudyPhase } from "@/types";
  * Tests all context functionality for development and thesis evaluation purposes.
  */
 export default function ContextTestPage() {
-  const isClient = useIsClient();
   const {
     // State values
     metadata,
@@ -117,11 +115,10 @@ export default function ContextTestPage() {
     <Stack gap={6} align="stretch">
       <Box>
         <Heading size="md" mb={4}>
-          QuestionnaireProvider Test Suite
+          QuestionnaireProvider Test Page
         </Heading>
         <Text color="gray.600">
-          Comprehensive testing of Context API state management, localStorage persistence,
-          and convenience methods for thesis evaluation.
+          Testing page for state management and localStorage persistence.
         </Text>
       </Box>
 
@@ -132,9 +129,11 @@ export default function ContextTestPage() {
           <Grid templateColumns={{ base: "1fr", md: "repeat(2, 1fr)" }} gap={4}>
             <Box>
               <Text fontWeight="medium">Hydration Safe:</Text>
-              <Badge bg={isClient ? "green" : "orange"}>
-                {isClient ? "Client Detected" : "SSR/Hydrating"}
-              </Badge>
+              <ClientOnly fallback={
+                <Badge bg="orange">SSR/Hydrating</Badge>
+              }>
+                <Badge bg="green">Client Detected</Badge>
+              </ClientOnly>
               <Text fontSize="xs" color="gray.600">
                 Should be &quot;SSR/Hydrating&quot; initially, then &quot;Client Detected&quot;
               </Text>
@@ -330,9 +329,15 @@ export default function ContextTestPage() {
             </Box>
             <Box>
               <Text fontWeight="medium">localStorage Available:</Text>
-              <Badge bg={isClient && window.localStorage ? "green.500" : "red.500"} color="white">
-                {isClient && window.localStorage ? "Yes" : "No"}
-              </Badge>
+              <ClientOnly fallback={
+                <Badge bg="red.500" color="white">Unknown</Badge>
+              }>
+                {() => (
+                  <Badge bg={window.localStorage ? "green.500" : "red.500"} color="white">
+                    {window.localStorage ? "Yes" : "No"}
+                  </Badge>
+                )}
+              </ClientOnly>
             </Box>
             <Box>
               <Text fontWeight="medium">Environment:</Text>
@@ -341,15 +346,6 @@ export default function ContextTestPage() {
           </Grid>
         </Card.Body>
       </Card.Root>
-
-      <Separator />
-
-      <Box>
-        <Text fontSize="sm" color="gray.500" textAlign="center">
-          🎓 This page demonstrates comprehensive Context API functionality for thesis evaluation.
-          Check browser console for detailed development logs.
-        </Text>
-      </Box>
     </Stack>
   );
 } 
