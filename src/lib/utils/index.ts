@@ -7,3 +7,6 @@
 
 // Storage utilities
 export { storage } from "./storage";
+
+// Browser utilities
+export { isLocalStorageAvailable, isSessionStorageAvailable, isBrowser } from "./browser";
