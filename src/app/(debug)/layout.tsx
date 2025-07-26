@@ -14,15 +14,15 @@ export default function DebugLayout({
     <Container maxW="8xl" py={6}>
       <Box mb={8}>
         <Heading size="lg" mb={2}>
-          🔧 Development & Evaluation Tools
+          Development Tools
         </Heading>
         <Text color="gray.600" mb={4}>
-          Internal tools for testing, debugging, and thesis evaluation purposes.
+          Internal tools for testing & debugging.
         </Text>
 
         <Flex gap={6} flexWrap="wrap">
           <Link as={NextLink} href="/tools" color="orange.500" fontWeight="medium">
-            🏠 Debug Dashboard
+            Debug Dashboard
           </Link>
           <Link as={NextLink} href="/tests/context" color="blue.500" fontWeight="medium">
             Context Tests

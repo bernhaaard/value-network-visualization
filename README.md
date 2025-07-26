@@ -120,8 +120,9 @@ npm run type-check   # Run TypeScript type checking
 │   │   ├── layout.tsx
 │   │   └── page.tsx
 │   ├── components
-│   │   ├── forms          # Form components (PVQ-RR, etc.)
+│   │   ├── forms          # Form components (Demographics, etc.)
 │   │   ├── layout         # Layout components
+│   │   ├── views          # Page view components
 │   │   ├── ui             # Reusable UI components
 │   │   └── visualization  # Visualization components
 │   │       ├── core       # Shared visualization logic

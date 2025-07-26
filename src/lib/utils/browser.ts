@@ -1,11 +1,10 @@
 /**
- * Browser utility functions for client-side detection and feature checking.
- * Handles SSR compatibility and graceful fallbacks for browser-only APIs.
+ * Browser utility functions
  */
 
 /**
- * Safe localStorage availability check for SSR compatibility.
- * Returns true only when localStorage is actually available and functional.
+ * LocalStorage availability check
+ * Only returns true if localStorage is actually available and functional.
  *
  * @returns {boolean} True if localStorage is available, false otherwise
  */
@@ -22,8 +21,8 @@ export const isLocalStorageAvailable = (): boolean => {
 };
 
 /**
- * Safe sessionStorage availability check for SSR compatibility.
- * Returns true only when sessionStorage is actually available and functional.
+ * SessionStorage availability check
+ * Only returns true if sessionStorage is actually available and functional.
  *
  * @returns {boolean} True if sessionStorage is available, false otherwise
  */

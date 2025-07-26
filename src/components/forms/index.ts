@@ -1,6 +1,8 @@
 // Form Components
 // Contains: PVQ-RR questionnaire forms, feedback forms, validation
 
+export { DemographicsForm } from "./DemographicsForm";
+
 // TODO: Add exports for:
 // - PVQRRQuestionnaire component
 // - PostTaskQuestionnaire component

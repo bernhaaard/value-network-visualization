@@ -41,7 +41,7 @@ export default function DebugPage() {
     <Container maxW="6xl" py={8}>
       <Box mb={8}>
         <Heading size="xl" mb={4}>
-          🔧 Development & Evaluation Dashboard
+          Development & Evaluation Dashboard
         </Heading>
         <Text fontSize="lg" color="gray.600">
           Comprehensive testing and debugging infrastructure for thesis evaluation and development.
@@ -98,14 +98,6 @@ export default function DebugPage() {
             </NextLink>
           ))}
         </Grid>
-      </Box>
-
-      <Box mt={12} p={6} bg="gray.50" borderRadius="md">
-        <Text fontSize="sm" color="gray.600" textAlign="center">
-          🎓 These tools demonstrate comprehensive development practices and enable thorough thesis evaluation.
-          <br />
-          All functionality is designed for academic assessment and debugging purposes.
-        </Text>
       </Box>
     </Container>
   );
