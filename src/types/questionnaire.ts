@@ -1,6 +1,6 @@
 // PVQ-RR Questionnaire Type Definitions
 
-import { PadSingleDigit, Enumerate } from "./utils";
+import { PadSingleDigit, Enumerate } from "@/types";
 
 /**
  * Schwartz's 19 refined value categories for measuring individual priorities.
