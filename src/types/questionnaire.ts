@@ -1,5 +1,7 @@
 // PVQ-RR Questionnaire Type Definitions
 
+import { PadSingleDigit, Enumerate } from "./utils";
+
 /**
  * Schwartz's 19 refined value categories for measuring individual priorities.
  */
@@ -69,24 +71,9 @@ export interface PVQRRQuestionnaire {
 }
 
 /**
- * Utility type generating consecutive numbers 1 to N for type-level validation
- */
-type Enumerate<N extends number, Counter extends number[] = []> = Counter["length"] extends N
-  ? Counter[number]
-  : Enumerate<N, [...Counter, Counter["length"]]>;
-
-/**
  * Valid question numbers (1-57) for the PVQ-RR questionnaire.
  */
 export type QuestionNumber = Exclude<Enumerate<58>, 0>;
-
-/**
- * Zero-pads single digit numbers for consistent ID formatting.
- * Ensures uniform question IDs (01, 02...57).
- */
-type PadSingleDigit<N extends number> = N extends 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
-  ? `0${N}`
-  : `${N}`;
 
 /**
  * Type-safe question identifier with proper zero-padding matching runtime format

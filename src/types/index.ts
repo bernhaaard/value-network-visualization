@@ -40,3 +40,6 @@ export type {
 
 // Constants
 export { STORAGE_KEYS, QUESTIONNAIRE_CONFIG } from "./constants";
+
+// Utils
+export type { PadSingleDigit, Enumerate } from "./utils";
