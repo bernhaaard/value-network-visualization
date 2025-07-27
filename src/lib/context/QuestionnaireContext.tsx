@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useContext, useState, useEffect, useCallback } from "react";
+import React, { createContext, useContext, useState, useEffect, useCallback, useMemo } from "react";
 import type {
   StudyPhase,
   SessionMetadata,
@@ -238,7 +238,23 @@ export const QuestionnaireProvider: React.FC<QuestionnaireProviderProps> = ({ ch
     return metadata?.currentPhase === "questionnaire";
   };
 
-  const answerQuestion = (questionId: QuestionId, value: ResponseValue): void => {
+  /**
+   * Ordered question and attention check IDs (memoized)
+   */
+  const orderedQuestionIds = useMemo(() => {
+    if (!questionnaire) return [];
+    return Object.keys(questionnaire.questions) as (QuestionId | AttentionCheckId)[];
+  }, [questionnaire]);
+
+  /**
+   * Validates that questionnaire has correct number of items (59 total)
+   * @returns true if valid count, false if incorrect count
+   */
+  const validateQuestionnaireLength = (): boolean => {
+    return orderedQuestionIds.length === 59; // 57 questions + 2 attention checks
+  };
+
+  const answerQuestion = (questionId: QuestionId | AttentionCheckId, value: ResponseValue): void => {
     // Prevent answering outside questionnaire phase (UI should prevent this too)
     if (metadata?.currentPhase !== "questionnaire") {
       if (process.env.NODE_ENV === "development") {
@@ -263,8 +279,8 @@ export const QuestionnaireProvider: React.FC<QuestionnaireProviderProps> = ({ ch
       return;
     }
 
-    // Validate question exists in questionnaire
-    if (!questionnaire.questions[questionId] && !isAttentionCheckId(questionId)) {
+    // Validate question exists in questionnaire (skip validation for attention checks)
+    if (!isAttentionCheckId(questionId) && !questionnaire.questions[questionId as QuestionId]) {
       setError(`Invalid question ID: ${questionId}`);
       return;
     }
@@ -375,6 +391,8 @@ export const QuestionnaireProvider: React.FC<QuestionnaireProviderProps> = ({ ch
     completeQuestionnaire,
     resetSession,
     canAnswerQuestions,
+    validateQuestionnaireLength,
+    orderedQuestionIds,
     debugState,
     clearError: () => setError(null)
   };
