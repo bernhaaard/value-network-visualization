@@ -5,6 +5,7 @@ import type {
   QuestionnaireResponses,
   QuestionnaireProgress,
   QuestionId,
+  AttentionCheckId,
   ResponseValue,
 } from "./questionnaire";
 import type { UserDemographics } from "./demographics";
@@ -114,8 +115,8 @@ export interface QuestionnaireContextType {
   startSession: (demographics: UserDemographics) => void;
   /** Check if questions can currently be answered */
   canAnswerQuestions: () => boolean;
-  /** Record response to specific question */
-  answerQuestion: (questionId: QuestionId, value: ResponseValue) => void;
+  /** Record response to specific question or attention check */
+  answerQuestion: (questionId: QuestionId | AttentionCheckId, value: ResponseValue) => void;
   /** Navigate to specific question (UI only) */
   goToQuestion: (index: number) => void;
   /** Update current study phase */
@@ -124,6 +125,10 @@ export interface QuestionnaireContextType {
   completeQuestionnaire: () => void;
   /** Clear all session data */
   resetSession: () => void;
+  /** Validate questionnaire length (59 items) */
+  validateQuestionnaireLength: () => boolean;
+  /** Ordered question and attention check IDs (memoized) */
+  orderedQuestionIds: (QuestionId | AttentionCheckId)[];
 
   // Development helpers
   /** Log current state for debugging */

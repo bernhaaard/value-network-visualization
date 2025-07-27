@@ -56,7 +56,7 @@ export interface QuestionnaireScale {
 }
 
 /**
- * PVQ-RR questionnaire structure with all metadata and questions.
+ * PVQ-RR questionnaire structure with all metadata, questions, and attention checks.
  * Central data structure ensuring type-safe access to questionnaire content and configuration.
  */
 export interface PVQRRQuestionnaire {
@@ -67,7 +67,7 @@ export interface PVQRRQuestionnaire {
   description: string;
   instructions: string;
   scale: QuestionnaireScale;
-  questions: Record<QuestionId, PVQRRQuestion>;
+  questions: Record<QuestionId | AttentionCheckId, PVQRRQuestion>;
 }
 
 /**
@@ -87,10 +87,10 @@ export type QuestionId = `pvq_rr_en_q${PadSingleDigit<QuestionNumber>}`;
 export type AttentionCheckId = `pvq_rr_en_attention_${"01" | "02"}`;
 
 /**
- * User responses mapped by question ID for efficient lookup and progress tracking.
- * Core data structure for collecting and analyzing individual value assessments.
+ * Response collection for questionnaire questions and attention checks.
+ * Maps question/attention check IDs to user responses on 6-point scale.
  */
-export type QuestionnaireResponses = Record<QuestionId, ResponseValue>;
+export type QuestionnaireResponses = Record<QuestionId | AttentionCheckId, ResponseValue>;
 
 /**
  * Progress tracking excluding attention checks.
