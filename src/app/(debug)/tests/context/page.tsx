@@ -125,7 +125,7 @@ export default function ContextTestPage() {
       {/* Debug Information - NEW */}
       <Card.Root bg="blue.50" borderColor="blue.200">
         <Card.Body p={6}>
-          <Heading size="sm" mb={4} color="blue.700">🔧 Debug Information (Verify Fixes)</Heading>
+          <Heading size="sm" mb={4} color="blue.700">Debug Information</Heading>
           <Grid templateColumns={{ base: "1fr", md: "repeat(2, 1fr)" }} gap={4}>
             <Box>
               <Text fontWeight="medium">Hydration Safe:</Text>
@@ -140,7 +140,11 @@ export default function ContextTestPage() {
             </Box>
             <Box>
               <Text fontWeight="medium">Render Count:</Text>
-              <Badge bg="purple" color="white">{renderCount}</Badge>
+              <ClientOnly fallback={<Badge bg="gray.500" color="white">0</Badge>}>
+                <Badge bg="purple" color="white">
+                  {renderCount}
+                </Badge>
+              </ClientOnly>
               <Text fontSize="xs" color="gray.600">
                 Should increment slowly, not rapidly
               </Text>
@@ -153,7 +157,11 @@ export default function ContextTestPage() {
             </Box>
             <Box>
               <Text fontWeight="medium">Debounce Test:</Text>
-              <Text fontSize="sm">Last save: {lastDebounceTest || "None"}</Text>
+              <ClientOnly fallback={<Text fontSize="sm">Last save: Loading...</Text>}>
+                <Text fontSize="sm">
+                  Last save: {lastDebounceTest || "None"}
+                </Text>
+              </ClientOnly>
               <Button size="xs" onClick={testDebounce} colorScheme="purple">
                 Test Debounce (5 rapid calls)
               </Button>
@@ -273,27 +281,35 @@ export default function ContextTestPage() {
           <Grid templateColumns={{ base: "1fr", md: "repeat(2, 1fr)", lg: "repeat(4, 1fr)" }} gap={4}>
             <Box>
               <Text fontWeight="medium">Supported:</Text>
-              <Badge bg={persistence.isSupported ? "green.500" : "red.500"} color="white">
-                {persistence.isSupported ? "Yes" : "No"}
-              </Badge>
+              <ClientOnly fallback={<Badge bg="gray.500" color="white">Loading...</Badge>}>
+                <Badge bg={persistence.isSupported ? "green.500" : "red.500"} color="white">
+                  {persistence.isSupported ? "Yes" : "No"}
+                </Badge>
+              </ClientOnly>
             </Box>
             <Box>
               <Text fontWeight="medium">Last Save:</Text>
-              <Text fontSize="sm">
-                {persistence.lastSaveTime?.toLocaleTimeString() || "Never"}
-              </Text>
+              <ClientOnly fallback={<Text fontSize="sm">Loading...</Text>}>
+                <Text fontSize="sm">
+                  {persistence.lastSaveTime?.toLocaleTimeString() || "Never"}
+                </Text>
+              </ClientOnly>
             </Box>
             <Box>
               <Text fontWeight="medium">Pending Save:</Text>
-              <Badge bg={persistence.pendingSave ? "yellow.600" : "gray.500"} color="white">
-                {persistence.pendingSave ? "Yes" : "No"}
-              </Badge>
+              <ClientOnly fallback={<Badge bg="gray.500" color="white">Loading...</Badge>}>
+                <Badge bg={persistence.pendingSave ? "yellow.600" : "gray.500"} color="white">
+                  {persistence.pendingSave ? "Yes" : "No"}
+                </Badge>
+              </ClientOnly>
             </Box>
             <Box>
               <Text fontWeight="medium">Error:</Text>
-              <Text fontSize="sm" color={persistence.lastError ? "red.500" : "gray.500"}>
-                {persistence.lastError || "None"}
-              </Text>
+              <ClientOnly fallback={<Text fontSize="sm" color="gray.500">Loading...</Text>}>
+                <Text fontSize="sm" color={persistence.lastError ? "red.500" : "gray.500"}>
+                  {persistence.lastError || "None"}
+                </Text>
+              </ClientOnly>
             </Box>
           </Grid>
         </Card.Body>
