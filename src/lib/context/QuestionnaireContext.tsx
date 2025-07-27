@@ -234,16 +234,32 @@ export const QuestionnaireProvider: React.FC<QuestionnaireProviderProps> = ({ ch
     }
   };
 
+  const canAnswerQuestions = (): boolean => {
+    return metadata?.currentPhase === "questionnaire";
+  };
+
   const answerQuestion = (questionId: QuestionId, value: ResponseValue): void => {
-    // Validate response value range
-    if (value < 1 || value > 6) {
-      setError(`Invalid response value: ${value}. Must be between 1 and 6.`);
+    // Prevent answering outside questionnaire phase (UI should prevent this too)
+    if (metadata?.currentPhase !== "questionnaire") {
+      if (process.env.NODE_ENV === "development") {
+        setError(`Development: Attempted to answer question outside questionnaire phase (current: ${metadata?.currentPhase})`);
+      }
       return;
     }
 
-    // Validate questionnaire is loaded for question validation
+    // Validate response value range (UI should constrain to 1-6)
+    if (value < 1 || value > 6) {
+      if (process.env.NODE_ENV === "development") {
+        setError(`Development: Invalid response value ${value} for question ${questionId}. UI should constrain to 1-6.`);
+      }
+      return;
+    }
+
+    // Validate questionnaire is loaded (could indicate race condition)
     if (!questionnaire) {
-      setError("Questionnaire not loaded. Cannot validate question.");
+      if (process.env.NODE_ENV === "development") {
+        setError(`Development: Questionnaire not loaded when answering ${questionId}. Check initialization order.`);
+      }
       return;
     }
 
@@ -358,6 +374,7 @@ export const QuestionnaireProvider: React.FC<QuestionnaireProviderProps> = ({ ch
     setPhase,
     completeQuestionnaire,
     resetSession,
+    canAnswerQuestions,
     debugState,
     clearError: () => setError(null)
   };

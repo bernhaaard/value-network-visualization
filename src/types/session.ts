@@ -112,6 +112,8 @@ export interface QuestionnaireContextType {
   // Convenience methods
   /** Initialize new session with demographics */
   startSession: (demographics: UserDemographics) => void;
+  /** Check if questions can currently be answered */
+  canAnswerQuestions: () => boolean;
   /** Record response to specific question */
   answerQuestion: (questionId: QuestionId, value: ResponseValue) => void;
   /** Navigate to specific question (UI only) */
