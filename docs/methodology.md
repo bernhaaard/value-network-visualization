@@ -29,22 +29,21 @@
 ### Input: PVQ-RR Responses
 
 - 57 questionnaire items → 19 value importance scores
-- Normalized scores (0-1 range)
-- Individual value profile generation
+- Normalized scores (Bias correction)
+- Individual value profile
 
-### Output: Network Properties
+### Output: Network Properties (WiP - Not Final)
 
 - **Node size:** Personal importance score
 - **Node color:** Higher-order value domain
 - **Node position:** Force-directed layout based on relationships
-- **Edge strength:** Theoretical relationship weight
+- **Edge strength:** Perhaps theoretical relationship weight (not clear yet)
 
 ## Implementation Requirements
 
 ### Core Components
 
 - [ ] PVQ-RR questionnaire interface
-- [ ] Value relationship matrix (19x19)
 - [ ] Custom physics engine for positioning
 - [ ] Three.js network renderer (2D/3D modes)
 - [ ] User study data collection interface
@@ -52,8 +51,8 @@
 ### Research Validation
 
 - [ ] Identical interaction patterns between 2D/3D
-- [ ] Consistent force calculations for reproducible layouts
-- [ ] Measurable exploration metrics (time, interactions)
+- [ ] Deterministic force calculations for reproducible layouts
+- [ ] Measurable exploration metrics (time, (interactions?))
 - [ ] Qualitative insight collection methods
 
 ## Technical Justification
@@ -61,8 +60,7 @@
 **Why Three.js for both 2D and 3D?**
 
 - Eliminates library differences as confounding variable
-- Ensures identical interaction paradigms
-- Unified codebase reduces complexity
+- Identical interaction experience for users
 - Academic validity through controlled comparison
 
 **Why custom physics over D3 force simulation?**
@@ -70,4 +68,4 @@
 - Complete control over relationship modeling
 - Theory-driven force calculations
 - Consistent behavior across 2D/3D modes
-- No external dependency synchronization issues
+- No external dependency issues
