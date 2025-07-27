@@ -5,16 +5,18 @@ import {
   Box,
   Button,
   Container,
+  Input,
+  NativeSelect,
   Heading,
+  Field,
+  Fieldset,
   Text,
-  Stack,
+  Stack
 } from "@chakra-ui/react";
-import { Field, Fieldset } from "@chakra-ui/react";
-import { Input, NativeSelect } from "@chakra-ui/react";
 import { useQuestionnaire } from "@/lib/context";
 import type {
   UserDemographics,
-  DemographicsErrors
+  DemographicsErrors,
 } from "@/types/demographics";
 import { EDUCATION_OPTIONS, COMMON_COUNTRIES } from "@/types/demographics";
 import { QUESTIONNAIRE_CONFIG } from "@/types/constants";

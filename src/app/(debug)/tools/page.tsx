@@ -1,5 +1,4 @@
-import { Box, Container, Heading, Text, Grid } from "@chakra-ui/react";
-import { Card } from "@chakra-ui/react";
+import { Box, Container, Card, Heading, Text, Grid } from "@chakra-ui/react";
 import NextLink from "next/link";
 
 /**

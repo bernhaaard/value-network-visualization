@@ -6,13 +6,13 @@ import {
   Flex,
   Heading,
   Text,
+  Card,
   Stack,
   Grid,
   Badge,
   Code,
   ClientOnly,
 } from "@chakra-ui/react";
-import { Card } from "@chakra-ui/react";
 import { useQuestionnaire } from "@/lib/context";
 import { useState, useEffect } from "react";
 import type { UserDemographics, StudyPhase } from "@/types";
