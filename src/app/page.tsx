@@ -1,63 +1,82 @@
 "use client";
 
-import { Box, Button, Heading, Text } from "@chakra-ui/react";
-import { ColorModeButton, VisualizationDemo } from "@/components/ui";
+import { Box, Container, Heading, Text, VStack } from "@chakra-ui/react";
+import { ColorModeButton } from "@/components/ui";
+import Link from "next/link";
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800 flex items-center justify-center p-4">
-      <div className="max-w-7xl w-full h-full space-y-6">
-        {/* Header */}
-        <Box className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-lg rounded-xl p-6 shadow-lg border border-gray-200/20">
-          <div className="flex justify-between items-start mb-4">
-            <div>
-              <Heading size="2xl" className="text-gray-800 dark:text-white mb-2">
+    <Container maxW="7xl" py={8}>
+      <VStack gap={8} align="stretch">
+        {/* Header Section */}
+        <Box
+          bg="bg.subtle"
+          borderRadius="xl"
+          p={8}
+          borderWidth="1px"
+          borderColor="border.subtle"
+        >
+          <Box display="flex" justifyContent="space-between" alignItems="start" mb={6}>
+            <Box>
+              <Heading size="2xl" color="fg" mb={3}>
                 Value Network Visualization
               </Heading>
-              <Text className="text-gray-600 dark:text-gray-300">
-                Interactive 2D/3D platform for value network analysis
+              <Text fontSize="lg" color="fg.muted">
+                Interactive 2D/3D platform for human value system analysis
               </Text>
-            </div>
+            </Box>
             <ColorModeButton />
-          </div>
-
-          {/* Setup Status */}
-          <Box className="border-l-4 border-green-500 pl-4 mb-4">
-            <Heading size="lg" className="text-gray-700 dark:text-gray-200 mb-2">
-              ✅ Heading test: works!
-            </Heading>
-            <Text className="text-gray-600 dark:text-gray-400">
-              Next.js 15 + Chakra UI v3 + Tailwind CSS v4 + Three.js
-            </Text>
           </Box>
-
-          {/* Simple Actions */}
-          <div className="flex gap-3">
-            <Button colorPalette="blue" size="lg">
-              Button 1
-            </Button>
-            <Button variant="outline" size="lg">
-              Button 2
-            </Button>
-          </div>
         </Box>
 
-        {/* Visualization Test */}
-        <Box className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-lg rounded-xl p-6 shadow-lg border border-gray-200/20 min-h-[600px]">
-          <Heading size="lg" className="text-gray-800 dark:text-white mb-4">
-            Library Integration Test
-          </Heading>
-          <VisualizationDemo />
+        {/* Main Content Area */}
+        <Box
+          bg="bg.subtle"
+          borderRadius="xl"
+          p={8}
+          borderWidth="1px"
+          borderColor="border.subtle"
+          minH="400px"
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+        >
+          <VStack gap={4} textAlign="center">
+            <Heading size="lg" color="fg">
+              Welcome to the Value Network Study
+            </Heading>
+            <Text color="fg.muted" maxW="md">
+              This platform visualizes human value systems as interactive neural networks,
+              helping researchers understand the relationships between different personal values.
+            </Text>
+            <Box pt={4}>
+              <Link href="/questionnaire">
+                <Box
+                  as="button"
+                  bg="interactive.primary"
+                  color="fg.inverted"
+                  px={8}
+                  py={3}
+                  borderRadius="md"
+                  fontWeight="medium"
+                  fontSize="lg"
+                  _hover={{ bg: "interactive.hover" }}
+                  transition="all 0.2s"
+                >
+                  Start Assessment
+                </Box>
+              </Link>
+            </Box>
+          </VStack>
         </Box>
 
-        {/* Tech Stack */}
-        <div className="text-center pt-2">
-          <Text className="text-gray-500 dark:text-gray-400 text-sm">
-            Built with Next.js 15 • React 19 • Chakra UI v3 • Tailwind CSS v4 • Three.js •
-            TypeScript
+        {/* Footer */}
+        <Box textAlign="center" pt={4}>
+          <Text fontSize="sm" color="fg.subtle">
+            Built with Next.js 15 • React 19 • Chakra UI v3 • Three.js
           </Text>
-        </div>
-      </div>
-    </div>
+        </Box>
+      </VStack>
+    </Container>
   );
 }
