@@ -21,14 +21,14 @@ export interface ErrorDisplayProps {
 export function ErrorDisplay({ title, message, action, variant = "page" }: ErrorDisplayProps) {
   const content = (
     <Box textAlign="center">
-      <Text color="red.500" fontSize="lg" mb={4} fontWeight="medium">
+      <Text color="status.error" fontSize="lg" mb={4} fontWeight="medium">
         {title}
       </Text>
-      <Text color="gray.600" mb={action ? 4 : 0}>
+      <Text color="fg.muted" mb={action ? 4 : 0}>
         {message}
       </Text>
       {action && (
-        <Button onClick={action.onClick} colorScheme="blue">
+        <Button onClick={action.onClick} bg="interactive.primary" color="fg.inverted" _hover={{ bg: "interactive.hover" }}>
           {action.label}
         </Button>
       )}
@@ -37,7 +37,7 @@ export function ErrorDisplay({ title, message, action, variant = "page" }: Error
 
   if (variant === "inline") {
     return (
-      <Box bg="red.50" borderColor="red.200" borderWidth="1px" rounded="md" p={4}>
+      <Box bg="bg.subtle" borderColor="border" borderWidth="1px" borderRadius="md" p={4}>
         {content}
       </Box>
     );
