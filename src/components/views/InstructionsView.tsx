@@ -37,7 +37,7 @@ export function InstructionsView() {
           <Text mb={4} color="fg" fontWeight="medium">
             How it works:
           </Text>
-          <Text as="ul" ml={6} mb={4} color="fg.muted">
+          <Text as="ul" ml={1} mb={4} color="fg.muted" pl={4} borderLeftWidth="4px" borderLeftColor="orange.dark">
             <Text as="li" mb={2}>You&apos;ll see 57 short descriptions of different people</Text>
             <Text as="li" mb={2}>For each person, decide how similar they are to you</Text>
             <Text as="li" mb={2}>Use the 6-point scale from &ldquo;Not like me at all&rdquo; to &ldquo;Very much like me&rdquo;</Text>
