@@ -8,17 +8,15 @@ import {
   Text,
   Button,
   Flex,
-  Stack
+  Stack,
+  Alert,
 } from "@chakra-ui/react";
 import { useQuestionnaire } from "@/lib/context";
 import { ErrorDisplay } from "@/components/ui";
 import type { ResponseValue, QuestionId, AttentionCheckId, PVQRRQuestionnaire } from "@/types";
 
-// Note: Attention check validation will be implemented in the completion flow
-
 /**
  * Get question text by participant's gender and itemId
- * Handles questions and attention checks from JSON
  */
 const getQuestionText = (itemId: QuestionId | AttentionCheckId, gender: "male" | "female", questionnaire: PVQRRQuestionnaire): string => {
   const questionData = questionnaire.questions[itemId];
@@ -44,7 +42,6 @@ export function QuestionnaireView() {
     progress
   } = useQuestionnaire();
 
-  // State to track if user tried to proceed without selecting a response
   const [attemptedNext, setAttemptedNext] = useState(false);
 
   // Loading state
@@ -77,8 +74,8 @@ export function QuestionnaireView() {
       />
     );
   }
-  
-  // Get current item from ordered IDs
+
+  // Get current item
   const currentItemId = orderedQuestionIds[navigationIndex];
   const totalItems = orderedQuestionIds.length;
 
@@ -93,8 +90,6 @@ export function QuestionnaireView() {
 
   const currentQuestionText = getQuestionText(currentItemId, demographics.gender, questionnaire);
   const currentResponse = responses[currentItemId];
-
-  // Use context's calculated progress instead of recalculating
   const progressPercentage = progress.percentComplete;
 
   // Navigation helpers
@@ -131,7 +126,7 @@ export function QuestionnaireView() {
 
   return (
     <Container maxW="4xl" py={8}>
-      <Stack gap={8}>
+      <Stack gap={6}>
         {/* Context Error Display */}
         {error && (
           <ErrorDisplay
@@ -142,29 +137,29 @@ export function QuestionnaireView() {
         )}
 
         {/* Progress Bar */}
-        <Box>
-          <Text fontSize="sm" color="gray.600" mb={2}>
+        <Box borderColor="border.subtle" borderWidth="1px" borderRadius="md" p={4}>
+          <Text fontSize="sm" color="fg.muted" mb={2}>
             Progress: {progressPercentage}%
           </Text>
-          <Box w="full" bg="gray.200" rounded="md" h="2">
+          <Box w="full" bg="bg.subtle" rounded="full" h="3">
             <Box
-              bg="blue.500"
+              bg="interactive.primary"
               h="full"
-              rounded="md"
+              rounded="full"
               w={`${progressPercentage}%`}
-              transition="width 0.3s ease"
+              transition="width 0.5s ease"
             />
           </Box>
         </Box>
 
         {/* Question */}
-        <Box>
-          <Heading size="lg" mb={6} lineHeight="tall">
+        <Box borderColor="border.muted">
+          <Heading size="3xl" mb={6} lineHeight="tall" color="fg">
             {currentQuestionText}
           </Heading>
 
           {/* 6-Point Likert Scale */}
-          <Stack gap={4}>
+          <Stack gap={3}>
             {([1, 2, 3, 4, 5, 6] as ResponseValue[]).map((value) => {
               const labels = {
                 1: "Not like me at all",
@@ -184,20 +179,20 @@ export function QuestionnaireView() {
                   cursor="pointer"
                   p={3}
                   borderWidth="2px"
-                  borderColor={isSelected ? "blue.500" : "gray.200"}
-                  bg={isSelected ? "blue.50" : "white"}
+                  borderColor={isSelected ? "interactive.primary" : "border.muted"}
+                  bg={isSelected ? "bg.selected" : "bg.subtle"}
                   rounded="md"
-                  _hover={{ bg: isSelected ? "blue.50" : "gray.50" }}
+                  _hover={{ bg: isSelected ? "bg.selected" : "bg.muted" }}
                   transition="all 0.2s"
                 >
                   <Flex align="center" gap={3}>
                     <Box
-                      w="4"
-                      h="4"
+                      w="3"
+                      h="3"
                       borderWidth="2px"
-                      borderColor={isSelected ? "blue.500" : "gray.300"}
+                      borderColor={isSelected ? "interactive.primary" : "border"}
                       rounded="full"
-                      bg={isSelected ? "blue.500" : "white"}
+                      bg={isSelected ? "interactive.primary" : "bg"}
                       position="relative"
                     >
                       {isSelected && (
@@ -208,7 +203,7 @@ export function QuestionnaireView() {
                           transform="translate(-50%, -50%)"
                           w="2"
                           h="2"
-                          bg="white"
+                          bg="fg.inverted"
                           rounded="full"
                         />
                       )}
@@ -221,7 +216,7 @@ export function QuestionnaireView() {
                       onChange={() => handleAnswerChange(value)}
                       style={{ display: 'none' }}
                     />
-                    <Text fontWeight="medium">
+                    <Text fontWeight="medium" color="fg">
                       {value} - {labels[value]}
                     </Text>
                   </Flex>
@@ -236,21 +231,30 @@ export function QuestionnaireView() {
           <Button
             onClick={handlePrevious}
             disabled={!canGoBack}
-            variant="outline"
+            variant="ghost"
+            bg="bg.subtle"
+            borderColor="border.subtle"
+            color="fg.muted"
+            _hover={{ bg: "bg.muted", borderColor: "border" }}
           >
             ← Previous
           </Button>
 
-          {/* Only show if user tried to proceed */}
+          {/* Validation Error */}
           {attemptedNext && !currentResponse && (
-            <Text fontSize="sm" color="orange.600" textAlign="center">
-              Please select a response to continue
-            </Text>
+            <Alert.Root status="warning" bg="bg.subtle" color="status.error" border="1px solid" borderColor="status.error" size="sm" width="fit-content">
+              <Alert.Indicator />
+              <Alert.Content>
+                <Alert.Title>Please select a response to continue</Alert.Title>
+              </Alert.Content>
+            </Alert.Root>
           )}
 
           <Button
             onClick={handleNext}
-            colorScheme="blue"
+            bg="interactive.primary"
+            color="fg.inverted"
+            _hover={{ bg: "interactive.hover" }}
           >
             {isLastQuestion ? "Complete" : "Next →"}
           </Button>
@@ -258,4 +262,4 @@ export function QuestionnaireView() {
       </Stack>
     </Container>
   );
-} 
+}
