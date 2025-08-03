@@ -15,8 +15,8 @@ const palette = {
       dark: { value: "#1E2936" },
     },
     muted: {
-      light: { value: "#F5F5F4" }, // Neutral stone-like color
-      dark: { value: "#17202A" }, // Neutral dark gray
+      light: { value: "#f6f0ea" }, // Neutral slightly beige color
+      dark: { value: "#17202A" }, // Cool neutral dark gray
     },
     accent: {
       light: { value: "hsl(30, 25%, 94%)" }, // Light orange tint for accent backgrounds
