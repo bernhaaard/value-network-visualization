@@ -1,7 +1,6 @@
 "use client";
 
 import { Box, Container, Heading, Text, VStack } from "@chakra-ui/react";
-import { ColorModeButton } from "@/components/ui";
 import Link from "next/link";
 
 export default function Home() {
@@ -16,16 +15,13 @@ export default function Home() {
           borderWidth="1px"
           borderColor="border.subtle"
         >
-          <Box display="flex" justifyContent="space-between" alignItems="start" mb={6}>
-            <Box>
-              <Heading size="2xl" color="fg" mb={3}>
-                Value Network Visualization
-              </Heading>
-              <Text fontSize="lg" color="fg.muted">
-                Interactive 2D/3D platform for human value system analysis
-              </Text>
-            </Box>
-            <ColorModeButton />
+          <Box mb={6}>
+            <Heading size="2xl" color="fg" mb={3}>
+              Value Network Visualization
+            </Heading>
+            <Text fontSize="lg" color="fg.muted">
+              Interactive 2D/3D platform for human value system analysis
+            </Text>
           </Box>
         </Box>
 
@@ -46,8 +42,8 @@ export default function Home() {
               Welcome to the Value Network Study
             </Heading>
             <Text color="fg.muted" maxW="md">
-              This platform visualizes human value systems as interactive neural networks,
-              helping researchers understand the relationships between different personal values.
+              This platform visualizes human value systems as interactive networks,
+              helping users understand the relationships between different personal values.
             </Text>
             <Box pt={4}>
               <Link href="/questionnaire">

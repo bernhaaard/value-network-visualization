@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Provider as ChakraProvider } from "@/components/ui/provider";
 import { QuestionnaireProvider } from "@/lib/context";
+import { ColorModeButton } from "@/components/ui";
 import { Box } from "@chakra-ui/react";
 
 const geistSans = Geist({
@@ -30,7 +31,22 @@ export default function RootLayout({
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <ChakraProvider>
           <QuestionnaireProvider>
-            <Box minH="100vh" bg="bg">
+            <Box minH="100vh" bg="bg" position="relative">
+              {/* Global Color Mode Toggle */}
+              <Box
+                position="fixed"
+                top={4}
+                right={4}
+                zIndex={1000}
+                bg="bg.overlay"
+                borderRadius="md"
+                borderWidth="1px"
+                borderColor="border.subtle"
+                p={1}
+                backdropFilter="blur(8px)"
+              >
+                <ColorModeButton />
+              </Box>
               {children}
             </Box>
           </QuestionnaireProvider>
