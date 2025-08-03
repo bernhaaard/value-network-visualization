@@ -15,7 +15,7 @@ export function CompleteView() {
   return (
     <Container maxW="2xl" py={8}>
       <Box
-        bg="bg.muted"
+        bg="bg.subtle"
         borderRadius="xl"
         p={8}
         borderWidth="1px"
@@ -35,7 +35,7 @@ export function CompleteView() {
           {/* Next Steps Box */}
           <Box
             p={6}
-            bg="bg.subtle"
+            bg="bg.muted"
             borderRadius="md"
             borderWidth="1px"
             borderColor="border.subtle"
