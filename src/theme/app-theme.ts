@@ -122,6 +122,7 @@ const themeConfig = defineConfig({
     tokens: {
       colors: {
         // Flatten the palette for token reference
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         ...Object.entries(palette).reduce((acc: Record<string, any>, [category, values]) => {
           Object.entries(values).forEach(([name, modes]) => {
             acc[`${category}.${name}.light`] = modes.light;
