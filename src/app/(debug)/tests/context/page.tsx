@@ -15,7 +15,7 @@ import {
 } from "@chakra-ui/react";
 import { useQuestionnaire } from "@/lib/context";
 import { useState, useEffect } from "react";
-import type { UserDemographics, StudyPhase } from "@/types";
+import type { UserDemographics, StudyPhase, QuestionId, AttentionCheckId, ResponseValue } from "@/types";
 
 /**
  * Comprehensive QuestionnaireProvider verification page.
@@ -86,20 +86,14 @@ export default function ContextTestPage() {
   };
 
   const simulateQuestionnaireAnswers = () => {
-    // Simulate answering a few questions
-    answerQuestion("pvq_rr_en_q01", 4);
-    answerQuestion("pvq_rr_en_q02", 3);
-    answerQuestion("pvq_rr_en_q03", 5);
-    answerQuestion("pvq_rr_en_q04", 2);
-    answerQuestion("pvq_rr_en_q05", 4);
-    answerQuestion("pvq_rr_en_q06", 3);
-    answerQuestion("pvq_rr_en_q07", 2);
-    answerQuestion("pvq_rr_en_q08", 4);
-    answerQuestion("pvq_rr_en_q09", 3);
-    answerQuestion("pvq_rr_en_q10", 2);
-    answerQuestion("pvq_rr_en_q11", 4);
-    answerQuestion("pvq_rr_en_q12", 3);
+    // Simulate answering all questions
+    for (let i = 1; i <= 57; i++) {
+      const questionId = `pvq_rr_en_q${i.toString().padStart(2, '0')}` as QuestionId | AttentionCheckId;
+      const response = (Math.floor(Math.random() * 6) + 1) as ResponseValue;
+      answerQuestion(questionId, response);
+    }
   };
+
 
   const simulatePhaseProgression = (currentPhase: StudyPhase) => {
     if (currentPhase === "demographics") {

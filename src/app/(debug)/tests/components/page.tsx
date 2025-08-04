@@ -37,7 +37,7 @@ export default function ComponentTestsPage() {
             </Box>
           </Flex>
           <Text color="fg.muted" lineHeight="tall">
-            Component testing infrastructure will be implemented as needed during development 
+            Component testing infrastructure will be implemented as needed during development
             to ensure UI components function correctly in isolation.
           </Text>
         </Box>

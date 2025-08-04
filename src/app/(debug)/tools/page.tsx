@@ -15,7 +15,7 @@ export default function DebugPage() {
       status: "Active"
     },
     {
-      title: "Component Tests", 
+      title: "Component Tests",
       description: "Test individual UI components and visualization elements",
       href: "/tests/components",
       category: "Testing",
@@ -25,7 +25,7 @@ export default function DebugPage() {
       title: "System Status",
       description: "Monitor application health and performance",
       href: "/tools/system-status",
-      category: "Tools", 
+      category: "Tools",
       status: "Future"
     }
   ];
@@ -48,10 +48,10 @@ export default function DebugPage() {
           <NextLink key={tool.href} href={tool.href}>
             <Box
               borderColor="border.subtle"
-              borderWidth="1px" 
+              borderWidth="1px"
               borderRadius="md"
               p={6}
-              _hover={{ 
+              _hover={{
                 borderColor: "border.accent",
                 bg: "bg.subtle",
                 transform: "translateY(-1px)",
@@ -62,10 +62,10 @@ export default function DebugPage() {
             >
               <Flex justify="space-between" align="start" mb={3}>
                 <Box>
-                  <Text 
-                    fontSize="xs" 
-                    fontWeight="medium" 
-                    color="fg.subtle" 
+                  <Text
+                    fontSize="xs"
+                    fontWeight="medium"
+                    color="fg.subtle"
                     textTransform="uppercase"
                     letterSpacing="wider"
                     mb={2}
@@ -79,10 +79,10 @@ export default function DebugPage() {
                 <Box
                   px={2}
                   py={1}
-                  bg={tool.status === "Active" ? "status.success" : 
-                      tool.status === "Planned" ? "status.warning" : "bg.muted"}
-                  color={tool.status === "Active" ? "fg.inverted" : 
-                         tool.status === "Planned" ? "fg.inverted" : "fg"}
+                  bg={tool.status === "Active" ? "status.success" :
+                    tool.status === "Planned" ? "status.warning" : "bg.muted"}
+                  color={tool.status === "Active" ? "fg.inverted" :
+                    tool.status === "Planned" ? "fg.inverted" : "fg"}
                   borderRadius="sm"
                   fontSize="xs"
                   fontWeight="medium"

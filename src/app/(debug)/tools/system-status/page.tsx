@@ -37,7 +37,7 @@ export default function SystemStatusPage() {
             </Box>
           </Flex>
           <Text color="fg.muted" lineHeight="tall">
-            This monitoring dashboard will provide comprehensive insights into application 
+            This monitoring dashboard will provide comprehensive insights into application
             performance and system health for development and thesis evaluation.
           </Text>
         </Box>
