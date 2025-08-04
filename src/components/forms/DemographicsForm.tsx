@@ -11,7 +11,9 @@ import {
   Field,
   Fieldset,
   Text,
-  Stack
+  Stack,
+  ClientOnly,
+  Skeleton
 } from "@chakra-ui/react";
 import { useQuestionnaire } from "@/lib/context";
 import type { UserDemographics, DemographicsErrors } from "@/types/demographics";
@@ -174,116 +176,200 @@ export const DemographicsForm: React.FC = () => {
         {/* Form */}
         <form onSubmit={handleSubmit}>
           <Fieldset.Root>
-            <Fieldset.Content>
-              <Stack gap={6} align="stretch">
-
-                {/* Age Field */}
-                <Field.Root invalid={!!errors.age}>
-                  <Field.Label>
-                    Age
-                    <Field.RequiredIndicator />
-                  </Field.Label>
-                  <Input
-                    type="number"
-                    min={QUESTIONNAIRE_CONFIG.MIN_AGE}
-                    max={QUESTIONNAIRE_CONFIG.MAX_AGE}
-                    value={formData.age || ""}
-                    onChange={(e) => handleInputChange("age", parseInt(e.target.value) || "")}
-                    placeholder={`Age (${QUESTIONNAIRE_CONFIG.MIN_AGE}-${QUESTIONNAIRE_CONFIG.MAX_AGE})`}
-                  />
-                  <Field.HelperText>
-                    Must be between {QUESTIONNAIRE_CONFIG.MIN_AGE} and {QUESTIONNAIRE_CONFIG.MAX_AGE} years old
-                  </Field.HelperText>
-                  <Field.ErrorText color="status.error">{errors.age}</Field.ErrorText>
-                </Field.Root>
-
-                {/* Gender Field */}
-                <Field.Root invalid={!!errors.gender}>
-                  <Field.Label>
-                    Gender
-                    <Field.RequiredIndicator />
-                  </Field.Label>
-                  <NativeSelect.Root>
-                    <NativeSelect.Field
-                      value={formData.gender || ""}
-                      onChange={(e) => handleInputChange("gender", e.target.value)}
+            <ClientOnly fallback={
+              <Fieldset.Content>
+                <Stack gap={6} align="stretch">
+                  {/* Age Field Skeleton */}
+                  <Stack gap={2}>
+                    <Skeleton height="18px" width="60px" bg="bg.muted" />
+                    <Box
+                      height="40px"
+                      bg="bg.subtle"
+                      borderWidth="1px"
+                      borderColor="border"
+                      borderRadius="md"
+                      px={3}
+                      display="flex"
+                      alignItems="center"
                     >
-                      <option value="">Select gender</option>
-                      <option value="male">Male</option>
-                      <option value="female">Female</option>
-                    </NativeSelect.Field>
-                    <NativeSelect.Indicator />
-                  </NativeSelect.Root>
-                  <Field.HelperText>
-                    Determines which version of the questionnaire questions you&apos;ll see
-                  </Field.HelperText>
-                  <Field.ErrorText color="status.error">{errors.gender}</Field.ErrorText>
-                </Field.Root>
+                      <Skeleton height="16px" width="120px" />
+                    </Box>
+                    <Skeleton height="14px" width="300px" bg="bg.muted" />
+                  </Stack>
 
-                {/* Education Field */}
-                <Field.Root invalid={!!errors.education}>
-                  <Field.Label>
-                    Education Level
-                    <Field.RequiredIndicator />
-                  </Field.Label>
-                  <NativeSelect.Root>
-                    <NativeSelect.Field
-                      value={formData.education || ""}
-                      onChange={(e) => handleInputChange("education", e.target.value)}
+                  {/* Gender Field Skeleton */}
+                  <Stack gap={2}>
+                    <Skeleton height="18px" width="80px" bg="bg.muted" />
+                    <Box
+                      height="40px"
+                      bg="bg.subtle"
+                      borderWidth="1px"
+                      borderColor="border"
+                      borderRadius="md"
+                      px={3}
+                      display="flex"
+                      alignItems="center"
+                      justifyContent="space-between"
                     >
-                      <option value="">Select education level</option>
-                      {EDUCATION_OPTIONS.map((option) => (
-                        <option key={option.value} value={option.value}>
-                          {option.label}
-                        </option>
-                      ))}
-                    </NativeSelect.Field>
-                    <NativeSelect.Indicator />
-                  </NativeSelect.Root>
-                  <Field.HelperText>
-                    Select your highest completed level of education
-                  </Field.HelperText>
-                  <Field.ErrorText color="status.error">{errors.education}</Field.ErrorText>
-                </Field.Root>
+                      <Skeleton height="16px" width="100px" />
+                      <Skeleton height="12px" width="12px" />
+                    </Box>
+                    <Skeleton height="14px" width="350px" bg="bg.muted" />
+                  </Stack>
 
-                {/* Nationality Field */}
-                <Field.Root invalid={!!errors.nationality}>
-                  <Field.Label>
-                    Nationality
-                    <Field.RequiredIndicator />
-                  </Field.Label>
-                  <NativeSelect.Root>
-                    <NativeSelect.Field
-                      value={formData.nationality || ""}
-                      onChange={(e) => handleInputChange("nationality", e.target.value)}
+                  {/* Education Field Skeleton */}
+                  <Stack gap={2}>
+                    <Skeleton height="18px" width="120px" bg="bg.muted" />
+                    <Box
+                      height="40px"
+                      bg="bg.subtle"
+                      borderWidth="1px"
+                      borderColor="border"
+                      borderRadius="md"
+                      px={3}
+                      display="flex"
+                      alignItems="center"
+                      justifyContent="space-between"
                     >
-                      <option value="">Select your nationality</option>
-                      {COMMON_COUNTRIES.map((country) => (
-                        <option key={country} value={country}>
-                          {country}
-                        </option>
-                      ))}
-                      <option value="other">Other (please specify in feedback)</option>
-                    </NativeSelect.Field>
-                    <NativeSelect.Indicator />
-                  </NativeSelect.Root>
-                  <Field.HelperText>
-                    Select your nationality from the list. Choose &ldquo;Other&rdquo; if not listed.
-                  </Field.HelperText>
-                  <Field.ErrorText color="status.error">{errors.nationality}</Field.ErrorText>
-                </Field.Root>
+                      <Skeleton height="16px" width="140px" />
+                      <Skeleton height="12px" width="12px" />
+                    </Box>
+                    <Skeleton height="14px" width="280px" bg="bg.muted" />
+                  </Stack>
 
-                {/* Context Error Display */}
-                {contextError && (
-                  <Box p={4} bg="bg.muted" borderColor="status.error" borderWidth="1px" borderRadius="md">
-                    <Text color="status.error" fontSize="sm">
-                      {contextError}
-                    </Text>
-                  </Box>
-                )}
+                  {/* Nationality Field Skeleton */}
+                  <Stack gap={2}>
+                    <Skeleton height="18px" width="100px" bg="bg.muted" />
+                    <Box
+                      height="40px"
+                      bg="bg.subtle"
+                      borderWidth="1px"
+                      borderColor="border"
+                      borderRadius="md"
+                      px={3}
+                      display="flex"
+                      alignItems="center"
+                      justifyContent="space-between"
+                    >
+                      <Skeleton height="16px" width="160px" />
+                      <Skeleton height="12px" width="12px" />
+                    </Box>
+                    <Skeleton height="14px" width="320px" bg="bg.muted" />
+                  </Stack>
+                </Stack>
+              </Fieldset.Content>
+            }>
+              <Fieldset.Content>
+                <Stack gap={6} align="stretch">
 
-              </Stack>
-            </Fieldset.Content>
+                  {/* Age Field */}
+                  <Field.Root invalid={!!errors.age}>
+                    <Field.Label>
+                      Age
+                      <Field.RequiredIndicator />
+                    </Field.Label>
+                    <Input
+                      type="number"
+                      min={QUESTIONNAIRE_CONFIG.MIN_AGE}
+                      max={QUESTIONNAIRE_CONFIG.MAX_AGE}
+                      value={formData.age || ""}
+                      onChange={(e) => handleInputChange("age", parseInt(e.target.value) || "")}
+                      placeholder={`Age (${QUESTIONNAIRE_CONFIG.MIN_AGE}-${QUESTIONNAIRE_CONFIG.MAX_AGE})`}
+                    />
+                    <Field.HelperText>
+                      Must be between {QUESTIONNAIRE_CONFIG.MIN_AGE} and {QUESTIONNAIRE_CONFIG.MAX_AGE} years old
+                    </Field.HelperText>
+                    <Field.ErrorText color="status.error">{errors.age}</Field.ErrorText>
+                  </Field.Root>
+
+                  {/* Gender Field */}
+                  <Field.Root invalid={!!errors.gender}>
+                    <Field.Label>
+                      Gender
+                      <Field.RequiredIndicator />
+                    </Field.Label>
+                    <NativeSelect.Root>
+                      <NativeSelect.Field
+                        value={formData.gender || ""}
+                        onChange={(e) => handleInputChange("gender", e.target.value)}
+                      >
+                        <option value="">Select gender</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                      </NativeSelect.Field>
+                      <NativeSelect.Indicator />
+                    </NativeSelect.Root>
+                    <Field.HelperText>
+                      Determines which version of the questionnaire questions you&apos;ll see
+                    </Field.HelperText>
+                    <Field.ErrorText color="status.error">{errors.gender}</Field.ErrorText>
+                  </Field.Root>
+
+                  {/* Education Field */}
+                  <Field.Root invalid={!!errors.education}>
+                    <Field.Label>
+                      Education Level
+                      <Field.RequiredIndicator />
+                    </Field.Label>
+                    <NativeSelect.Root>
+                      <NativeSelect.Field
+                        value={formData.education || ""}
+                        onChange={(e) => handleInputChange("education", e.target.value)}
+                      >
+                        <option value="">Select education level</option>
+                        {EDUCATION_OPTIONS.map((option) => (
+                          <option key={option.value} value={option.value}>
+                            {option.label}
+                          </option>
+                        ))}
+                      </NativeSelect.Field>
+                      <NativeSelect.Indicator />
+                    </NativeSelect.Root>
+                    <Field.HelperText>
+                      Select your highest completed level of education
+                    </Field.HelperText>
+                    <Field.ErrorText color="status.error">{errors.education}</Field.ErrorText>
+                  </Field.Root>
+
+                  {/* Nationality Field */}
+                  <Field.Root invalid={!!errors.nationality}>
+                    <Field.Label>
+                      Nationality
+                      <Field.RequiredIndicator />
+                    </Field.Label>
+                    <NativeSelect.Root>
+                      <NativeSelect.Field
+                        value={formData.nationality || ""}
+                        onChange={(e) => handleInputChange("nationality", e.target.value)}
+                      >
+                        <option value="">Select your nationality</option>
+                        {COMMON_COUNTRIES.map((country) => (
+                          <option key={country} value={country}>
+                            {country}
+                          </option>
+                        ))}
+                        <option value="other">Other (please specify in feedback)</option>
+                      </NativeSelect.Field>
+                      <NativeSelect.Indicator />
+                    </NativeSelect.Root>
+                    <Field.HelperText>
+                      Select your nationality from the list. Choose &ldquo;Other&rdquo; if not listed.
+                    </Field.HelperText>
+                    <Field.ErrorText color="status.error">{errors.nationality}</Field.ErrorText>
+                  </Field.Root>
+
+                  {/* Context Error Display */}
+                  {contextError && (
+                    <Box p={4} bg="bg.muted" borderColor="status.error" borderWidth="1px" borderRadius="md">
+                      <Text color="status.error" fontSize="sm">
+                        {contextError}
+                      </Text>
+                    </Box>
+                  )}
+
+                </Stack>
+              </Fieldset.Content>
+            </ClientOnly>
           </Fieldset.Root>
 
           {/* Submit Button */}
