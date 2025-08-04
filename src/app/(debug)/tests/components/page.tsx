@@ -1,4 +1,4 @@
-import { Box, Container, Heading, Text, Badge } from "@chakra-ui/react";
+import { Box, Container, Heading, Text, Stack, Flex } from "@chakra-ui/react";
 
 /**
  * Component Testing Page - Placeholder for future component tests
@@ -7,25 +7,41 @@ import { Box, Container, Heading, Text, Badge } from "@chakra-ui/react";
 export default function ComponentTestsPage() {
   return (
     <Container maxW="4xl" py={8}>
-      <Box>
-        <Heading size="lg" mb={4}>
-          🧩 Component Tests
-          <Badge ml={3} bg="yellow" color="black">Coming Soon</Badge>
-        </Heading>
-        <Text color="gray.600" fontSize="lg">
-          Individual UI component testing infrastructure will be implemented here as needed.
-        </Text>
-
-        <Box mt={8} p={6} bg="blue.50" borderRadius="md">
-          <Text fontSize="sm" color="blue.700">
-            💡 <strong>Future Implementation:</strong> This page will contain tests for:
-            <br />• Demographics form components
-            <br />• Question display components
-            <br />• Progress indicators
-            <br />• Visualization elements
+      <Stack gap={6}>
+        {/* Header */}
+        <Box bg="bg.subtle" borderColor="border.subtle" borderWidth="1px" borderRadius="md" p={6}>
+          <Heading size="lg" color="fg" mb={3}>
+            🧩 Component Tests
+          </Heading>
+          <Text color="fg.muted" fontSize="lg">
+            Individual UI component testing infrastructure for development and validation.
           </Text>
         </Box>
-      </Box>
+
+        {/* Status */}
+        <Box borderColor="border.subtle" borderWidth="1px" borderRadius="md" p={6}>
+          <Flex justify="space-between" align="start" mb={4}>
+            <Heading size="md" color="fg">
+              Current Status
+            </Heading>
+            <Box
+              px={3}
+              py={1}
+              bg="status.warning"
+              color="fg.inverted"
+              borderRadius="md"
+              fontSize="sm"
+              fontWeight="medium"
+            >
+              Coming Soon
+            </Box>
+          </Flex>
+          <Text color="fg.muted" lineHeight="tall">
+            Component testing infrastructure will be implemented as needed during development 
+            to ensure UI components function correctly in isolation.
+          </Text>
+        </Box>
+      </Stack>
     </Container>
   );
-} 
+}

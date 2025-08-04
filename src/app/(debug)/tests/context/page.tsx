@@ -117,41 +117,49 @@ export default function ContextTestPage() {
         <Heading size="md" mb={4}>
           QuestionnaireProvider Test Page
         </Heading>
-        <Text color="gray.600">
+        <Text color="fg.muted">
           Testing page for state management and localStorage persistence.
         </Text>
       </Box>
 
       {/* Debug Information - NEW */}
-      <Card.Root bg="blue.50" borderColor="blue.200">
+      <Card.Root bg="bg.muted" borderColor="border">
         <Card.Body p={6}>
-          <Heading size="sm" mb={4} color="blue.700">Debug Information</Heading>
+          <Heading size="sm" mb={4} color="fg">Debug Information</Heading>
           <Grid templateColumns={{ base: "1fr", md: "repeat(2, 1fr)" }} gap={4}>
             <Box>
               <Text fontWeight="medium">Hydration Safe:</Text>
               <ClientOnly fallback={
-                <Badge bg="orange">SSR/Hydrating</Badge>
+                <Badge bg="status.warning" color="fg.inverted">SSR/Hydrating</Badge>
               }>
-                <Badge bg="green">Client Detected</Badge>
+                <Badge bg="status.success" color="fg.inverted">Client Detected</Badge>
               </ClientOnly>
-              <Text fontSize="xs" color="gray.600">
+              <Text fontSize="xs" color="fg.muted">
                 Should be &quot;SSR/Hydrating&quot; initially, then &quot;Client Detected&quot;
               </Text>
             </Box>
             <Box>
               <Text fontWeight="medium">Render Count:</Text>
-              <ClientOnly fallback={<Badge bg="gray.500" color="white">0</Badge>}>
+              <ClientOnly fallback={<Badge bg="bg.muted" color="fg">0</Badge>}>
                 <Badge bg="purple" color="white">
                   {renderCount}
                 </Badge>
               </ClientOnly>
-              <Text fontSize="xs" color="gray.600">
+              <Text fontSize="xs" color="fg.muted">
                 Should increment slowly, not rapidly
               </Text>
             </Box>
             <Box>
               <Text fontWeight="medium">State Update Test:</Text>
-              <Button size="xs" onClick={testStateStability} colorScheme="blue">
+              <Button
+                size="xs"
+                onClick={testStateStability}
+                bg="transparent"
+                color="orange"
+                border="1px solid"
+                borderColor="orange"
+                _hover={{ bg: "orange", color: "fg.inverted" }}
+              >
                 Test Stability (10 rapid updates)
               </Button>
             </Box>
@@ -162,7 +170,15 @@ export default function ContextTestPage() {
                   Last save: {lastDebounceTest || "None"}
                 </Text>
               </ClientOnly>
-              <Button size="xs" onClick={testDebounce} colorScheme="purple">
+              <Button
+                size="xs"
+                onClick={testDebounce}
+                bg="transparent"
+                color="orange"
+                border="1px solid"
+                borderColor="orange"
+                _hover={{ bg: "orange", color: "fg.inverted" }}
+              >
                 Test Debounce (5 rapid calls)
               </Button>
             </Box>
@@ -177,43 +193,66 @@ export default function ContextTestPage() {
           <Flex gap={3} flexWrap="wrap">
             <Button
               onClick={() => startSession(testDemographics)}
-              colorScheme="green"
+              bg="transparent"
+              color="status.success"
+              border="1px solid"
+              borderColor="status.success"
+              _hover={{ bg: "status.success", color: "fg.inverted" }}
               size="sm"
             >
               Start Test Session
             </Button>
             <Button
               onClick={simulateQuestionnaireAnswers}
-              colorScheme="blue"
+              bg="transparent"
+              color="interactive.primary"
+              border="1px solid"
+              borderColor="interactive.primary"
+              _hover={{ bg: "interactive.primary", color: "fg.inverted" }}
               size="sm"
             >
               Simulate Answers
             </Button>
             <Button
               onClick={() => simulatePhaseProgression(metadata?.currentPhase || "instructions")}
-              colorScheme="purple"
+              bg="transparent"
+              color="interactive.primary"
+              border="1px solid"
+              borderColor="interactive.primary"
+              _hover={{ bg: "interactive.primary", color: "fg.inverted" }}
               size="sm"
             >
               Test Phase Progression
             </Button>
             <Button
               onClick={completeQuestionnaire}
-              colorScheme="orange"
+              bg="transparent"
+              color="interactive.primary"
+              border="1px solid"
+              borderColor="interactive.primary"
+              _hover={{ bg: "interactive.primary", color: "fg.inverted" }}
               size="sm"
             >
               Complete Session
             </Button>
             <Button
               onClick={debugState}
-              variant="outline"
+              bg="transparent"
+              color="fg"
+              border="1px solid"
+              borderColor="border"
+              _hover={{ bg: "bg.subtle", borderColor: "border.accent" }}
               size="sm"
             >
               Debug Console
             </Button>
             <Button
               onClick={resetSession}
-              colorScheme="red"
-              variant="outline"
+              bg="transparent"
+              color="status.error"
+              border="1px solid"
+              borderColor="status.error"
+              _hover={{ bg: "status.error", color: "fg.inverted" }}
               size="sm"
             >
               Reset All
@@ -232,17 +271,25 @@ export default function ContextTestPage() {
             <Stack gap={3} align="stretch">
               <Box>
                 <Text fontWeight="medium">Session ID:</Text>
-                <Code>{metadata?.sessionId || "None"}</Code>
+                <Code bg="bg.subtle" color="fg" px={2} py={1} borderRadius="md">{metadata?.sessionId || "None"}</Code>
               </Box>
               <Box>
                 <Text fontWeight="medium">Current Phase:</Text>
-                <Badge bg={metadata?.currentPhase === "complete" ? "green.500" : "blue.500"} color="white">
+                <Badge bg={metadata?.currentPhase === "complete" ? "status.success" : "interactive.primary"} color="fg.inverted">
                   {metadata?.currentPhase || "None"}
                 </Badge>
               </Box>
               <Box>
                 <Text fontWeight="medium">Demographics:</Text>
-                <Code fontSize="sm">
+                <Code
+                  fontSize="sm"
+                  bg="bg.subtle"
+                  color="fg"
+                  p={3}
+                  borderRadius="md"
+                  display="block"
+                  whiteSpace="pre"
+                >
                   {demographics ? JSON.stringify(demographics, null, 2) : "None"}
                 </Code>
               </Box>
@@ -258,11 +305,21 @@ export default function ContextTestPage() {
               <Box>
                 <Text fontWeight="medium">Progress:</Text>
                 <Text>{progress.completedQuestions}/{progress.totalQuestions} questions</Text>
-                <Text fontSize="sm" color="gray.600">{progress.percentComplete}% complete</Text>
+                <Text fontSize="sm" color="fg.muted">{progress.percentComplete}% complete</Text>
               </Box>
               <Box>
                 <Text fontWeight="medium">Recent Responses:</Text>
-                <Code fontSize="sm" maxH="100px" overflowY="auto">
+                <Code
+                  fontSize="sm"
+                  maxH="100px"
+                  overflowY="auto"
+                  bg="bg.subtle"
+                  color="fg"
+                  p={3}
+                  borderRadius="md"
+                  display="block"
+                  whiteSpace="pre"
+                >
                   {Object.keys(responses).length > 0
                     ? JSON.stringify(responses, null, 2)
                     : "No responses yet"
@@ -281,8 +338,8 @@ export default function ContextTestPage() {
           <Grid templateColumns={{ base: "1fr", md: "repeat(2, 1fr)", lg: "repeat(4, 1fr)" }} gap={4}>
             <Box>
               <Text fontWeight="medium">Supported:</Text>
-              <ClientOnly fallback={<Badge bg="gray.500" color="white">Loading...</Badge>}>
-                <Badge bg={persistence.isSupported ? "green.500" : "red.500"} color="white">
+              <ClientOnly fallback={<Badge bg="bg.muted" color="fg">Loading...</Badge>}>
+                <Badge bg={persistence.isSupported ? "status.success" : "status.error"} color="fg.inverted">
                   {persistence.isSupported ? "Yes" : "No"}
                 </Badge>
               </ClientOnly>
@@ -297,16 +354,16 @@ export default function ContextTestPage() {
             </Box>
             <Box>
               <Text fontWeight="medium">Pending Save:</Text>
-              <ClientOnly fallback={<Badge bg="gray.500" color="white">Loading...</Badge>}>
-                <Badge bg={persistence.pendingSave ? "yellow.600" : "gray.500"} color="white">
+              <ClientOnly fallback={<Badge bg="bg.subtle" color="fg">Loading...</Badge>}>
+                <Badge bg={persistence.pendingSave ? "status.warning" : "bg.subtle"} color={persistence.pendingSave ? "fg.inverted" : "fg"}>
                   {persistence.pendingSave ? "Yes" : "No"}
                 </Badge>
               </ClientOnly>
             </Box>
             <Box>
               <Text fontWeight="medium">Error:</Text>
-              <ClientOnly fallback={<Text fontSize="sm" color="gray.500">Loading...</Text>}>
-                <Text fontSize="sm" color={persistence.lastError ? "red.500" : "gray.500"}>
+              <ClientOnly fallback={<Text fontSize="sm" color="fg.muted">Loading...</Text>}>
+                <Text fontSize="sm" color={persistence.lastError ? "status.error" : "fg.muted"}>
                   {persistence.lastError || "None"}
                 </Text>
               </ClientOnly>
@@ -317,14 +374,22 @@ export default function ContextTestPage() {
 
       {/* Error Handling */}
       {error && (
-        <Card.Root borderColor="red.200">
+        <Card.Root borderColor="status.error">
           <Card.Body p={6}>
             <Flex justify="space-between" align="center">
               <Box>
-                <Heading size="sm" color="red.600" mb={2}>Current Error</Heading>
-                <Text color="red.600">{error}</Text>
+                <Heading size="sm" color="status.error" mb={2}>Current Error</Heading>
+                <Text color="status.error">{error}</Text>
               </Box>
-              <Button onClick={clearError} size="sm" colorScheme="red" variant="outline">
+              <Button
+                onClick={clearError}
+                size="sm"
+                bg="transparent"
+                color="status.error"
+                border="1px solid"
+                borderColor="status.error"
+                _hover={{ bg: "status.error", color: "fg.inverted" }}
+              >
                 Clear Error
               </Button>
             </Flex>
@@ -333,23 +398,23 @@ export default function ContextTestPage() {
       )}
 
       {/* System Info */}
-      <Card.Root bg="gray.50">
-        <Card.Body p={6} color="black">
+      <Card.Root bg="bg.muted">
+        <Card.Body p={6} color="fg">
           <Heading size="sm" mb={4}>System Information</Heading>
           <Grid templateColumns={{ base: "1fr", md: "repeat(3, 1fr)" }} gap={4}>
             <Box>
               <Text fontWeight="medium">Loading State:</Text>
-              <Badge bg={isLoading ? "yellow" : "gray"} color={"white"}>
+              <Badge bg={isLoading ? "status.warning" : "bg.subtle"} color={isLoading ? "fg.inverted" : "fg"}>
                 {isLoading ? "Loading" : "Idle"}
               </Badge>
             </Box>
             <Box>
               <Text fontWeight="medium">localStorage Available:</Text>
               <ClientOnly fallback={
-                <Badge bg="red.500" color="white">Unknown</Badge>
+                <Badge bg="status.error" color="fg.inverted">Unknown</Badge>
               }>
                 {() => (
-                  <Badge bg={window.localStorage ? "green.500" : "red.500"} color="white">
+                  <Badge bg={window.localStorage ? "status.success" : "status.error"} color="fg.inverted">
                     {window.localStorage ? "Yes" : "No"}
                   </Badge>
                 )}
@@ -357,7 +422,7 @@ export default function ContextTestPage() {
             </Box>
             <Box>
               <Text fontWeight="medium">Environment:</Text>
-              <Badge bg={"gray.700"} color={"white"}>{process.env.NODE_ENV}</Badge>
+              <Badge bg="bg.subtle" color="fg" px={2} py={1}>{process.env.NODE_ENV}</Badge>
             </Box>
           </Grid>
         </Card.Body>

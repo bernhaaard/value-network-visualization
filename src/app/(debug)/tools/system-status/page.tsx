@@ -1,4 +1,4 @@
-import { Box, Container, Heading, Text, Badge } from "@chakra-ui/react";
+import { Box, Container, Heading, Text, Stack, Flex } from "@chakra-ui/react";
 
 /**
  * System Status Monitor - Placeholder for application health monitoring
@@ -7,26 +7,41 @@ import { Box, Container, Heading, Text, Badge } from "@chakra-ui/react";
 export default function SystemStatusPage() {
   return (
     <Container maxW="4xl" py={8}>
-      <Box>
-        <Heading size="lg" mb={4}>
-          🔍 System Status
-          <Badge ml={3} bg="purple" color="white">Future</Badge>
-        </Heading>
-        <Text color="gray.600" fontSize="lg">
-          Monitor application health, performance metrics, and error tracking.
-        </Text>
-
-        <Box mt={8} p={6} bg="purple.50" borderRadius="md">
-          <Text fontSize="sm" color="purple.700">
-            📈 <strong>Monitoring Features:</strong> This dashboard will show:
-            <br/>• Application performance metrics
-            <br/>• Error logs and debugging information
-            <br/>• localStorage usage and health
-            <br/>• User session analytics
-            <br/>• Browser compatibility status
+      <Stack gap={6}>
+        {/* Header */}
+        <Box bg="bg.subtle" borderColor="border.subtle" borderWidth="1px" borderRadius="md" p={6}>
+          <Heading size="lg" color="fg" mb={3}>
+            🔍 System Status
+          </Heading>
+          <Text color="fg.muted" fontSize="lg">
+            Monitor application health, performance metrics, and error tracking.
           </Text>
         </Box>
-      </Box>
+
+        {/* Status */}
+        <Box borderColor="border.subtle" borderWidth="1px" borderRadius="md" p={6}>
+          <Flex justify="space-between" align="start" mb={4}>
+            <Heading size="md" color="fg">
+              Current Status
+            </Heading>
+            <Box
+              px={3}
+              py={1}
+              bg="status.warning"
+              color="fg.inverted"
+              borderRadius="md"
+              fontSize="sm"
+              fontWeight="medium"
+            >
+              Future Tool
+            </Box>
+          </Flex>
+          <Text color="fg.muted" lineHeight="tall">
+            This monitoring dashboard will provide comprehensive insights into application 
+            performance and system health for development and thesis evaluation.
+          </Text>
+        </Box>
+      </Stack>
     </Container>
   );
-} 
+}

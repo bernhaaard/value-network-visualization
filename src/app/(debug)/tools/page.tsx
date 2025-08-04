@@ -1,4 +1,4 @@
-import { Box, Container, Card, Heading, Text, Grid } from "@chakra-ui/react";
+import { Box, Container, Heading, Text, Stack, Flex } from "@chakra-ui/react";
 import NextLink from "next/link";
 
 /**
@@ -6,98 +6,97 @@ import NextLink from "next/link";
  * Provides organized access to testing infrastructure for thesis evaluation.
  */
 export default function DebugPage() {
-  const testingTools = [
+  const tools = [
     {
       title: "Context Tests",
-      description: "Verify QuestionnaireProvider functionality, state management, and localStorage persistence",
+      description: "Verify QuestionnaireProvider functionality and localStorage persistence",
       href: "/tests/context",
-      category: "Core Testing"
+      category: "Testing",
+      status: "Active"
     },
     {
-      title: "Component Tests",
-      description: "Test individual UI components, forms, and visualization elements",
+      title: "Component Tests", 
+      description: "Test individual UI components and visualization elements",
       href: "/tests/components",
-      category: "Core Testing"
-    }
-  ];
-
-  const developmentTools = [
-    {
-      title: "Data Export",
-      description: "Export collected questionnaire data and session information",
-      href: "/tools/data-export",
-      category: "Data Management"
+      category: "Testing",
+      status: "Planned"
     },
     {
       title: "System Status",
-      description: "Monitor application health, performance, and error tracking",
+      description: "Monitor application health and performance",
       href: "/tools/system-status",
-      category: "Monitoring"
+      category: "Tools", 
+      status: "Future"
     }
   ];
 
   return (
-    <Container maxW="6xl" py={8}>
-      <Box mb={8}>
-        <Heading size="xl" mb={4}>
-          Development & Evaluation Dashboard
-        </Heading>
-        <Text fontSize="lg" color="gray.600">
-          Comprehensive testing and debugging infrastructure for thesis evaluation and development.
-        </Text>
-      </Box>
+    <Container maxW="4xl" py={8}>
+      <Stack gap={6}>
+        {/* Header */}
+        <Box bg="bg.subtle" borderColor="border.subtle" borderWidth="1px" borderRadius="md" p={6}>
+          <Heading size="lg" color="fg" mb={3}>
+            Development & Evaluation Dashboard
+          </Heading>
+          <Text color="fg.muted" fontSize="lg">
+            Essential development tools for testing and debugging the questionnaire system.
+          </Text>
+        </Box>
 
-      {/* Testing Tools Section */}
-      <Box mb={10}>
-        <Heading size="lg" mb={6} color="blue.600">
-          Testing Infrastructure
-        </Heading>
-        <Grid templateColumns={{ base: "1fr", md: "repeat(2, 1fr)" }} gap={6}>
-          {testingTools.map((tool) => (
-            <NextLink key={tool.href} href={tool.href}>
-              <Card.Root _hover={{ transform: "translateY(-2px)", shadow: "lg" }}>
-                <Card.Body p={6}>
-                  <Text fontSize="sm" fontWeight="medium" color="blue.500" mb={2}>
+        {/* Tools Grid */}
+        {tools.map((tool) => (
+          <NextLink key={tool.href} href={tool.href}>
+            <Box
+              borderColor="border.subtle"
+              borderWidth="1px" 
+              borderRadius="md"
+              p={6}
+              _hover={{ 
+                borderColor: "border.accent",
+                bg: "bg.subtle",
+                transform: "translateY(-1px)",
+                transition: "all 0.2s"
+              }}
+              transition="all 0.2s"
+              cursor="pointer"
+            >
+              <Flex justify="space-between" align="start" mb={3}>
+                <Box>
+                  <Text 
+                    fontSize="xs" 
+                    fontWeight="medium" 
+                    color="fg.subtle" 
+                    textTransform="uppercase"
+                    letterSpacing="wider"
+                    mb={2}
+                  >
                     {tool.category}
                   </Text>
-                  <Heading size="md" mb={3}>
+                  <Heading size="md" color="fg" mb={2}>
                     {tool.title}
                   </Heading>
-                  <Text color="gray.600">
-                    {tool.description}
-                  </Text>
-                </Card.Body>
-              </Card.Root>
-            </NextLink>
-          ))}
-        </Grid>
-      </Box>
-
-      {/* Development Tools Section */}
-      <Box>
-        <Heading size="lg" mb={6} color="green.600">
-          Development Tools
-        </Heading>
-        <Grid templateColumns={{ base: "1fr", md: "repeat(2, 1fr)" }} gap={6}>
-          {developmentTools.map((tool) => (
-            <NextLink key={tool.href} href={tool.href}>
-              <Card.Root _hover={{ transform: "translateY(-2px)", shadow: "lg" }}>
-                <Card.Body p={6}>
-                  <Text fontSize="sm" fontWeight="medium" color="green.500" mb={2}>
-                    {tool.category}
-                  </Text>
-                  <Heading size="md" mb={3}>
-                    {tool.title}
-                  </Heading>
-                  <Text color="gray.600">
-                    {tool.description}
-                  </Text>
-                </Card.Body>
-              </Card.Root>
-            </NextLink>
-          ))}
-        </Grid>
-      </Box>
+                </Box>
+                <Box
+                  px={2}
+                  py={1}
+                  bg={tool.status === "Active" ? "status.success" : 
+                      tool.status === "Planned" ? "status.warning" : "bg.muted"}
+                  color={tool.status === "Active" ? "fg.inverted" : 
+                         tool.status === "Planned" ? "fg.inverted" : "fg"}
+                  borderRadius="sm"
+                  fontSize="xs"
+                  fontWeight="medium"
+                >
+                  {tool.status}
+                </Box>
+              </Flex>
+              <Text color="fg.muted" lineHeight="tall">
+                {tool.description}
+              </Text>
+            </Box>
+          </NextLink>
+        ))}
+      </Stack>
     </Container>
   );
-} 
+}
