@@ -43,10 +43,10 @@
 
 ### Core Components
 
-- [ ] PVQ-RR questionnaire interface
+- [x] PVQ-RR questionnaire interface
 - [ ] Custom physics engine for positioning
 - [ ] Three.js network renderer (2D/3D modes)
-- [ ] User study data collection interface
+- [x] User study data collection interface (demographics)
 
 ### Research Validation
 
@@ -58,8 +58,9 @@
 ## Technical Justification
 
 **Why Three.js for both 2D and 3D?**
+*(may still be changed though)*
 
-- Eliminates library differences as confounding variable
+- Eliminates library differences as confounding variable,
 - Identical interaction experience for users
 - Academic validity through controlled comparison
 
