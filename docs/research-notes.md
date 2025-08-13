@@ -16,7 +16,7 @@
 
 ### User Flow Definition
 
-1. **Signup** → 2. **PVQ-RR Questionnaire** → 3. **Task Instructions** → 4. **2D Visualization Tasks** → 5. **3D Visualization Tasks** → 6. **Post-Task Questionnaire** → 7. **Free Exploration Playground** (both 2D/3D) + **Optional Additional Feedback**
+1. **Landing Page** → 2. **Demographics** 3. **PVQ-RR Questionnaire** → 4. **Viz Task Instructions** → 4. **2D Visualization Tasks** → 5. **3D Visualization Tasks** → 6. **Post-Task Questionnaire** → 7. **Free Exploration Playground** (both 2D/3D) + **Optional Additional Feedback**
 
 ### Data Storage Strategy
 
