@@ -6,7 +6,6 @@
 
 // Questionnaire Types
 export type {
-  ValueCategory,
   PVQRRQuestion,
   ScaleAnchors,
   QuestionnaireScale,
@@ -18,13 +17,7 @@ export type {
   QuestionnaireProgress,
 } from "./questionnaire";
 
-export {
-  ATTENTION_CHECK_RESPONSES,
-  VALUE_QUESTION_MAPPING,
-  isAttentionCheckId,
-  getValueCategory,
-  getQuestionId,
-} from "./questionnaire";
+export { ATTENTION_CHECK_RESPONSES, isAttentionCheckId, getQuestionId } from "./questionnaire";
 
 // Demographics Types
 export type { Gender, EducationLevel, UserDemographics } from "./demographics";

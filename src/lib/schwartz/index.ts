@@ -1,10 +1,26 @@
 // Schwartz Value Framework Domain
-// Contains: value definitions, relationship matrices, domain groupings
+// Contains: value definitions, scoring utilities, relationship matrices, domain groupings
 
-// TODO: Add exports for:
-// - 19 value definitions
-// - Value relationship matrix (when research is complete)
-// - Higher-order domain groupings
-// - Circular model → network graph translation
+// Export types
+export type {
+  ValueCategory,
+  HigherOrderDomain,
+  RawValueScores,
+  CenteredValueScores,
+  ValueProfile,
+  CorrelationStrategy,
+} from "./types";
 
-export const SCHWARTZ_VERSION = "2019-refined";
+// Export constants
+export {
+  VALUE_QUESTION_MAPPING,
+  HIGHER_ORDER_DOMAIN_MAPPING,
+  VALUE_CATEGORIES,
+  isValueCategory,
+  isCompleteValueProfile,
+  getHigherOrderDomainForValue,
+} from "./types";
+
+
+// TODO: Add exports for correlation strategies when implemented
+// export { createCorrelationMatrix, cosineStrategy, calibratedStrategy } from "./correlation";

@@ -3,30 +3,6 @@
 import { PadSingleDigit, Enumerate } from "@/types";
 
 /**
- * Schwartz's 19 refined value categories for measuring individual priorities.
- */
-export type ValueCategory =
-  | "self_direction_thought"
-  | "self_direction_action"
-  | "stimulation"
-  | "hedonism"
-  | "achievement"
-  | "power_dominance"
-  | "power_resources"
-  | "face"
-  | "security_personal"
-  | "security_societal"
-  | "tradition"
-  | "conformity_rules"
-  | "conformity_interpersonal"
-  | "humility"
-  | "universalism_nature"
-  | "universalism_concern"
-  | "universalism_tolerance"
-  | "benevolence_care"
-  | "benevolence_dependability";
-
-/**
  * Question structure with gender-specific versions
  */
 export interface PVQRRQuestion {
@@ -116,31 +92,6 @@ export const ATTENTION_CHECK_RESPONSES = {
 } as const;
 
 /**
- * Official Schwartz mapping from value categories to question numbers.
- */
-export const VALUE_QUESTION_MAPPING = {
-  self_direction_thought: [1, 23, 39],
-  self_direction_action: [16, 30, 56],
-  stimulation: [10, 28, 43],
-  hedonism: [3, 36, 46],
-  achievement: [17, 32, 48],
-  power_dominance: [6, 29, 41],
-  power_resources: [12, 20, 44],
-  face: [9, 24, 49],
-  security_personal: [13, 26, 53],
-  security_societal: [2, 35, 50],
-  tradition: [18, 33, 40],
-  conformity_rules: [15, 31, 42],
-  conformity_interpersonal: [4, 22, 51],
-  humility: [7, 38, 54],
-  universalism_nature: [8, 21, 45],
-  universalism_concern: [5, 37, 52],
-  universalism_tolerance: [14, 34, 57],
-  benevolence_care: [11, 25, 47],
-  benevolence_dependability: [19, 27, 55],
-} as const;
-
-/**
  * Set of attention check IDs
  * Type-safe constant ensures exact matching of known attention checks
  */
@@ -153,21 +104,6 @@ const ATTENTION_CHECK_IDS = new Set(["pvq_rr_en_attention_01", "pvq_rr_en_attent
  */
 export const isAttentionCheckId = (questionId: string): questionId is AttentionCheckId => {
   return ATTENTION_CHECK_IDS.has(questionId as AttentionCheckId);
-};
-
-/**
- * Maps question numbers to their corresponding value categories for scoring.
- * Used to calculate individual value importance scores from raw responses.
- * @param questionNumber - Question number (1-57) to categorize
- * @returns Value category or null if not found
- */
-export const getValueCategory = (questionNumber: QuestionNumber): ValueCategory | null => {
-  for (const [category, numbers] of Object.entries(VALUE_QUESTION_MAPPING)) {
-    if ((numbers as readonly number[]).includes(questionNumber)) {
-      return category as ValueCategory;
-    }
-  }
-  return null;
 };
 
 /**
