@@ -27,6 +27,20 @@ export type ValueCategory =
   | "benevolence_dependability";
 
 /**
+ * Maps question numbers to value categories
+ * @param questionNumber - Question number (1-57) to categorize
+ * @returns Value category or null if not found
+ */
+export const getValueCategory = (questionNumber: QuestionNumber): ValueCategory | null => {
+  for (const [category, numbers] of Object.entries(VALUE_QUESTION_MAPPING)) {
+    if ((numbers as readonly number[]).includes(questionNumber)) {
+      return category as ValueCategory;
+    }
+  }
+  return null;
+};
+
+/**
  * Official Schwartz mapping from value categories to question numbers
  */
 export const VALUE_QUESTION_MAPPING = {
@@ -122,7 +136,6 @@ export interface ValueProfile {
   centeredScores: CenteredValueScores;
   meanResponse: number;
   calculatedAt: Date;
-  completedQuestions: number;
 }
 
 /**

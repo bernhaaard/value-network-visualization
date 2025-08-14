@@ -19,8 +19,18 @@ export {
   isValueCategory,
   isCompleteValueProfile,
   getHigherOrderDomainForValue,
+  getValueCategory,
 } from "./types";
 
+// Export scoring utilities
+export {
+  validateResponseCompleteness,
+  calculateRawValueScores,
+  calculateMRAT,
+  applyCentering,
+  calculateValueProfile,
+  validateValueProfile,
+} from "./scoring";
 
 // TODO: Add exports for correlation strategies when implemented
 // export { createCorrelationMatrix, cosineStrategy, calibratedStrategy } from "./correlation";
