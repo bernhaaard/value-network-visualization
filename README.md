@@ -107,18 +107,16 @@ npm run type-check   # Run TypeScript type checking
 │   │   │   ├── explore
 │   │   │   └── feedback
 │   │   ├── (public)       # Static public pages
-│   │   │   ├── landing
 │   │   │   └── instructions
 │   │   ├── (study)        # Complete user study flow
 │   │   │   ├── consent
 │   │   │   ├── questionnaire
-│   │   │   ├── task-2d
-│   │   │   ├── task-3d
+│   │   │   ├── visualization
 │   │   │   └── debrief
 │   │   ├── favicon.ico
 │   │   ├── globals.css
 │   │   ├── layout.tsx
-│   │   └── page.tsx
+│   │   └── page.tsx       # Landing page
 │   ├── components
 │   │   ├── forms          # Form components (Demographics, etc.)
 │   │   ├── layout         # Layout components

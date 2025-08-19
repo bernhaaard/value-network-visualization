@@ -101,7 +101,7 @@ export function QuestionnaireView() {
     if (canGoNext) {
       setAttemptedNext(false);
       if (isLastQuestion) {
-        // TODO: Complete questionnaire and go to complete phase
+        // TODO: Complete questionnaire and go to complete view
         console.log("🎯 Questionnaire completed!");
       } else {
         goToQuestion(navigationIndex + 1);
