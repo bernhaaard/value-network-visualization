@@ -16,6 +16,9 @@ import {
 
 /**
  * Validates response completeness (all 59 items answered)
+ *
+ * @param responses - The responses to validate
+ * @returns Boolean
  */
 export const validateResponseCompleteness = (responses: QuestionnaireResponses): boolean => {
   return Object.keys(responses).length === 59; // 57 questions + 2 attention checks
@@ -23,6 +26,9 @@ export const validateResponseCompleteness = (responses: QuestionnaireResponses):
 
 /**
  * Calculates raw value scores as means of three questions per value
+ *
+ * @param responses - The responses to calculate raw value scores from
+ * @returns Raw value scores
  */
 export const calculateRawValueScores = (responses: QuestionnaireResponses): RawValueScores => {
   if (!validateResponseCompleteness(responses)) {
@@ -66,6 +72,9 @@ export const calculateRawValueScores = (responses: QuestionnaireResponses): RawV
 
 /**
  * Calculates Mean RATing (MRAT) across all 57 value items
+ *
+ * @param responses - The responses to calculate MRAT from
+ * @returns MRAT score
  */
 export const calculateMRAT = (responses: QuestionnaireResponses): number => {
   if (!validateResponseCompleteness(responses)) {
@@ -87,6 +96,10 @@ export const calculateMRAT = (responses: QuestionnaireResponses): number => {
 
 /**
  * Applies ipsatization (centering) to correct for scale-use bias
+ *
+ * @param rawScores - The raw value scores to center
+ * @param mrat - The MRAT score
+ * @returns Centered value scores
  */
 export const applyCentering = (rawScores: RawValueScores, mrat: number): CenteredValueScores => {
   const centeredScores = {} as CenteredValueScores;
@@ -100,6 +113,9 @@ export const applyCentering = (rawScores: RawValueScores, mrat: number): Centere
 
 /**
  * Calculates complete value profile with raw and centered scores
+ *
+ * @param responses - The responses to calculate value profile from
+ * @returns Value profile
  */
 export const calculateValueProfile = (responses: QuestionnaireResponses): ValueProfile => {
   const rawScores = calculateRawValueScores(responses);
@@ -116,6 +132,9 @@ export const calculateValueProfile = (responses: QuestionnaireResponses): ValueP
 
 /**
  * Validates value profile for completeness and consistency
+ *
+ * @param profile - The value profile to validate
+ * @returns Object with isValid and errors
  */
 export const validateValueProfile = (
   profile: ValueProfile,
