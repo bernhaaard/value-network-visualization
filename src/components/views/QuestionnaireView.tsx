@@ -34,6 +34,7 @@ export function QuestionnaireView() {
     navigationIndex,
     answerQuestion,
     goToQuestion,
+    completeQuestionnaire,
     isLoading,
     error,
     canAnswerQuestions,
@@ -101,8 +102,8 @@ export function QuestionnaireView() {
     if (canGoNext) {
       setAttemptedNext(false);
       if (isLastQuestion) {
-        // TODO: Complete questionnaire and go to complete view
-        console.log("🎯 Questionnaire completed!");
+        // Complete questionnaire and transition to complete view
+        completeQuestionnaire();
       } else {
         goToQuestion(navigationIndex + 1);
       }
