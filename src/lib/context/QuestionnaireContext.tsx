@@ -2,7 +2,7 @@
 
 import React, { createContext, useContext, useState, useEffect, useCallback, useMemo } from "react";
 import type {
-  StudyPhase,
+  QuestionnairePhase,
   SessionMetadata,
   QuestionnaireContextType,
   PersistenceStatus,
@@ -293,7 +293,7 @@ export const QuestionnaireProvider: React.FC<QuestionnaireProviderProps> = ({ ch
     setError(null);
   };
 
-  const setPhase = (phase: StudyPhase): void => {
+  const setPhase = (phase: QuestionnairePhase): void => {
     setMetadata(prev => prev ? {
       ...prev,
       currentPhase: phase,

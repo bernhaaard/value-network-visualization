@@ -15,7 +15,7 @@ import {
 } from "@chakra-ui/react";
 import { useQuestionnaire } from "@/lib/context";
 import { useState, useEffect } from "react";
-import type { UserDemographics, StudyPhase, QuestionId, AttentionCheckId, ResponseValue } from "@/types";
+import type { UserDemographics, QuestionnairePhase, QuestionId, AttentionCheckId, ResponseValue } from "@/types";
 
 /**
  * Comprehensive QuestionnaireProvider verification page.
@@ -95,7 +95,7 @@ export default function ContextTestPage() {
   };
 
 
-  const simulatePhaseProgression = (currentPhase: StudyPhase) => {
+  const simulatePhaseProgression = (currentPhase: QuestionnairePhase) => {
     if (currentPhase === "demographics") {
       setPhase("instructions");
     } else if (currentPhase === "instructions") {

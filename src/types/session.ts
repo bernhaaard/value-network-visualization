@@ -11,9 +11,9 @@ import type {
 import type { UserDemographics } from "./demographics";
 
 /**
- * Study phases for controlled progression through questionnaire workflow
+ * Questionnaire phases for controlled progression through questionnaire workflow
  */
-export type StudyPhase = "instructions" | "demographics" | "questionnaire" | "complete";
+export type QuestionnairePhase = "instructions" | "demographics" | "questionnaire" | "complete";
 
 /**
  * Session tracking metadata
@@ -25,8 +25,8 @@ export interface SessionMetadata {
   userId?: string;
   /** Session start timestamp */
   startTime: Date;
-  /** Current study phase */
-  currentPhase: StudyPhase;
+  /** Current questionnaire phase */
+  currentPhase: QuestionnairePhase;
   /** Last activity timestamp */
   lastUpdated: Date;
   /** Completion timestamp */
@@ -119,8 +119,8 @@ export interface QuestionnaireContextType {
   answerQuestion: (questionId: QuestionId | AttentionCheckId, value: ResponseValue) => void;
   /** Navigate to specific question (UI only) */
   goToQuestion: (index: number) => void;
-  /** Update current study phase */
-  setPhase: (phase: StudyPhase) => void;
+  /** Update current questionnaire phase */
+  setPhase: (phase: QuestionnairePhase) => void;
   /** Mark questionnaire as completed */
   completeQuestionnaire: () => void;
   /** Clear all session data */

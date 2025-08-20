@@ -24,7 +24,7 @@ export type { Gender, EducationLevel, UserDemographics } from "./demographics";
 
 // Session & Context Types
 export type {
-  StudyPhase,
+  QuestionnairePhase,
   SessionMetadata,
   QuestionnaireState,
   PersistenceStatus,
