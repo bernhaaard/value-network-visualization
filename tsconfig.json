@@ -18,7 +18,10 @@
     "jsx": "preserve",
     "incremental": true,
     "types": [
-      "vitest/globals"
+      "vitest/globals",
+      "@types/three",
+      "@types/react",
+      "@types/d3-force"
     ],
     "plugins": [
       {
