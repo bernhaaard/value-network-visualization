@@ -1,5 +1,5 @@
 import { Box, Container, Heading, Text, Stack, Flex } from "@chakra-ui/react";
-import NextLink from "next/link";
+import Link from "next/link";
 
 /**
  * Debug Dashboard - Central hub for all development and evaluation tools.
@@ -45,7 +45,7 @@ export default function DebugPage() {
 
         {/* Tools Grid */}
         {tools.map((tool) => (
-          <NextLink key={tool.href} href={tool.href}>
+          <Link key={tool.href} href={tool.href}>
             <Box
               borderColor="border.subtle"
               borderWidth="1px"
@@ -94,7 +94,7 @@ export default function DebugPage() {
                 {tool.description}
               </Text>
             </Box>
-          </NextLink>
+          </Link>
         ))}
       </Stack>
     </Container>
