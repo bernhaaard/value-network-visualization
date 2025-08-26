@@ -119,7 +119,6 @@ npm run type-check   # Run TypeScript type checking
 │   │   └── page.tsx       # Landing page
 │   ├── components
 │   │   ├── forms          # Form components (Demographics, etc.)
-│   │   ├── layout         # Layout components
 │   │   ├── views          # Page view components
 │   │   ├── ui             # Reusable UI components
 │   │   └── visualization  # Visualization components
