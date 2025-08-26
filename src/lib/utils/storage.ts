@@ -49,10 +49,7 @@ export const storage = {
   },
 
   /** Removes all questionnaire-related data for clean reset */
-  clearAll: (): void => {
-    storage.remove(STORAGE_KEYS.DEMOGRAPHICS);
-    storage.remove(STORAGE_KEYS.RESPONSES);
-    storage.remove(STORAGE_KEYS.SESSION_ID);
-    // Note: Progress is computed from responses, no separate storage needed
+  clearAll: () => {
+    Object.values(STORAGE_KEYS).forEach(key => storage.remove(key));
   },
 };
