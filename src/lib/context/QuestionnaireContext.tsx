@@ -20,6 +20,7 @@ import { STORAGE_KEYS, QUESTIONNAIRE_CONFIG } from "@/types/constants";
 import { isAttentionCheckId } from "@/types/questionnaire";
 import { storage, isLocalStorageAvailable } from "@/lib/utils";
 import { useDebouncedSave } from "@/hooks";
+import { validateResponseCompleteness, calculateValueProfile, type ValueProfile } from "@/lib/schwartz";
 
 /**
  * Calculates accurate progress excluding attention checks for user feedback.
@@ -73,6 +74,7 @@ export const QuestionnaireProvider: React.FC<QuestionnaireProviderProps> = ({ ch
   const [metadata, setMetadata] = useState<SessionMetadata | null>(null);
   const [demographics, setDemographics] = useState<UserDemographics | null>(null);
   const [responses, setResponses] = useState<QuestionnaireResponses>({} as QuestionnaireResponses);
+  const [valueProfile, setValueProfile] = useState<ValueProfile | null>(null);
   const [navigationIndex, setNavigationIndex] = useState<number>(0); // UI navigation separate from progress
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
@@ -101,6 +103,12 @@ export const QuestionnaireProvider: React.FC<QuestionnaireProviderProps> = ({ ch
       if (!success) allSuccess = false;
     }
 
+    // Save value profile if calculated
+    if (valueProfile) {
+      const success = storage.save(STORAGE_KEYS.VALUE_PROFILE, valueProfile);
+      if (!success) allSuccess = false;
+    }
+
     // Save metadata with updated timestamp
     if (metadata) {
       const metadataToSave = { ...metadata, lastUpdated: new Date() };
@@ -123,10 +131,10 @@ export const QuestionnaireProvider: React.FC<QuestionnaireProviderProps> = ({ ch
         console.warn("🚨 Some data failed to save to localStorage");
       }
     }
-  }, [demographics, responses, metadata]);
+  }, [demographics, responses, valueProfile, metadata]);
 
   // Use simple debounced save hook
-  useDebouncedSave(saveAllData, [demographics, responses, metadata]);
+  useDebouncedSave(saveAllData, [demographics, responses, valueProfile, metadata]);
 
   // Session restoration on mount (modular loading)
   useEffect(() => {
@@ -134,15 +142,22 @@ export const QuestionnaireProvider: React.FC<QuestionnaireProviderProps> = ({ ch
       // Load each piece separately
       const savedDemographics = storage.load(STORAGE_KEYS.DEMOGRAPHICS) as UserDemographics | null;
       const savedResponses = storage.load(STORAGE_KEYS.RESPONSES) as QuestionnaireResponses | null;
+      const savedValueProfile = storage.load(STORAGE_KEYS.VALUE_PROFILE) as ValueProfile | null;
       const savedSession = storage.load(STORAGE_KEYS.SESSION_ID) as SessionMetadata | null;
 
       // Check if we have any saved data
-      const hasData = savedDemographics || savedResponses || savedSession;
+      const hasData = savedDemographics || savedResponses || savedValueProfile || savedSession;
       if (!hasData) {
         if (process.env.NODE_ENV === "development") {
           console.log("🎯 No saved session found, starting fresh");
         }
         return;
+      }
+      if (savedResponses) {
+        const responseCount = Object.keys(savedResponses).length;
+        if (responseCount > 0 && responseCount < 59) {
+          setNavigationIndex(responseCount - 1);
+        }
       }
 
       // Check session timeout if we have session metadata
@@ -174,10 +189,15 @@ export const QuestionnaireProvider: React.FC<QuestionnaireProviderProps> = ({ ch
         setResponses(savedResponses);
       }
 
+      if (savedValueProfile) {
+        setValueProfile(savedValueProfile);
+      }
+
       if (process.env.NODE_ENV === "development") {
         console.log("🎯 Session restored from modular localStorage", {
           demographics: !!savedDemographics,
           responses: Object.keys(savedResponses || {}).length,
+          valueProfile: !!savedValueProfile,
           session: !!savedSession
         });
       }
@@ -211,7 +231,7 @@ export const QuestionnaireProvider: React.FC<QuestionnaireProviderProps> = ({ ch
     loadQuestionnaireIfNeeded();
   }, [metadata?.currentPhase, questionnaire]);
 
-  // Convenience methods (synchronous, easy to understand)
+  // Convenience methods
   const startSession = (userDemographics: UserDemographics): void => {
     const sessionId = `session_${Date.now()}_${Math.random().toString(36).substr(2, 6)}`;
     const now = new Date();
@@ -302,6 +322,7 @@ export const QuestionnaireProvider: React.FC<QuestionnaireProviderProps> = ({ ch
   };
 
   const completeQuestionnaire = (): void => {
+    validateResponseCompleteness(responses);
     const now = new Date();
     setMetadata(prev => prev ? {
       ...prev,
@@ -311,11 +332,32 @@ export const QuestionnaireProvider: React.FC<QuestionnaireProviderProps> = ({ ch
     } : null);
   };
 
+  const calculateAndStoreValueProfile = (): void => {
+    try {
+      if (!validateResponseCompleteness(responses)) {
+        throw new Error("Cannot calculate value profile: responses incomplete");
+      }
+
+      const profile = calculateValueProfile(responses);
+      setValueProfile(profile);
+
+      if (process.env.NODE_ENV === "development") {
+        console.log("🎯 Value profile calculated and stored");
+      }
+    } catch (error) {
+      setError(`Failed to calculate value profile: ${error instanceof Error ? error.message : 'Unknown error'}`);
+      if (process.env.NODE_ENV === "development") {
+        console.error("🚨 Value profile calculation failed:", error);
+      }
+    }
+  };
+
   const resetSession = (): void => {
     setQuestionnaire(null);
     setMetadata(null);
     setDemographics(null);
     setResponses({} as QuestionnaireResponses);
+    setValueProfile(null);
     setNavigationIndex(0);
     setError(null);
     storage.clearAll();
@@ -360,6 +402,7 @@ export const QuestionnaireProvider: React.FC<QuestionnaireProviderProps> = ({ ch
     metadata,
     demographics,
     responses,
+    valueProfile,
     progress,
     navigationIndex,
     isLoading,
@@ -389,6 +432,7 @@ export const QuestionnaireProvider: React.FC<QuestionnaireProviderProps> = ({ ch
     },
     setPhase,
     completeQuestionnaire,
+    calculateAndStoreValueProfile,
     resetSession,
     canAnswerQuestions,
     validateQuestionnaireLength,

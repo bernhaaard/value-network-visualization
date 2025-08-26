@@ -1,15 +1,16 @@
 "use client";
 
 import { useQuestionnaire } from "@/lib/context";
+import NextLink from "next/link";
 import { Container, Box, Heading, Text, Button, VStack } from "@chakra-ui/react";
 
 /**
- * Completion view displayed after user finishes all questionnaire phases.
- * Shows thank you message and next steps.
+ * Transition view after questionnaire phases.
+ * Page between survey completion and visualization page.
  * 
- * @returns JSX element with completion message
+ * @returns JSX element with completion message and next steps
  */
-export function CompleteView() {
+export function SurveyToVizTransitionView() {
   const { resetSession } = useQuestionnaire();
 
   return (
@@ -45,11 +46,23 @@ export function CompleteView() {
               What Happens Next?
             </Heading>
             <Text as="ul" textAlign="left" maxW="md" mx="auto" color="fg.muted">
-              <Text as="li" mb={2}>Your responses have been saved</Text>
-              <Text as="li" mb={2}>The data will be used for value network visualization research</Text>
-              <Text as="li" mb={2}>All information remains anonymous and confidential</Text>
+              <Text as="li" mb={2}>First, you'll explore your values in a 2D network view</Text>
+              <Text as="li" mb={2}>Then, you'll explore the same data in 3D space</Text>
+              <Text as="li" mb={2}>After each visualization, you'll complete a brief task and provide feedback</Text>
             </Text>
           </Box>
+
+          {/* Continue Button */}
+          <Button asChild
+            bg="interactive.primary"
+            color="fg.inverted"
+            size="lg"
+            _hover={{ bg: "interactive.hover" }}
+          >
+            <NextLink href="/visualization">
+              Continue to Visualization →
+            </NextLink>
+          </Button>
 
           {/* Debug Reset Button */}
           <Button
@@ -58,9 +71,9 @@ export function CompleteView() {
             size="sm"
             borderColor="border"
             color="fg.muted"
-            _hover={{ bg: "bg.muted", borderColor: "border.accent" }}
+            _hover={{ bg: "bg.muted", borderColor: "interactive.primary" }}
           >
-            Start New Session (Debug)
+            Reset Session (Debug)
           </Button>
         </VStack>
       </Box>

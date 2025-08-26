@@ -6,7 +6,7 @@ import { DemographicsForm } from "@/components/forms";
 import {
   InstructionsView,
   QuestionnaireView,
-  CompleteView
+  SurveyToVizTransitionView
 } from "@/components/views";
 
 /**
@@ -33,7 +33,7 @@ export default function QuestionnairePage() {
       return <QuestionnaireView />;
 
     case "complete":
-      return <CompleteView />;
+      return <SurveyToVizTransitionView />;
 
     default:
       // Default to demographics if no phase set

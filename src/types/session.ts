@@ -9,6 +9,7 @@ import type {
   ResponseValue,
 } from "./questionnaire";
 import type { UserDemographics } from "./demographics";
+import type { ValueProfile } from "@/lib/schwartz";
 
 /**
  * Questionnaire phases for controlled progression through questionnaire workflow
@@ -85,6 +86,8 @@ export interface QuestionnaireContextType {
   demographics: UserDemographics | null;
   /** Collected question responses */
   responses: QuestionnaireResponses;
+  /** Calculated value profile from responses */
+  valueProfile: ValueProfile | null;
   /** Current completion progress */
   progress: QuestionnaireProgress;
   /** Current question being viewed (for UI navigation, separate from progress) */
@@ -123,6 +126,8 @@ export interface QuestionnaireContextType {
   setPhase: (phase: QuestionnairePhase) => void;
   /** Mark questionnaire as completed */
   completeQuestionnaire: () => void;
+  /** Calculate and store value profile from responses */
+  calculateAndStoreValueProfile: () => void;
   /** Clear all session data */
   resetSession: () => void;
   /** Validate questionnaire length (59 items) */

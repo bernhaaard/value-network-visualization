@@ -2,4 +2,4 @@
 
 export { InstructionsView } from "./InstructionsView";
 export { QuestionnaireView } from "./QuestionnaireView";
-export { CompleteView } from "./CompleteView";
+export { SurveyToVizTransitionView } from "./SurveyToVizTransitionView";

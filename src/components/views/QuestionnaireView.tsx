@@ -35,6 +35,7 @@ export function QuestionnaireView() {
     answerQuestion,
     goToQuestion,
     completeQuestionnaire,
+    calculateAndStoreValueProfile,
     isLoading,
     error,
     canAnswerQuestions,
@@ -102,8 +103,9 @@ export function QuestionnaireView() {
     if (canGoNext) {
       setAttemptedNext(false);
       if (isLastQuestion) {
-        // Complete questionnaire and transition to complete view
+        // Complete questionnaire , then calculate value profile
         completeQuestionnaire();
+        calculateAndStoreValueProfile();
       } else {
         goToQuestion(navigationIndex + 1);
       }

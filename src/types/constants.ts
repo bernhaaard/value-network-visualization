@@ -12,6 +12,8 @@ export const STORAGE_KEYS = {
   DEMOGRAPHICS: "pvq_rr_demographics",
   /** Question responses only */
   RESPONSES: "pvq_rr_responses",
+  /** Calculated value profile from responses */
+  VALUE_PROFILE: "pvq_rr_value_profile",
   // Note: Progress computed from responses, no separate storage needed
 } as const;
 
