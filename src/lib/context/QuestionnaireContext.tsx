@@ -155,7 +155,7 @@ export const QuestionnaireProvider: React.FC<QuestionnaireProviderProps> = ({ ch
       }
       if (savedResponses) {
         const responseCount = Object.keys(savedResponses).length;
-        if (responseCount > 0 && responseCount < 59) {
+        if (responseCount > 0 && responseCount <= 59) {
           setNavigationIndex(responseCount - 1);
         }
       }
