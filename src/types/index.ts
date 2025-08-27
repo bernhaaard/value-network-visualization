@@ -31,6 +31,17 @@ export type {
   QuestionnaireContextType,
 } from "./session";
 
+// Visualization Types
+export type {
+  VisualizationMode,
+  VisualizationPhase,
+  FeedbackPreference,
+  ModeSwap,
+  UserFeedback,
+  UserFeedbackData,
+  VisualizationContextType,
+} from "./visualization";
+
 // Constants
 export { STORAGE_KEYS, QUESTIONNAIRE_CONFIG } from "./constants";
 

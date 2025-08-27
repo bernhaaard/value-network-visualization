@@ -14,6 +14,8 @@ export const STORAGE_KEYS = {
   RESPONSES: "pvq_rr_responses",
   /** Calculated value profile from responses */
   VALUE_PROFILE: "pvq_rr_value_profile",
+  /** User feedback data and exploration metrics */
+  FEEDBACK_DATA: "pvq_rr_feedback_data",
   // Note: Progress computed from responses, no separate storage needed
 } as const;
 
