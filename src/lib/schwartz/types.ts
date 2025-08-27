@@ -139,15 +139,6 @@ export interface ValueProfile {
 }
 
 /**
- * Correlation strategy interface for interchangeable relationship matrices
- */
-export interface CorrelationStrategy {
-  name: string;
-  description: string;
-  calculate: (valueA: ValueCategory, valueB: ValueCategory) => number;
-}
-
-/**
  * Type guard to validate ValueCategory strings
  */
 export const isValueCategory = (value: string): value is ValueCategory => {

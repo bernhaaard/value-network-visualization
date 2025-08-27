@@ -8,7 +8,6 @@ export type {
   RawValueScores,
   CenteredValueScores,
   ValueProfile,
-  CorrelationStrategy,
 } from "./types";
 
 // Export constants
@@ -31,6 +30,3 @@ export {
   calculateValueProfile,
   validateValueProfile,
 } from "./scoring";
-
-// TODO: Add exports for correlation strategies when implemented
-// export { createCorrelationMatrix, cosineStrategy, calibratedStrategy } from "./correlation";
