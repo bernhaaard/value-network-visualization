@@ -74,8 +74,8 @@ export interface VisualizationContextType {
   switchMode: (mode: VisualizationMode) => void;
   /** Update feedback responses */
   updateFeedback: (feedback: Partial<UserFeedback>) => void;
-  /** Progress to next phase */
-  nextPhase: () => void;
+  /** Go to a specific phase */
+  goToPhase: (phase: VisualizationPhase) => void;
   /** Initialize with value profile from questionnaire */
   initializeWithProfile: (profile: ValueProfile) => void;
   /** Reset all visualization data */

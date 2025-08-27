@@ -124,10 +124,10 @@ export const VisualizationProvider: React.FC<VisualizationProviderProps> = ({ ch
     }));
   }, []);
 
-  const nextPhase = useCallback((): void => {
-    if (currentPhase === "exploration") {
-      setCurrentPhase("feedback");
-    } else if (currentPhase === "feedback") {
+  const goToPhase = useCallback((phase: VisualizationPhase): void => {
+    if (phase === "exploration" || phase === "feedback") {
+      setCurrentPhase(phase);
+    } else if (phase === "complete") {
       setCurrentPhase("complete");
       setUserFeedbackData(prev => ({
         ...prev,
@@ -136,9 +136,9 @@ export const VisualizationProvider: React.FC<VisualizationProviderProps> = ({ ch
     }
 
     if (process.env.NODE_ENV === "development") {
-      console.log(`🎯 Phase transition to ${currentPhase === "exploration" ? "feedback" : "complete"}`);
+      console.log(`🎯 Phase transition to ${phase}`);
     }
-  }, [currentPhase]);
+  }, []);
 
   const initializeWithProfile = useCallback((profile: ValueProfile): void => {
     setValueProfile(profile);
@@ -189,7 +189,7 @@ export const VisualizationProvider: React.FC<VisualizationProviderProps> = ({ ch
     // Actions
     switchMode,
     updateFeedback,
-    nextPhase,
+    goToPhase,
     initializeWithProfile,
     resetVisualization,
     debugState,

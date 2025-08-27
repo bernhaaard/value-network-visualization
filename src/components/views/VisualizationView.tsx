@@ -10,7 +10,7 @@ import { FeedbackForm } from "@/components/forms";
  * Handles the exploration phase of the visualization study
  */
 export function VisualizationView() {
-  const { currentMode, switchMode, valueProfile, initializeWithProfile } = useVisualization();
+  const { currentMode, switchMode, valueProfile, initializeWithProfile, goToPhase } = useVisualization();
   const { valueProfile: questionnaireValueProfile } = useQuestionnaire();
   const [isFeedbackOpen, setIsFeedbackOpen] = useState(false);
 
@@ -33,43 +33,53 @@ export function VisualizationView() {
           </Text>
         </Box>
 
-        <HStack gap={4}>
+        <VStack gap={4}>
+
+
+          {/* Mode Switching Buttons */}
+          <HStack gap={4}>
+            <Button
+              onClick={() => switchMode("2d")}
+              variant={currentMode === "2d" ? "solid" : "ghost"}
+              bg={currentMode === "2d" ? "bg.subtle" : "bg.muted"}
+              color={currentMode === "2d" ? "fg" : "fg.muted"}
+              borderColor={currentMode === "2d" ? "fg" : "border"}
+              _hover={{
+                bg: "bg.subtle",
+                borderColor: currentMode === "2d" ? "fg" : "border"
+              }}
+            >
+              2D View
+            </Button>
+            <Button
+              onClick={() => switchMode("3d")}
+              variant={currentMode === "3d" ? "solid" : "ghost"}
+              bg={currentMode === "3d" ? "bg.subtle" : "bg.muted"}
+              color={currentMode === "3d" ? "fg" : "fg.muted"}
+              borderColor={currentMode === "3d" ? "fg" : "border"}
+              _hover={{
+                bg: "bg.subtle",
+                borderColor: currentMode === "3d" ? "fg" : "border"
+              }}
+            >
+              3D View
+            </Button>
+          </HStack>
           <Button
-            onClick={() => switchMode("2d")}
-            variant={currentMode === "2d" ? "solid" : "ghost"}
-            bg={currentMode === "2d" ? "interactive.primary" : "bg.subtle"}
-            color={currentMode === "2d" ? "fg.inverted" : "fg.muted"}
-            borderColor={currentMode === "2d" ? "interactive.primary" : "border.subtle"}
-            _hover={{
-              bg: currentMode === "2d" ? "interactive.hover" : "bg.muted",
-              borderColor: currentMode === "2d" ? "interactive.hover" : "border"
+            onClick={() => {
+              setIsFeedbackOpen(true);
+              goToPhase("feedback");
             }}
-          >
-            2D View
-          </Button>
-          <Button
-            onClick={() => switchMode("3d")}
-            variant={currentMode === "3d" ? "solid" : "ghost"}
-            bg={currentMode === "3d" ? "interactive.primary" : "bg.subtle"}
-            color={currentMode === "3d" ? "fg.inverted" : "fg.muted"}
-            borderColor={currentMode === "3d" ? "interactive.primary" : "border.subtle"}
-            _hover={{
-              bg: currentMode === "3d" ? "interactive.hover" : "bg.muted",
-              borderColor: currentMode === "3d" ? "interactive.hover" : "border"
-            }}
-          >
-            3D View
-          </Button>
-          <Button
-            onClick={() => setIsFeedbackOpen(true)}
-            bg="status.info"
+            bg="interactive.primary"
             color="fg.inverted"
-            _hover={{ bg: "status.warning" }}
+            borderColor={"bg.muted"}
+            _hover={{ bg: "interactive.hover" }}
+            size="lg"
+            px={8}
           >
             Give Feedback
           </Button>
-        </HStack>
-
+        </VStack>
         {/* Visualization Container */}
         <Box
           p={8}
@@ -97,6 +107,6 @@ export function VisualizationView() {
 
       {/* Feedback Dialog */}
       <FeedbackForm open={isFeedbackOpen} onOpenChange={setIsFeedbackOpen} />
-    </Container>
+    </Container >
   );
 }

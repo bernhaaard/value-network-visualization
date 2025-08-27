@@ -24,16 +24,17 @@ interface FeedbackFormProps {
  * Renders as a dialog overlay on top of the visualization
  */
 export const FeedbackForm: React.FC<FeedbackFormProps> = ({ open, onOpenChange }) => {
-  const { userFeedbackData, updateFeedback, nextPhase } = useVisualization();
+  const { userFeedbackData, updateFeedback, goToPhase } = useVisualization();
 
   const canSubmit = userFeedbackData.feedback.preference && userFeedbackData.feedback.helpfulness;
 
   const handleGoBack = () => {
+    goToPhase("exploration");
     onOpenChange(false);
   };
 
   const handleComplete = () => {
-    nextPhase();
+    goToPhase("complete");
     onOpenChange(false);
   };
 
