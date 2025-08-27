@@ -1,10 +1,9 @@
 // Schwartz Value Framework Scoring Utilities
 
-import type { QuestionnaireResponses, QuestionId, AttentionCheckId, ResponseValue } from "@/types";
+import type { QuestionnaireResponses } from "@/types";
 import type { QuestionNumber } from "@/types/questionnaire";
 import { isAttentionCheckId } from "@/types";
 import {
-  VALUE_QUESTION_MAPPING,
   VALUE_CATEGORIES,
   type ValueCategory,
   type RawValueScores,

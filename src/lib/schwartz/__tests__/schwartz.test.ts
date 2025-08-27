@@ -8,8 +8,10 @@ import {
   calculateMRAT,
   applyCentering,
   calculateValueProfile,
+  type ValueCategory,
+  type RawValueScores,
 } from "@/lib/schwartz";
-import type { QuestionnaireResponses, QuestionId } from "@/types";
+import type { QuestionnaireResponses, QuestionId, ResponseValue } from "@/types";
 import type { QuestionNumber } from "@/types/questionnaire";
 
 describe("getValueCategory", () => {
@@ -115,14 +117,14 @@ describe("getHigherOrderDomainForValue", () => {
   it("should handle all value categories", () => {
     const allValueCategories = Object.keys(VALUE_QUESTION_MAPPING);
     allValueCategories.forEach(category => {
-      expect(() => getHigherOrderDomainForValue(category as any)).not.toThrow();
-      const domain = getHigherOrderDomainForValue(category as any);
+      expect(() => getHigherOrderDomainForValue(category as ValueCategory)).not.toThrow();
+      const domain = getHigherOrderDomainForValue(category as ValueCategory);
       expect(typeof domain).toBe("string");
     });
   });
 
   it("should throw error for invalid value category", () => {
-    expect(() => getHigherOrderDomainForValue("invalid_value" as any)).toThrow();
+    expect(() => getHigherOrderDomainForValue("invalid_value" as ValueCategory)).toThrow();
   });
 });
 
@@ -132,7 +134,7 @@ describe("calculateRawValueScores", () => {
     const responses = {} as QuestionnaireResponses;
     for (let i = 1; i <= 57; i++) {
       const id = `pvq_rr_en_q${i.toString().padStart(2, "0")}` as QuestionId;
-      responses[id] = defaultValue as any;
+      responses[id] = defaultValue as ResponseValue;
     }
     // Add attention checks
     responses.pvq_rr_en_attention_01 = 1;
@@ -206,7 +208,7 @@ describe("applyCentering", () => {
       self_direction_action: 3,
       stimulation: 4,
       // ... other values would be here in real usage
-    } as any;
+    } as RawValueScores;
 
     const mrat = 4;
     const centered = applyCentering(rawScores, mrat);
