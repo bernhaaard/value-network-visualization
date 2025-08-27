@@ -46,9 +46,9 @@ export function SurveyToVizTransitionView() {
               What Happens Next?
             </Heading>
             <Text as="ul" textAlign="left" maxW="md" mx="auto" color="fg.muted">
-              <Text as="li" mb={2}>First, you'll explore your values in a 2D network view</Text>
-              <Text as="li" mb={2}>Then, you'll explore the same data in 3D space</Text>
-              <Text as="li" mb={2}>After each visualization, you'll complete a brief task and provide feedback</Text>
+              <Text as="li" mb={2}>First, you&apos;ll explore your values in a 2D network view</Text>
+              <Text as="li" mb={2}>Then, you&apos;ll explore the same data in 3D space</Text>
+              <Text as="li" mb={2}>After each visualization, you&apos;ll complete a brief task and provide feedback</Text>
             </Text>
           </Box>
 
