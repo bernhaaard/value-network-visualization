@@ -1,6 +1,7 @@
 // Schwartz Value Framework Type Definitions
 
-import type { QuestionNumber } from "@/types/questionnaire";
+import type { QuestionNumber, QuestionId } from "@/types/questionnaire";
+import { getQuestionId } from "@/types/questionnaire";
 
 /**
  * Schwartz's 19 refined value categories
@@ -27,20 +28,6 @@ export type ValueCategory =
   | "benevolence_dependability";
 
 /**
- * Maps question numbers to value categories
- * @param questionNumber - Question number (1-57) to categorize
- * @returns Value category or null if not found
- */
-export const getValueCategory = (questionNumber: QuestionNumber): ValueCategory | null => {
-  for (const [category, numbers] of Object.entries(VALUE_QUESTION_MAPPING)) {
-    if ((numbers as readonly number[]).includes(questionNumber)) {
-      return category as ValueCategory;
-    }
-  }
-  return null;
-};
-
-/**
  * Official Schwartz mapping from value categories to question numbers
  */
 export const VALUE_QUESTION_MAPPING = {
@@ -64,6 +51,46 @@ export const VALUE_QUESTION_MAPPING = {
   benevolence_care: [11, 25, 47],
   benevolence_dependability: [19, 27, 55],
 } as const;
+
+/**
+ * Factory function to generate direct QuestionId -> ValueCategory mapping
+ */
+const createQuestionIdToCategoryMapping = (): Record<QuestionId, ValueCategory> => {
+  const mapping = {} as Record<QuestionId, ValueCategory>;
+
+  Object.entries(VALUE_QUESTION_MAPPING).forEach(([category, questions]) => {
+    questions.forEach(questionNum => {
+      const questionId = getQuestionId(questionNum as QuestionNumber);
+      mapping[questionId] = category as ValueCategory;
+    });
+  });
+
+  return mapping;
+};
+
+/**
+ * Dictionary mapping QuestionId to ValueCategory
+ */
+export const QUESTION_ID_TO_CATEGORY = createQuestionIdToCategoryMapping();
+
+/**
+ * Gets value category for a given question ID
+ * @param questionId - Question ID to categorize
+ * @returns Value category or null if not found
+ */
+export const getValueCategoryById = (questionId: QuestionId): ValueCategory | null => {
+  return QUESTION_ID_TO_CATEGORY[questionId] || null;
+};
+
+/**
+ * Maps question numbers to value categories
+ * @param questionNumber - Question number (1-57) to categorize
+ * @returns Value category or null if not found
+ */
+export const getValueCategory = (questionNumber: QuestionNumber): ValueCategory | null => {
+  const questionId = getQuestionId(questionNumber);
+  return QUESTION_ID_TO_CATEGORY[questionId] || null;
+};
 
 /**
  * Four higher-order value domains

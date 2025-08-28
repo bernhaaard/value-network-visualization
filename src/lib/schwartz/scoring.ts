@@ -1,7 +1,6 @@
 // Schwartz Value Framework Scoring Utilities
 
-import type { QuestionnaireResponses } from "@/types";
-import type { QuestionNumber } from "@/types/questionnaire";
+import type { QuestionnaireResponses, QuestionId } from "@/types";
 import { isAttentionCheckId } from "@/types";
 import {
   VALUE_CATEGORIES,
@@ -10,7 +9,7 @@ import {
   type CenteredValueScores,
   type ValueProfile,
   isCompleteValueProfile,
-  getValueCategory,
+  getValueCategoryById,
 } from "./types";
 
 /**
@@ -41,14 +40,10 @@ export const calculateRawValueScores = (responses: QuestionnaireResponses): RawV
   // Single pass through responses
   Object.entries(responses).forEach(([id, value]) => {
     if (!isAttentionCheckId(id)) {
-      const match = id.match(/q(\d+)$/);
-      if (match) {
-        const questionNum = parseInt(match[1]) as QuestionNumber;
-        const category = getValueCategory(questionNum);
-        if (category) {
-          valueSums[category] = (valueSums[category] || 0) + value;
-          valueCounts[category] = (valueCounts[category] || 0) + 1;
-        }
+      const category = getValueCategoryById(id as QuestionId);
+      if (category) {
+        valueSums[category] = (valueSums[category] || 0) + value;
+        valueCounts[category] = (valueCounts[category] || 0) + 1;
       }
     }
   });

@@ -19,6 +19,7 @@ export {
   isCompleteValueProfile,
   getHigherOrderDomainForValue,
   getValueCategory,
+  getValueCategoryById,
 } from "./types";
 
 // Export scoring utilities
