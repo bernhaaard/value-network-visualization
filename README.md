@@ -122,16 +122,14 @@ npm run type-check   # Run TypeScript type checking
 │   │   ├── views          # Page view components
 │   │   ├── ui             # Reusable UI components
 │   │   └── visualization  # Visualization components
-│   │       ├── core       # Shared visualization logic
-│   │       ├── network-2d # 2D network components
-│   │       └── network-3d # 3D network components
 │   ├── hooks              # Custom React hooks
 │   ├── lib
 │   │   ├── context        # React Context API
 │   │   ├── database       # Database utilities
-│   │   ├── physics        # Custom physics calculations
 │   │   ├── questionnaire  # PVQ-RR questionnaire logic
-│   │   └── schwartz       # Schwartz framework utilities
+│   │   ├── schwartz       # Schwartz framework utilities
+│   │   ├── utils          # Utility functions
+│   │   └── visualization  # Network visualization logic
 │   └── types              # TypeScript type definitions
 ├── tsconfig.json
 └── tsconfig.tsbuildinfo
