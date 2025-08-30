@@ -64,12 +64,76 @@
 
 ## Phase 3: Visualization Implementation
 
-### After Data Structure is Clear
+### Network Architecture
 
-- [ ] Three.js scene setup (2D/3D unified approach)
-- [ ] Custom physics engine for relationship-driven layout
-- [ ] Network rendering with actual user data
-- [ ] Experimentation with visual properties
+**Ego Network Structure:**
+
+- **20 Total Nodes**: 1 central "You" node + 19 Schwartz value nodes
+- **Hub-Spoke Topology**: Only primary edges (center ↔ values), no value-to-value connections in base layout
+- **No MRAT Centering**: Use raw value scores directly (mean of 3 questions per value)
+
+**Distance Formula:**
+
+```math
+baseDistance = 0.08 * canvasWidth \\
+distanceIncrement = 0.08 * canvasWidth \\\\
+distance = baseDistance + (maxScore - currentScore) * distanceIncrement
+```
+
+**Polar Positioning System:**
+
+- **4 Quadrants (90° each)**:
+  - Openness to Change: θ = 0-90°
+  - Self-Transcendence: θ = 90-180°
+  - Conservation: θ = 180-270°
+  - Self-Enhancement: θ = 270-360°
+- **2D**: Polar coordinates (r, θ)
+- **3D**: Spherical coordinates (r, θ, φ) - φ determined by domain clustering forces
+
+### Visual Specifications
+
+**Node Colors:**
+
+- Openness-to-change: `hsla(30, 95%, 52%, 1)`
+- Self-enhancement: `hsla(0, 95%, 55%, 1)`
+- Conservation: `hsla(210, 92%, 58%, 1)`
+- Self-transcendence: `hsla(125, 90%, 48%, 1)`
+- "You" node: White for maximum contrast
+
+**Node Sizing:**
+
+- **Value Nodes**: Scaled by raw importance score (same formula as distance, but for node radius)
+- **"You" Node**: Diameter = 2x largest value node radius
+- **All Shapes**: Perfect circles (2D) / spheres (3D)
+
+**Hover Interactions:**
+
+- **Primary Edge**: Thicker line + node highlight with backdrop glow
+- **Secondary Edges**: all-to-all within same domain, 1/3 thickness, domain color
+- **Dimming Effect**: Non-highlighted nodes slightly dimmed for contrast
+
+### Technical Implementation
+
+**Canvas Integration:**
+
+- **Location**: Inside existing Box container in VisualizationView.tsx
+- **Size**: 1000x1000px base, dynamically scaled to fit parent
+- **Responsive**: 90% viewport (small screens), 70% viewport (large screens), max-width 1000px
+- **Component Structure**: Single smart component in `src/components/visualization/` (no subdirs)
+
+**r3f-forcegraph Configuration:**
+
+- **Library**: r3f-forcegraph v1.1.1
+- **Mode Switching**: `numDimensions` prop (2 or 3)
+- **Force Engine**: d3 with custom physics for domain clustering
+- **Fixed Center**: "You" node at [0,0,0], values cluster by domain
+- **Physics**: Hierarchical forces affect φ and θ only, not r
+
+**Data Pipeline:**
+
+- **Transformation**: ValueProfile → GraphData in `src/lib/schwartz/`
+- **Physics**: Force calculations in `src/lib/physics/`
+- **Integration**: VisualizationContext for state management
 
 ## Current Decisions
 
@@ -79,14 +143,29 @@
 - **Languages:** 40+ languages available (ONLY english will be used)
 - **Normalization:** Instructions available, scoring implemented and saved in ValueProfile
 
+### Academic Considerations
+
+**Node Size Scaling Decision:**
+
+- **Research Question Context**: "To what extent do 3D network visualizations affect users' comprehension of their personal values?"
+- **Academic Approach**: Use adapted distance formula for size scaling - maintains interpretability and consistency
+- **Formula**: `nodeSize = baseSize + (maxScore - rawValueScore) * sizeIncrement` where higher scores = larger nodes
+
+**Physics Strategy Decision:**
+
+- **Approach**: Hybrid physics with fixed radial distances but flexible angular clustering
+- **Implementation**: Secondary edges as invisible springs for domain clustering (visible only on hover)
+- **Constraint**: Angular forces affect φ only, θ and r remain consistent per specifications
+- **Goal**: Natural domain clustering while maintaining quadrant structure and utilizing the full angular space around the center node! But having the consistent distance scaling from center to encode importance is crucial!
+
 ### Technical Priorities
 
 - **Current Focus:**
-  - Refactor Correlation interface to use Hierarchical approach and no Strategy pattern
-  - Build basic force simulation
-  - Test with simple circumplex data
-- **Delay:** Exact relationship matrices until data from Cieciuch/Vecchione is available (Using hierarchical model (2012) until then)
-- **Flexibility:** Exact visual properties to be determined through experimentation
+  - Implement ego network with r3f-forcegraph v1.1.1
+  - Build hierarchical clustering physics system
+  - Integrate with existing VisualizationContext
+- **Architecture**: Single smart component for 2D/3D rendering
+- **Data Flow**: Raw scores → polar/spherical positioning → r3f-forcegraph format
 
 ## Key Research Questions
 
