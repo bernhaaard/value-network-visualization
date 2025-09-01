@@ -92,6 +92,8 @@ export default function ContextTestPage() {
       const response = (Math.floor(Math.random() * 6) + 1) as ResponseValue;
       answerQuestion(questionId, response);
     }
+    answerQuestion("pvq_rr_en_attention_01", 1);
+    answerQuestion("pvq_rr_en_attention_02", 6);
   };
 
 
