@@ -95,7 +95,7 @@
 **Distance Formula:**
 
 ```math
-baseDistance = 0.08 * canvasWidth \\
+baseDistance = 0.16 * canvasWidth \\
 distanceIncrement = 0.08 * canvasWidth \\\\
 distance = baseDistance + (maxScore - currentScore) * distanceIncrement
 ```
