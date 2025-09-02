@@ -64,6 +64,26 @@
 
 ## Phase 3: Visualization Implementation
 
+### Coordinate System (Three.js Mathematical Convention)
+
+**Cartesian Coordinates (Right-Hand Rule):**
+
+- **X-axis**: Right direction (positive = right)
+- **Y-axis**: Up direction (positive = up)
+- **Z-axis**: Forward direction (positive = toward viewer)
+
+**Spherical Coordinates ([Three.js docs](https://threejs.org/docs/#api/en/math/Spherical)):**
+
+- **radius**: Distance from origin
+- **phi**: Polar angle from Y-axis (0 = top, π/2 = XZ-plane, π = bottom)
+- **theta**: Azimuthal angle around Y-axis (0 = +Z, π/2 = +X, π = -Z, 3π/2 = -X)
+
+**Value Network Layout:**
+
+- **2D**: Values arranged in XZ-plane (phi = π/2) around Y-axis
+- **3D**: Values can spread along Y-axis via clustering forces (variable phi)
+- **Quadrants**: Theta ranges map to Schwartz domains in XZ-plane
+
 ### Network Architecture
 
 **Ego Network Structure:**
