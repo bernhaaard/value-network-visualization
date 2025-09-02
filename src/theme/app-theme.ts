@@ -250,6 +250,32 @@ const themeConfig = defineConfig({
           },
         },
 
+        // Higher Order Value Domains
+        "openness_to_change": {
+          value: {
+            base: "hsl(30, 95%, 52%)",
+            _dark: "hsl(30, 95%, 52%)",
+          },
+        },
+        "self_enhancement": {
+          value: {
+            base: "hsl(0, 95%, 55%)",
+            _dark: "hsl(0, 95%, 55%)",
+          },
+        },
+        "conservation": {
+          value: {
+            base: "hsl(210, 92%, 58%)",
+            _dark: "hsl(210, 92%, 58%)",
+          },
+        },
+        "self_transcendence": {
+          value: {
+            base: "hsl(125, 90%, 48%)",
+            _dark: "hsl(125, 90%, 48%)",
+          },
+        },
+
         // Status tokens
         "status.error": {
           value: {
