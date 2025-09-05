@@ -1,10 +1,10 @@
 // Value Network Visualization
 
 // Export types
-export type { NetworkNode, NetworkLink, GraphData, NetworkConfig } from "./types";
+export type { NetworkNode, NetworkLink, GraphData, NetworkConfig, HoverScreenInfo } from "./types";
 
 // Export constants
-export { DOMAIN_COLORS, DOMAIN_ANGLES, VALUE_ORDER } from "./types";
+export { DOMAIN_COLORS, DOMAIN_ANGLES, VALUE_ORDER, calculateAnxietyWeight } from "./types";
 
 // Export utilities
 export {

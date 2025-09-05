@@ -1,17 +1,17 @@
-import type {
-  ValueProfile,
-  ValueCategory,
-  RawValueScores,
-} from "@/lib/schwartz";
+import type { ValueProfile, ValueCategory, RawValueScores } from "@/lib/schwartz";
 import { VALUE_CATEGORIES, getHigherOrderDomainForValue } from "@/lib/schwartz";
-import type { GraphData, NetworkNode, NetworkLink, NetworkConfig } from "./types";
-import { DOMAIN_COLORS } from "./types";
 import {
+  GraphData,
+  NetworkNode,
+  NetworkLink,
+  NetworkConfig,
+  DOMAIN_COLORS,
+  calculateAnxietyWeight,
   calculatePolarAngle,
   calculateDistance,
   calculateNodeSize,
   sphericalToCartesian,
-} from "./positioning";
+} from "@/lib/visualization";
 
 /**
  * Create default network configuration
@@ -67,20 +67,20 @@ const createValueNode = (
   );
   const theta = calculatePolarAngle(valueCategory);
 
-  // Debug logging
-  if (process.env.NODE_ENV === "development") {
-    console.log(
-      `Value: ${valueCategory}, Score: ${rawScore}/${maxUserScore}, Size: ${nodeSize}, Radius: ${radius}, Theta: ${theta}`,
-    );
-  }
-
-  // Convert from spherical to Cartesian coordinates 
+  // Convert from spherical to Cartesian coordinates
   // 2D mode: constrain to XZ-plane with phi = π/2
   const phi = Math.PI / 2;
   const { x, y, z } = sphericalToCartesian(radius, theta, phi);
 
+  // Debug logging
   if (process.env.NODE_ENV === "development") {
-    console.log(`  -> Cartesian: x=${x.toFixed(2)}, y=${y}, z=${z.toFixed(2)}`);
+    console.log(
+      `ValueId: ${valueCategory}, 
+      Score: ${rawScore}/${maxUserScore}, 
+      Size: ${nodeSize}, 
+      Radius: ${radius}, 
+      Theta: ${theta}`,
+    );
   }
 
   return {
@@ -92,13 +92,12 @@ const createValueNode = (
     rawScore,
     val: nodeSize,
     color: DOMAIN_COLORS[domain],
+    radius,
+    theta,
+    phi,
     x,
     y,
     z,
-    // Pin node so d3 simulation doesn't override spherical positions
-    fx: x,
-    fy: y,
-    fz: z,
   };
 };
 
@@ -122,6 +121,7 @@ const createPrimaryLinks = (valueNodes: NetworkNode[]): NetworkLink[] => {
 export const transformValueProfileToGraphData = (
   valueProfile: ValueProfile,
   config: NetworkConfig = createNetworkConfig(),
+  mode: "2d" | "3d" = "2d",
 ): GraphData => {
   const { rawScores } = valueProfile;
   const maxUserScore = findMaxUserScore(rawScores);
@@ -134,9 +134,37 @@ export const transformValueProfileToGraphData = (
   }
 
   // Create value nodes
-  const valueNodes = VALUE_CATEGORIES.map(category =>
+  const baseNodes = VALUE_CATEGORIES.map(category =>
     createValueNode(category, rawScores[category], maxUserScore, config),
   );
+  let valueNodes: NetworkNode[] = baseNodes;
+  if (mode === "3d") {
+    // Map phi using Growth vs Self-Protection weights within [0.25π, 0.75π]
+    const phiMin = Math.PI * 0.25; // 45° from +Y
+    const phiMax = Math.PI * 0.75; // 135° from +Y
+    const phiMid = Math.PI / 2; // plane
+    const halfRange = (phiMax - phiMin) / 2; // π/4
+    // const jitter = (phiMax - phiMin) * 0.02; // small de-overlap
+
+    valueNodes = baseNodes.map(node => {
+      // Calculate weight based on circumplex position
+      const w = calculateAnxietyWeight(node.id as ValueCategory); // [-1,1]
+
+      // Map weight to phi range
+      let phi = phiMid + w * halfRange;
+
+      // Clamp to bounds
+      phi = Math.max(phiMin, Math.min(phiMax, phi));
+
+      const radius = node.radius ?? 0;
+      const theta = node.theta ?? 0;
+      const { x, y, z } = sphericalToCartesian(radius, theta, phi);
+      return { ...node, phi, x, y, z } as NetworkNode;
+    });
+  } else {
+    // 2D: pin positions
+    valueNodes = baseNodes.map(node => ({ ...node, fx: node.x, fy: node.y, fz: node.z }));
+  }
 
   // Find largest value node size for center node sizing
   const maxNodeSize = Math.max(...valueNodes.map(node => node.val));

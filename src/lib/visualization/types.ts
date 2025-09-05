@@ -1,9 +1,9 @@
 import type { ValueCategory, HigherOrderDomain } from "@/lib/schwartz";
-
+import type { NodeObject, LinkObject, GraphData as R3FGraphData } from "r3f-forcegraph";
 /**
  * Network node representing either the center "You" node or a value node
  */
-export interface NetworkNode {
+export interface NetworkNode extends NodeObject {
   /** Identifier */
   id: string;
   /** Name */
@@ -43,7 +43,7 @@ export interface NetworkNode {
 /**
  * Network link connecting nodes
  */
-export interface NetworkLink {
+export interface NetworkLink extends LinkObject {
   /** Source node ID */
   source: string;
   /** Target node ID */
@@ -59,9 +59,19 @@ export interface NetworkLink {
 }
 
 /**
+ * Value Node Popup Info
+ */
+export interface HoverScreenInfo {
+  id: string;
+  name?: string;
+  domain?: HigherOrderDomain;
+  rawScore?: number;
+}
+
+/**
  * Complete graph data structure for r3f-forcegraph
  */
-export interface GraphData {
+export interface GraphData extends R3FGraphData<NetworkNode, NetworkLink> {
   /** Array of network nodes */
   nodes: NetworkNode[];
   /** Array of network links */
@@ -105,11 +115,11 @@ export const VALUE_ORDER: ValueCategory[] = [
   "stimulation",
   "self_direction_action",
   "self_direction_thought",
-  "universalism_tolerance",
-  "universalism_nature",
-  "universalism_concern",
   "benevolence_dependability",
   "benevolence_care",
+  "universalism_tolerance",
+  "universalism_concern",
+  "universalism_nature",
   "humility",
   "conformity_interpersonal",
   "conformity_rules",
@@ -118,6 +128,54 @@ export const VALUE_ORDER: ValueCategory[] = [
   "security_personal",
   "face",
 ];
+
+/**
+ * Calculate anxiety-aversion weight using sin function with π domain splitting
+ * @param valueCategory - value category to calculate weight for
+ * @returns Weight [-1, 1] for Growth vs Self-Protection
+ * @info -1 for Growth, 1 for Self-Protection, 0 for Achievement & Humility
+ */
+export const calculateAnxietyWeight = (valueCategory: ValueCategory): number => {
+  const growthValues: ValueCategory[] = [
+    "hedonism",
+    "stimulation",
+    "self_direction_action",
+    "self_direction_thought",
+    "benevolence_dependability",
+    "benevolence_care",
+    "universalism_tolerance",
+    "universalism_concern",
+    "universalism_nature",
+  ];
+  const selfProtectionValues: ValueCategory[] = [
+    "conformity_interpersonal",
+    "conformity_rules",
+    "tradition",
+    "security_societal",
+    "security_personal",
+    "face",
+    "power_resources",
+    "power_dominance",
+  ];
+  // Growth Values
+  if (growthValues.includes(valueCategory)) {
+    const index = growthValues.indexOf(valueCategory);
+    const totalInSpectrum = growthValues.length + 1;
+    const angle = ((index + 1) / totalInSpectrum) * Math.PI;
+    const weight = Math.sin(angle);
+    return -weight;
+  }
+  // Self-Protection Values
+  if (selfProtectionValues.includes(valueCategory)) {
+    const index = selfProtectionValues.indexOf(valueCategory);
+    const totalInSpectrum = selfProtectionValues.length + 1;
+    const angle = ((index + 1) / totalInSpectrum) * Math.PI;
+    const weight = Math.sin(angle);
+    return weight;
+  }
+  // Achievement & Humility
+  return 0;
+};
 
 /**
  * Domain angle ranges for equal distribution (CCW from +Z)
