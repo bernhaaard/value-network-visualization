@@ -1,72 +1,32 @@
 # Technical Methodology
 
-## Visualization Approach
+## Visualization Architecture
 
-### Network Structure
+**Ego Network Design**: I chose a simple hub-and-spoke layout with 20 nodes - one central "You" node connected to 19 Schwartz values. Distance from center shows how important each value is to you personally, while the angular position follows Schwartz's theoretical relationships.
 
-- **19 individual values** as nodes (Schwartz's refined framework)
-- **Relationship-driven positioning** based on theoretical compatibility/opposition
-- **Value clouds** formed by spatial clustering of related values
-- **Individual customization** through PVQ-RR importance scores
+**2D vs 3D Approach**: Both modes use the same Three.js rendering to avoid any technology differences that could mess up the comparison. 2D uses an orthographic camera looking down, 3D uses perspective with smooth transitions between them.
 
-### Rendering Strategy
+**3D Enhancement**: The third dimension maps values to their anxiety-aversion orientation (Growth vs Self-Protection) from Schwartz's refined theory. This gives the 3D version something meaningful that 2D can't show, without changing the core distance/importance relationships.
 
-- **Three.js for both 2D and 3D** (eliminates technology as confounding variable)
-- **2D Mode:** Orthographic camera, z=0 plane positioning
-- **3D Mode:** Perspective camera, full 3D spatial arrangement
-- **Consistent interaction patterns** across both modes
+## Data Collection Framework
 
-### Physics Implementation
+**Input Pipeline**: Demographics → PVQ-RR (57 items) → Value Profile calculation → Network visualization
 
-- **Custom force calculations** (no external physics libraries)
-- **Attraction forces** between similar values
-- **Repulsion forces** between opposing values
-- **Cluster forces** to maintain higher-order domain groupings
-- **Individual weighting** based on personal importance scores
+**Quantitative Metrics**:
 
-## Data Processing Pipeline
+- Exploration time per mode (primary research outcome)
+- Mode switching frequency and patterns  
+- Node interaction coverage (which values explored)
 
-### Input: PVQ-RR Responses
+**Qualitative Feedback**:
 
-- 57 questionnaire items → 19 value importance scores
-- Normalized scores (Bias correction)
-- Individual value profile
+- Mode preference comparisons
+- Self-reported value insights
 
-### Output: Network Properties (WiP - Not Final)
+## Research Validation Controls
 
-- **Node size:** Personal importance score
-- **Node color:** Higher-order value domain
-- **Node position:** Force-directed layout based on relationships
-- **Edge strength:** Perhaps theoretical relationship weight (not clear yet)
+**Keeping Things Consistent**: The most important thing is that node sizes, colors, and distances from center stay exactly the same between 2D and 3D. The only difference is that 3D spreads values vertically based on their anxiety orientation - this way I'm only testing the effect of dimensionality, not different information.
 
-## Implementation Requirements
+**Making Results Reliable**: I use mathematical functions instead of random positioning to show theoretical relationships, so users see the same general layouts but with differing distances/sizes for each value node!
 
-### Core Components
-
-- [x] PVQ-RR questionnaire interface
-- [ ] Custom physics engine for positioning
-- [ ] Three.js network renderer (2D/3D modes)
-- [x] User study data collection interface (demographics)
-
-### Research Validation
-
-- [ ] Identical interaction patterns between 2D/3D
-- [ ] Deterministic force calculations for reproducible layouts
-- [ ] Measurable exploration metrics (time, (interactions?))
-- [ ] Qualitative insight collection methods
-
-## Technical Justification
-
-**Why Three.js for both 2D and 3D?**
-*(may still be changed though)*
-
-- Eliminates library differences as confounding variable,
-- Identical interaction experience for users
-- Academic validity through controlled comparison
-
-**Why custom physics over D3 force simulation?**
-
-- Complete control over relationship modeling
-- Theory-driven force calculations
-- Consistent behavior across 2D/3D modes
-- No external dependency issues
+**Why This Approach Works**: Using the same rendering engine for both modes eliminates technical differences. Users get identical interaction patterns (hover, zoom, etc.) so the only variable is the dimensional presentation.
