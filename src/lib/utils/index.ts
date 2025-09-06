@@ -15,3 +15,6 @@ export {
   getLinkColorWithHover,
   getLinkWidthWithHover,
 } from "./styling";
+
+// String utilities
+export { slugify } from "./stringUtils";

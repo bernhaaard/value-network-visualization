@@ -10,16 +10,20 @@ import {
   Heading,
   Field,
   Fieldset,
+  Combobox,
   Text,
   Stack,
   ClientOnly,
-  Skeleton
+  Skeleton,
+  useFilter,
+  useListCollection,
+  Portal
 } from "@chakra-ui/react";
 import { useQuestionnaire } from "@/lib/context";
-import type { UserDemographics, DemographicsErrors } from "@/types/demographics";
-import { EDUCATION_OPTIONS, COMMON_COUNTRIES } from "@/types/demographics";
+import type { UserDemographics, DemographicsErrors, Gender } from "@/types/demographics";
+import { EDUCATION_OPTIONS, ALL_COUNTRIES } from "@/types/demographics";
 import { QUESTIONNAIRE_CONFIG } from "@/types/constants";
-
+import { slugify } from "@/lib/utils";
 /**
  * Demographics Form Component - Collects participant demographic information with validation.
  */
@@ -33,6 +37,11 @@ export const DemographicsForm: React.FC = () => {
     education: undefined,
     nationality: "",
   });
+  const { contains } = useFilter({ sensitivity: "base" });
+  const { collection, filter } = useListCollection({
+    initialItems: ALL_COUNTRIES as unknown as string[],
+    filter: contains,
+  })
 
   const [errors, setErrors] = useState<DemographicsErrors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -51,7 +60,9 @@ export const DemographicsForm: React.FC = () => {
 
       case "gender":
         if (!value) return "Gender selection is required";
-        if (value !== "male" && value !== "female") return "Please select a valid gender option";
+        if (!["male", "female", "non-binary", "prefer_not_to_say"].includes(value as Gender)) {
+          return "Please select a valid gender option";
+        }
         return undefined;
 
       case "education":
@@ -296,6 +307,8 @@ export const DemographicsForm: React.FC = () => {
                         <option value="">Select gender</option>
                         <option value="male">Male</option>
                         <option value="female">Female</option>
+                        <option value="non-binary">Non-binary</option>
+                        <option value="prefer_not_to_say">Prefer not to say</option>
                       </NativeSelect.Field>
                       <NativeSelect.Indicator />
                     </NativeSelect.Root>
@@ -337,21 +350,42 @@ export const DemographicsForm: React.FC = () => {
                       Nationality
                       <Field.RequiredIndicator />
                     </Field.Label>
-                    <NativeSelect.Root>
-                      <NativeSelect.Field
-                        value={formData.nationality || ""}
-                        onChange={(e) => handleInputChange("nationality", e.target.value)}
-                      >
-                        <option value="">Select your nationality</option>
-                        {COMMON_COUNTRIES.map((country) => (
-                          <option key={country} value={country}>
-                            {country}
-                          </option>
-                        ))}
-                        <option value="other">Other (please specify in feedback)</option>
-                      </NativeSelect.Field>
-                      <NativeSelect.Indicator />
-                    </NativeSelect.Root>
+                    <Combobox.Root
+                      collection={collection}
+                      onInputValueChange={(e) => {
+                        filter(e.inputValue);
+                        handleInputChange("nationality", e.inputValue)
+                      }}
+                      openOnClick
+                    >
+                      <Combobox.Control>
+                        <Combobox.Input placeholder="What is your nationality?" />
+                        <Combobox.IndicatorGroup>
+                          <Combobox.ClearTrigger />
+                          <Combobox.Trigger />
+                        </Combobox.IndicatorGroup>
+                      </Combobox.Control>
+                      <Portal>
+                        <Combobox.Positioner>
+                          <Combobox.Content bg="bg.muted" borderWidth="1px" borderColor="border" borderRadius="md" p={2}>
+                            <Combobox.Empty>No country found!</Combobox.Empty>
+                            {collection.items.map((item) => (
+                              <Combobox.Item
+                                item={item}
+                                key={slugify(item)}
+                                _hover={{
+                                  bg: "bg.subtle",
+                                  cursor: "pointer"
+                                }}
+                              >
+                                {item}
+                                <Combobox.ItemIndicator />
+                              </Combobox.Item>
+                            ))}
+                          </Combobox.Content>
+                        </Combobox.Positioner>
+                      </Portal>
+                    </Combobox.Root>
                     <Field.HelperText>
                       Select your nationality from the list. Choose &ldquo;Other&rdquo; if not listed.
                     </Field.HelperText>

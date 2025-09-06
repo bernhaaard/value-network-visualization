@@ -21,239 +21,298 @@
     "questions": {
       "pvq_rr_en_q01": {
         "male": "It is important to him to form his views independently.",
-        "female": "It is important to her to form her views independently."
+        "female": "It is important to her to form her views independently.",
+        "neutral": "It is important to them to form their views independently."
       },
       "pvq_rr_en_q02": {
         "male": "It is important to him that his country is secure and stable.",
-        "female": "It is important to her that her country is secure and stable."
+        "female": "It is important to her that her country is secure and stable.",
+        "neutral": "It is important to them that their country is secure and stable."
       },
       "pvq_rr_en_q03": {
         "male": "It is important to him to have a good time.",
-        "female": "It is important to her to have a good time."
+        "female": "It is important to her to have a good time.",
+        "neutral": "It is important to them to have a good time."
       },
       "pvq_rr_en_q04": {
         "male": "It is important to him to avoid upsetting other people.",
-        "female": "It is important to her to avoid upsetting other people."
+        "female": "It is important to her to avoid upsetting other people.",
+        "neutral": "It is important to them to avoid upsetting other people."
       },
       "pvq_rr_en_q05": {
         "male": "It is important to him that the weak and vulnerable in society be protected.",
-        "female": "It is important to her that the weak and vulnerable in society be protected."
+        "female": "It is important to her that the weak and vulnerable in society be protected.",
+        "neutral": "It is important to them that the weak and vulnerable in society be protected."
       },
       "pvq_rr_en_q06": {
         "male": "It is important to him that people do what he says they should.",
-        "female": "It is important to her that people do what she says they should."
+        "female": "It is important to her that people do what she says they should.",
+        "neutral": "It is important to them that other people do what they say they should."
       },
       "pvq_rr_en_q07": {
         "male": "It is important to him never to think he deserves more than other people.",
-        "female": "It is important to her never to think she deserves more than other people."
+        "female": "It is important to her never to think she deserves more than other people.",
+        "neutral": "It is important to them never to think they deserve more than other people."
       },
       "pvq_rr_en_q08": {
         "male": "It is important to him to care for nature.",
-        "female": "It is important to her to care for nature."
+        "female": "It is important to her to care for nature.",
+        "neutral": "It is important to them to care for nature."
       },
       "pvq_rr_en_q09": {
         "male": "It is important to him that no one should ever shame him.",
-        "female": "It is important to her that no one should ever shame her."
+        "female": "It is important to her that no one should ever shame her.",
+        "neutral": "It is important to them that no one should ever shame them."
       },
       "pvq_rr_en_q10": {
         "male": "It is important to him always to look for different things to do.",
-        "female": "It is important to her always to look for different things to do."
+        "female": "It is important to her always to look for different things to do.",
+        "neutral": "It is important to them always to look for different things to do."
       },
       "pvq_rr_en_q11": {
         "male": "It is important to him to take care of people he is close to.",
-        "female": "It is important to her to take care of people she is close to."
+        "female": "It is important to her to take care of people she is close to.",
+        "neutral": "It is important to them to take care of people they are close to."
       },
       "pvq_rr_en_q12": {
         "male": "It is important to him to have the power that money can bring.",
-        "female": "It is important to her to have the power that money can bring."
+        "female": "It is important to her to have the power that money can bring.",
+        "neutral": "It is important to them to have the power that money can bring."
       },
       "pvq_rr_en_q13": {
         "male": "It is very important to him to avoid disease and protect his health.",
-        "female": "It is very important to her to avoid disease and protect her health."
+        "female": "It is very important to her to avoid disease and protect her health.",
+        "neutral": "It is very important to them to avoid disease and protect their health."
       },
       "pvq_rr_en_q14": {
         "male": "It is important to him to be tolerant toward all kinds of people and groups.",
-        "female": "It is important to her to be tolerant toward all kinds of people and groups."
+        "female": "It is important to her to be tolerant toward all kinds of people and groups.",
+        "neutral": "It is important to them to be tolerant toward all kinds of people and groups."
       },
       "pvq_rr_en_q15": {
         "male": "It is important to him never to violate rules or regulations.",
-        "female": "It is important to her never to violate rules or regulations."
+        "female": "It is important to her never to violate rules or regulations.",
+        "neutral": "It is important to them never to violate rules or regulations."
       },
       "pvq_rr_en_q16": {
         "male": "It is important to him to make his own decisions about his life.",
-        "female": "It is important to her to make her own decisions about her life."
+        "female": "It is important to her to make her own decisions about her life.",
+        "neutral": "It is important to them to make their own decisions about their life."
       },
       "pvq_rr_en_q17": {
         "male": "It is important to him to have ambitions in life.",
-        "female": "It is important to her to have ambitions in life."
+        "female": "It is important to her to have ambitions in life.",
+        "neutral": "It is important to them to have ambitions in life."
       },
       "pvq_rr_en_q18": {
         "male": "It is important to him to maintain traditional values and ways of thinking.",
-        "female": "It is important to her to maintain traditional values and ways of thinking."
+        "female": "It is important to her to maintain traditional values and ways of thinking.",
+        "neutral": "It is important to them to maintain traditional values and ways of thinking."
       },
       "pvq_rr_en_q19": {
         "male": "It is important to him that people he knows have full confidence in him.",
-        "female": "It is important to her that people she knows have full confidence in her."
+        "female": "It is important to her that people she knows have full confidence in her.",
+        "neutral": "It is important to them that people they know have full confidence in them."
       },
       "pvq_rr_en_attention_01": {
         "male": "This is an attention check. Please select 'Not like me at all' to show you are reading carefully.",
-        "female": "This is an attention check. Please select 'Not like me at all' to show you are reading carefully."
+        "female": "This is an attention check. Please select 'Not like me at all' to show you are reading carefully.",
+        "neutral": "This is an attention check. Please select 'Not like me at all' to show you are reading carefully."
       },
       "pvq_rr_en_q20": {
         "male": "It is important to him to be wealthy.",
-        "female": "It is important to her to be wealthy."
+        "female": "It is important to her to be wealthy.",
+        "neutral": "It is important to them to be wealthy."
       },
       "pvq_rr_en_q21": {
         "male": "It is important to him to take part in activities to defend nature.",
-        "female": "It is important to her to take part in activities to defend nature."
+        "female": "It is important to her to take part in activities to defend nature.",
+        "neutral": "It is important to them to take part in activities to defend nature."
       },
       "pvq_rr_en_q22": {
         "male": "It is important to him never to annoy anyone.",
-        "female": "It is important to her never to annoy anyone."
+        "female": "It is important to her never to annoy anyone.",
+        "neutral": "It is important to them never to annoy anyone."
       },
       "pvq_rr_en_q23": {
         "male": "It is important to him to develop his own opinions.",
-        "female": "It is important to her to develop her own opinions."
+        "female": "It is important to her to develop her own opinions.",
+        "neutral": "It is important to them to develop their own opinions."
       },
       "pvq_rr_en_q24": {
         "male": "It is important to him to protect his public image.",
-        "female": "It is important to her to protect her public image."
+        "female": "It is important to her to protect her public image.",
+        "neutral": "It is important to them to protect their public image."
       },
       "pvq_rr_en_q25": {
         "male": "It is very important to him to help the people dear to him.",
-        "female": "It is very important to her to help the people dear to her."
+        "female": "It is very important to her to help the people dear to her.",
+        "neutral": "It is very important to them to help the people dear to them."
       },
       "pvq_rr_en_q26": {
         "male": "It is important to him to be personally safe and secure.",
-        "female": "It is important to her to be personally safe and secure."
+        "female": "It is important to her to be personally safe and secure.",
+        "neutral": "It is important to them to be personally safe and secure."
       },
       "pvq_rr_en_q27": {
         "male": "It is important to him to be a dependable and trustworthy friend.",
-        "female": "It is important to her to be a dependable and trustworthy friend."
+        "female": "It is important to her to be a dependable and trustworthy friend.",
+        "neutral": "It is important to them to be a dependable and trustworthy friend."
       },
       "pvq_rr_en_q28": {
         "male": "It is important to him to take risks that make life exciting.",
-        "female": "It is important to her to take risks that make life exciting."
+        "female": "It is important to her to take risks that make life exciting.",
+        "neutral": "It is important to them to take risks that make life exciting."
       },
       "pvq_rr_en_q29": {
         "male": "It is important to him to have the power to make people do what he wants.",
-        "female": "It is important to her to have the power to make people do what she wants."
+        "female": "It is important to her to have the power to make people do what she wants.",
+        "neutral": "It is important to them to have the power to make people do what they want."
       },
       "pvq_rr_en_q30": {
         "male": "It is important to him to plan his activities independently.",
-        "female": "It is important to her to plan her activities independently."
+        "female": "It is important to her to plan her activities independently.",
+        "neutral": "It is important to them to plan their activities independently."
       },
       "pvq_rr_en_q31": {
         "male": "It is important to him to follow rules even when no-one is watching.",
-        "female": "It is important to her to follow rules even when no-one is watching."
+        "female": "It is important to her to follow rules even when no-one is watching.",
+        "neutral": "It is important to them to follow rules even when no-one is watching."
       },
       "pvq_rr_en_q32": {
         "male": "It is important to him to be very successful.",
-        "female": "It is important to her to be very successful."
+        "female": "It is important to her to be very successful.",
+        "neutral": "It is important to them to be very successful."
       },
       "pvq_rr_en_q33": {
         "male": "It is important to him to follow his family's customs or the customs of a religion.",
-        "female": "It is important to her to follow her family's customs or the customs of a religion."
+        "female": "It is important to her to follow her family's customs or the customs of a religion.",
+        "neutral": "It is important to them to follow their family's customs or the customs of a religion."
       },
       "pvq_rr_en_q34": {
         "male": "It is important to him to listen to and understand people who are different from him.",
-        "female": "It is important to her to listen to and understand people who are different from her."
+        "female": "It is important to her to listen to and understand people who are different from her.",
+        "neutral": "It is important to them to listen to and understand people who are different from them."
       },
       "pvq_rr_en_q35": {
         "male": "It is important to him to have a strong state that can defend its citizens.",
-        "female": "It is important to her to have a strong state that can defend its citizens."
+        "female": "It is important to her to have a strong state that can defend its citizens.",
+        "neutral": "It is important to them to have a strong state that can defend its citizens."
       },
       "pvq_rr_en_q36": {
         "male": "It is important to him to enjoy life's pleasures.",
-        "female": "It is important to her to enjoy life's pleasures."
+        "female": "It is important to her to enjoy life's pleasures.",
+        "neutral": "It is important to them to enjoy life's pleasures."
       },
       "pvq_rr_en_q37": {
         "male": "It is important to him that every person in the world have equal opportunities in life.",
-        "female": "It is important to her that every person in the world have equal opportunities in life."
+        "female": "It is important to her that every person in the world have equal opportunities in life.",
+        "neutral": "It is important to them that every person in the world have equal opportunities in life."
       },
       "pvq_rr_en_q38": {
         "male": "It is important to him to be humble.",
-        "female": "It is important to her to be humble."
+        "female": "It is important to her to be humble.",
+        "neutral": "It is important to them to be humble."
       },
       "pvq_rr_en_attention_02": {
         "male": "This is an attention check. Please select 'Very much like me' to confirm you are paying attention.",
-        "female": "This is an attention check. Please select 'Very much like me' to confirm you are paying attention."
+        "female": "This is an attention check. Please select 'Very much like me' to confirm you are paying attention.",
+        "neutral": "This is an attention check. Please select 'Very much like me' to confirm you are paying attention."
       },
       "pvq_rr_en_q39": {
         "male": "It is important to him to figure things out himself.",
-        "female": "It is important to her to figure things out herself."
+        "female": "It is important to her to figure things out herself.",
+        "neutral": "It is important to them to figure things out themselves."
       },
       "pvq_rr_en_q40": {
         "male": "It is important to him to honor the traditional practices of his culture.",
-        "female": "It is important to her to honor the traditional practices of her culture."
+        "female": "It is important to her to honor the traditional practices of her culture.",
+        "neutral": "It is important to them to honor the traditional practices of their culture."
       },
       "pvq_rr_en_q41": {
         "male": "It is important to him to be the one who tells others what to do.",
-        "female": "It is important to her to be the one who tells others what to do."
+        "female": "It is important to her to be the one who tells others what to do.",
+        "neutral": "It is important to them to be the one who tells others what to do."
       },
       "pvq_rr_en_q42": {
         "male": "It is important to him to obey all the laws.",
-        "female": "It is important to her to obey all the laws."
+        "female": "It is important to her to obey all the laws.",
+        "neutral": "It is important to them to obey all the laws."
       },
       "pvq_rr_en_q43": {
         "male": "It is important to him to have all sorts of new experiences.",
-        "female": "It is important to her to have all sorts of new experiences."
+        "female": "It is important to her to have all sorts of new experiences.",
+        "neutral": "It is important to them to have all sorts of new experiences."
       },
       "pvq_rr_en_q44": {
         "male": "It is important to him to own expensive things that show his wealth",
-        "female": "It is important to her to own expensive things that show her wealth"
+        "female": "It is important to her to own expensive things that show her wealth",
+        "neutral": "It is important to them to own expensive things that show their wealth"
       },
       "pvq_rr_en_q45": {
         "male": "It is important to him to protect the natural environment from destruction or polution.",
-        "female": "It is important to her to protect the natural environment from destruction or pollution."
+        "female": "It is important to her to protect the natural environment from destruction or pollution.",
+        "neutral": "It is important to them to protect the natural environment from destruction or pollution."
       },
       "pvq_rr_en_q46": {
         "male": "It is important to him to take advantage of every opportunity to have fun.",
-        "female": "It is important to her to take advantage of every opportunity to have fun."
+        "female": "It is important to her to take advantage of every opportunity to have fun.",
+        "neutral": "It is important to them to take advantage of every opportunity to have fun."
       },
       "pvq_rr_en_q47": {
         "male": "It is important to him to concern himself with every need of his dear ones.",
-        "female": "It is important to her to concern herself with every need of her dear ones."
+        "female": "It is important to her to concern herself with every need of her dear ones.",
+        "neutral": "It is important to them to concern themselves with every need of their dear ones."
       },
       "pvq_rr_en_q48": {
         "male": "It is important to him that people recognize what he achieves.",
-        "female": "It is important to her that people recognize what she achieves."
+        "female": "It is important to her that people recognize what she achieves.",
+        "neutral": "It is important to them that people recognize what they achieve."
       },
       "pvq_rr_en_q49": {
         "male": "It is important to him never to be humiliated.",
-        "female": "It is important to her never to be humiliated."
+        "female": "It is important to her never to be humiliated.",
+        "neutral": "It is important to them never to be humiliated."
       },
       "pvq_rr_en_q50": {
         "male": "It is important to him that his country protect itself against all threats.",
-        "female": "It is important to her that her country protect itself against all threats."
+        "female": "It is important to her that her country protect itself against all threats.",
+        "neutral": "It is important to them that their country protect itself against all threats."
       },
       "pvq_rr_en_q51": {
         "male": "It is important to him never to make other people angry.",
-        "female": "It is important to her never to make other people angry."
+        "female": "It is important to her never to make other people angry.",
+        "neutral": "It is important to them never to make other people angry."
       },
       "pvq_rr_en_q52": {
         "male": "It is important to him that everyone be treated justly, even people he doesn't know.",
-        "female": "It is important to her that everyone be treated justly, even people she doesn't know."
+        "female": "It is important to her that everyone be treated justly, even people she doesn't know.",
+        "neutral": "It is important to them that everyone be treated justly, even people they don't know."
       },
       "pvq_rr_en_q53": {
         "male": "It is important to him to avoid anything dangerous.",
-        "female": "It is important to her to avoid anything dangerous."
+        "female": "It is important to her to avoid anything dangerous.",
+        "neutral": "It is important to them to avoid anything dangerous."
       },
       "pvq_rr_en_q54": {
         "male": "It is important to him to be satisfied with what he has and not ask for more.",
-        "female": "It is important to her to be satisfied with what she has and not ask for more."
+        "female": "It is important to her to be satisfied with what she has and not ask for more.",
+        "neutral": "It is important to them to be satisfied with what they have and not ask for more."
       },
       "pvq_rr_en_q55": {
         "male": "It is important to him that all his friends and family can rely on him completely.",
-        "female": "It is important to her that all her friends and family can rely on her completely."
+        "female": "It is important to her that all her friends and family can rely on her completely.",
+        "neutral": "It is important to them that all their friends and family can rely on them completely."
       },
       "pvq_rr_en_q56": {
         "male": "It is important to him to be free to choose what he does by himself.",
-        "female": "It is important to her to be free to choose what she does by herself."
+        "female": "It is important to her to be free to choose what she does by herself.",
+        "neutral": "It is important to them to be free to choose what they do by themselves."
       },
       "pvq_rr_en_q57": {
         "male": "It is important to him to accept people even when he disagrees with them.",
-        "female": "It is important to her to accept people even when she disagrees with them."
+        "female": "It is important to her to accept people even when she disagrees with them.",
+        "neutral": "It is important to them to accept people even when they disagree with them."
       }
     }
   }

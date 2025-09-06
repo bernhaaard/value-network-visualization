@@ -8,6 +8,7 @@ import { PadSingleDigit, Enumerate } from "@/types";
 export interface PVQRRQuestion {
   male: string;
   female: string;
+  neutral: string;
 }
 
 /**

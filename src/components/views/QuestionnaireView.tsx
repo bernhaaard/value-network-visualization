@@ -13,14 +13,22 @@ import {
 } from "@chakra-ui/react";
 import { useQuestionnaire } from "@/lib/context";
 import { ErrorDisplay } from "@/components/ui";
-import type { ResponseValue, QuestionId, AttentionCheckId, PVQRRQuestionnaire } from "@/types";
+import type { ResponseValue, QuestionId, AttentionCheckId, PVQRRQuestionnaire, Gender } from "@/types";
 
 /**
  * Get question text by participant's gender and itemId
  */
-const getQuestionText = (itemId: QuestionId | AttentionCheckId, gender: "male" | "female", questionnaire: PVQRRQuestionnaire): string => {
+const getQuestionText = (itemId: QuestionId | AttentionCheckId, gender: Gender, questionnaire: PVQRRQuestionnaire): string => {
   const questionData = questionnaire.questions[itemId];
-  return questionData?.[gender] || "Question not found";
+
+  if (!questionData) return "Question not found";
+
+  // Use neutral version for non-binary and prefer_not_to_say
+  if (gender === "non-binary" || gender === "prefer_not_to_say") {
+    return questionData.neutral || questionData.male;
+  }
+
+  return questionData[gender] || `Question for gender option (${gender}) not found`;
 };
 
 /**
