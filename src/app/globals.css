@@ -12,3 +12,25 @@ body {
     background-color 0.2s ease,
     color 0.2s ease;
 }
+
+/* Fix text selection visibility in both themes */
+::selection {
+  background-color: hsl(30, 30%, 80%); /* bg.selected light */
+  color: #2b1a0f; /* fg light */
+}
+
+::-moz-selection {
+  background-color: hsl(30, 30%, 80%);
+  color: #2b1a0f;
+}
+
+/* Dark mode text selection */
+[data-theme="dark"] ::selection {
+  background-color: hsl(30, 30%, 30%); /* bg.selected dark */
+  color: #e6e8ea; /* fg dark */
+}
+
+[data-theme="dark"] ::-moz-selection {
+  background-color: hsl(30, 30%, 30%);
+  color: #e6e8ea;
+}

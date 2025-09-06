@@ -34,12 +34,12 @@ const findMaxUserScore = (rawScores: RawValueScores): number => {
 /**
  * Create center "You" node
  */
-const createCenterNode = (maxNodeSize: number): NetworkNode => ({
+const createCenterNode = (maxNodeSize: number, colorMode: "light" | "dark"): NetworkNode => ({
   id: "center",
   name: "You",
   type: "center",
   val: maxNodeSize * 4, // 4x largest value node radius
-  color: "white",
+  color: colorMode === "dark" ? "#ffffff" : "#8f8f8f",
   x: 0,
   y: 0,
   z: 0,
@@ -104,13 +104,16 @@ const createValueNode = (
 /**
  * Create primary edges from center to all value nodes
  */
-const createPrimaryLinks = (valueNodes: NetworkNode[]): NetworkLink[] => {
+const createPrimaryLinks = (
+  valueNodes: NetworkNode[],
+  colorMode: "light" | "dark",
+): NetworkLink[] => {
   return valueNodes.map(node => ({
     source: "center",
     target: node.id,
     type: "primary" as const,
     visible: true,
-    color: "rgba(255, 255, 255, 0.4)",
+    color: colorMode === "dark" ? "rgba(255, 255, 255, 0.4)" : "rgba(113, 113, 122, 0.6)",
     width: 1,
   }));
 };
@@ -122,6 +125,7 @@ export const transformValueProfileToGraphData = (
   valueProfile: ValueProfile,
   config: NetworkConfig = createNetworkConfig(),
   mode: "2d" | "3d" = "2d",
+  colorMode: "light" | "dark" = "light",
 ): GraphData => {
   const { rawScores } = valueProfile;
   const maxUserScore = findMaxUserScore(rawScores);
@@ -170,13 +174,13 @@ export const transformValueProfileToGraphData = (
   const maxNodeSize = Math.max(...valueNodes.map(node => node.val));
 
   // Create center node
-  const centerNode = createCenterNode(maxNodeSize);
+  const centerNode = createCenterNode(maxNodeSize, colorMode);
 
   // Create all nodes
   const nodes = [centerNode, ...valueNodes];
 
   // Create primary links
-  const links = createPrimaryLinks(valueNodes);
+  const links = createPrimaryLinks(valueNodes, colorMode);
 
   return { nodes, links };
 };

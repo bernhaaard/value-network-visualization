@@ -41,19 +41,23 @@ export const getLinkColorWithHover = (
   link: LinkObject,
   hoveredNodeId: string | null | undefined,
   nodes: NetworkNode[],
+  colorMode: "light" | "dark",
 ): string => {
   if (hoveredNodeId === "center") {
-    return "rgba(255, 255, 255, 0.5)";
+    return colorMode === "dark" ? "rgba(255, 255, 255, 0.5)" : "rgba(135, 135, 135, 0.5)";
   }
 
   const targetId = typeof link.target === "object" ? link.target.id : link.target;
 
   if (hoveredNodeId && targetId === hoveredNodeId) {
     const hoveredNode = nodes.find(n => n.id === hoveredNodeId);
-    return hoveredNode?.color || "rgba(255, 255, 255, 0.9)";
+    return (
+      hoveredNode?.color ||
+      (colorMode === "dark" ? "rgba(255, 255, 255, 0.5)" : "rgba(155, 155, 155, 0.5)")
+    );
   }
 
-  return "rgba(255, 255, 255, 0.5)";
+  return colorMode === "dark" ? "rgba(255, 255, 255, 0.5)" : "rgba(155, 155, 155, 0.5)";
 };
 
 /**

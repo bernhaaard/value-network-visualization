@@ -23,8 +23,8 @@ const palette = {
       dark: { value: "hsl(30, 15%, 16%)" }, // Dark orange tint for accent backgrounds
     },
     selected: {
-      light: { value: "hsl(30, 30%, 90%)" }, // Orange for selected states
-      dark: { value: "hsl(30, 30%, 20%)" }, // Orange for selected states
+      light: { value: "hsl(30, 30%, 80%)" }, // Orange for selected states
+      dark: { value: "hsl(30, 30%, 30%)" }, // Orange for selected states
     },
     overlay: {
       light: { value: "rgba(255, 255, 255, 0.95)" },

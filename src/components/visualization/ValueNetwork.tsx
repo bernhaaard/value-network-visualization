@@ -20,6 +20,7 @@ import {
 import * as THREE from "three";
 import type { Object3D } from "three";
 import type { LinkObject, NodeObject, GraphMethods } from "r3f-forcegraph";
+import { useColorModeValue } from "../ui/color-mode";
 
 const R3fForceGraph = dynamic(() => import("r3f-forcegraph"), { ssr: false });
 
@@ -31,6 +32,7 @@ function GraphVisualization({ graphData, mode, hoveredNodeId, onHover, onHovered
   onHoveredNodeChange?: (id: string | null) => void;
 }) {
   const fgRef = useRef<GraphMethods<NodeObject, LinkObject> | undefined>(undefined);
+  const colorMode = useColorModeValue("light", "dark");
 
   const handleNodeHover = (node?: NodeObject | null) => {
     if (!onHover) return;
@@ -117,7 +119,7 @@ function GraphVisualization({ graphData, mode, hoveredNodeId, onHover, onHovered
             fgRef.current.refresh();
           }
         }}
-        linkColor={(link: LinkObject) => getLinkColorWithHover(link, hoveredNodeId, graphData.nodes)}
+        linkColor={(link: LinkObject) => getLinkColorWithHover(link, hoveredNodeId, graphData.nodes, colorMode)}
         linkWidth={(link: LinkObject) => getLinkWidthWithHover(link, hoveredNodeId)}
         nodePositionUpdate={(nodeObject: Object3D, coords: { x: number; y: number; z: number }, node: NodeObject) => {
           if (mode === "2d" && node.x !== undefined && node.y !== undefined && node.z !== undefined) {
@@ -199,14 +201,16 @@ export function ValueNetwork() {
   const [hoveredNodeId, setHoveredNodeId] = useState<string | null>(null);
 
   // Transform value profile to graph data
+  const colorMode = useColorModeValue("light", "dark");
+
   const graphData = useMemo(() => {
     if (!valueProfile) {
       return { nodes: [], links: [] };
     }
 
     const config = createNetworkConfig(600); // Fixed internal size
-    return transformValueProfileToGraphData(valueProfile, config, currentMode);
-  }, [valueProfile, currentMode]);
+    return transformValueProfileToGraphData(valueProfile, config, currentMode, colorMode);
+  }, [valueProfile, currentMode, colorMode]);
 
   if (!valueProfile) {
     return (
