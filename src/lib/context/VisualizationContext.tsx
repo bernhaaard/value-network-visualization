@@ -19,12 +19,13 @@ import { useDebouncedSave } from "@/hooks";
  */
 const createInitialUserFeedbackData = (): UserFeedbackData => ({
   modeSwaps: [],
+  nodeExplorations: {},
   feedback: {
     preference: null,
     helpfulness: null,
     additionalThoughts: "",
   },
-  startedAt: new Date(),
+  visualizationStartedAt: new Date(),
 });
 
 // Create context
@@ -74,12 +75,22 @@ export const VisualizationProvider: React.FC<VisualizationProviderProps> = ({ ch
         // Restore dates from JSON
         const restoredData: UserFeedbackData = {
           ...savedUserFeedbackData,
-          startedAt: new Date(savedUserFeedbackData.startedAt),
+          visualizationStartedAt: new Date(savedUserFeedbackData.visualizationStartedAt),
+          feedbackEnteredAt: savedUserFeedbackData.feedbackEnteredAt ? new Date(savedUserFeedbackData.feedbackEnteredAt) : undefined,
           completedAt: savedUserFeedbackData.completedAt ? new Date(savedUserFeedbackData.completedAt) : undefined,
           modeSwaps: savedUserFeedbackData.modeSwaps.map(swap => ({
             ...swap,
             timestamp: new Date(swap.timestamp),
           })),
+          // Handle node explorations date restoration
+          nodeExplorations: Object.keys(savedUserFeedbackData.nodeExplorations || {}).reduce((acc, nodeId) => {
+            const exploration = savedUserFeedbackData.nodeExplorations[nodeId];
+            acc[nodeId] = {
+              first2DExploration: exploration.first2DExploration ? new Date(exploration.first2DExploration) : undefined,
+              first3DExploration: exploration.first3DExploration ? new Date(exploration.first3DExploration) : undefined,
+            };
+            return acc;
+          }, {} as { [nodeId: string]: { first2DExploration?: Date; first3DExploration?: Date } }),
         };
         setUserFeedbackData(restoredData);
       }
@@ -117,6 +128,33 @@ export const VisualizationProvider: React.FC<VisualizationProviderProps> = ({ ch
     }
   }, []);
 
+  const trackNodeExploration = useCallback((nodeId: string): void => {
+    const now = new Date();
+
+    setUserFeedbackData(prev => {
+      const existingExploration = prev.nodeExplorations[nodeId] || {};
+      const modeKey = currentMode === "2d" ? "first2DExploration" : "first3DExploration";
+
+      // Only track first exploration per mode
+      if (existingExploration[modeKey]) return prev;
+
+      return {
+        ...prev,
+        nodeExplorations: {
+          ...prev.nodeExplorations,
+          [nodeId]: {
+            ...existingExploration,
+            [modeKey]: now,
+          },
+        },
+      };
+    });
+
+    if (process.env.NODE_ENV === "development") {
+      console.log(`🎯 Node ${nodeId} explored in ${currentMode} mode`);
+    }
+  }, [currentMode]);
+
   const updateFeedback = useCallback((feedback: Partial<UserFeedback>): void => {
     setUserFeedbackData(prev => ({
       ...prev,
@@ -125,13 +163,22 @@ export const VisualizationProvider: React.FC<VisualizationProviderProps> = ({ ch
   }, []);
 
   const goToPhase = useCallback((phase: VisualizationPhase): void => {
-    if (phase === "exploration" || phase === "feedback") {
+    const now = new Date();
+
+    if (phase === "exploration") {
       setCurrentPhase(phase);
+    } else if (phase === "feedback") {
+      setCurrentPhase(phase);
+      // Track when feedback phase is entered
+      setUserFeedbackData(prev => ({
+        ...prev,
+        feedbackEnteredAt: prev.feedbackEnteredAt || now, // Only set if not already set
+      }));
     } else if (phase === "complete") {
       setCurrentPhase("complete");
       setUserFeedbackData(prev => ({
         ...prev,
-        completedAt: new Date(),
+        completedAt: now,
       }));
     }
 
@@ -171,7 +218,13 @@ export const VisualizationProvider: React.FC<VisualizationProviderProps> = ({ ch
       console.log("Current Mode:", currentMode);
       console.log("Current Phase:", currentPhase);
       console.log("Mode Swaps:", userFeedbackData.modeSwaps.length);
+      console.log("Node Explorations:", Object.keys(userFeedbackData.nodeExplorations).length, "nodes explored");
       console.log("Feedback:", userFeedbackData.feedback);
+      console.log("Timing:", {
+        visualizationStarted: userFeedbackData.visualizationStartedAt,
+        feedbackEntered: userFeedbackData.feedbackEnteredAt,
+        completed: userFeedbackData.completedAt,
+      });
       console.groupEnd();
     }
   }, [valueProfile, currentMode, currentPhase, userFeedbackData]);
@@ -188,6 +241,7 @@ export const VisualizationProvider: React.FC<VisualizationProviderProps> = ({ ch
 
     // Actions
     switchMode,
+    trackNodeExploration,
     updateFeedback,
     goToPhase,
     initializeWithProfile,

@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useRef, useEffect, useMemo, useState } from "react";
+import React, { useRef, useEffect, useMemo, useState, useCallback } from "react";
+import { debounce } from "lodash";
 import { Box } from "@chakra-ui/react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
@@ -195,10 +196,26 @@ function AlignCameraForMode({ mode }: { mode: "2d" | "3d" }) {
  * ValueNetwork - Ego network visualization component
  */
 export function ValueNetwork() {
-  const { valueProfile, currentMode } = useVisualization();
+  const { valueProfile, currentMode, trackNodeExploration } = useVisualization();
   const containerRef = useRef<HTMLDivElement | null>(null);
   const [hoverHUD, setHoverHUD] = useState<HoverScreenInfo | null>(null);
   const [hoveredNodeId, setHoveredNodeId] = useState<string | null>(null);
+
+  // Debounced node exploration tracking 
+  // 500ms debounce to avoid spam/accidental hovers when rotating the camera
+  const debouncedTrackExploration = useCallback(
+    debounce((nodeId: string) => {
+      trackNodeExploration(nodeId);
+    }, 500),
+    [trackNodeExploration]
+  );
+
+  // Cleanup debounced function on unmount
+  useEffect(() => {
+    return () => {
+      debouncedTrackExploration.cancel();
+    };
+  }, [debouncedTrackExploration]);
 
   // Transform value profile to graph data
   const colorMode = useColorModeValue("light", "dark");
@@ -262,7 +279,7 @@ export function ValueNetwork() {
         {/* <gridHelper args={[800, 20]} /> */}
 
         {/* Debug: Axes Helper */}
-        {process.env.NODE_ENV === "development" && <axesHelper args={[200]} />}
+        <axesHelper args={[300]} />
 
         {/* Controls */}
         <OrbitControls
@@ -282,7 +299,13 @@ export function ValueNetwork() {
           mode={currentMode}
           onHover={setHoverHUD}
           hoveredNodeId={hoveredNodeId}
-          onHoveredNodeChange={setHoveredNodeId}
+          onHoveredNodeChange={(nodeId: string | null) => {
+            setHoveredNodeId(nodeId);
+            // Track node exploration for research metrics (first-time only per mode)
+            if (nodeId && nodeId !== "center") {
+              debouncedTrackExploration(nodeId);
+            }
+          }}
         />
       </Canvas>
       {hoverHUD && (

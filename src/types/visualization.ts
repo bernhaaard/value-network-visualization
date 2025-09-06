@@ -40,15 +40,29 @@ export interface UserFeedback {
 }
 
 /**
+ * Node exploration tracking for first-time hover analysis
+ */
+export interface NodeExploration {
+  /** First time node was explored in 2D mode */
+  first2DExploration?: Date;
+  /** First time node was explored in 3D mode */
+  first3DExploration?: Date;
+}
+
+/**
  * Complete user feedback data including exploration metrics
  */
 export interface UserFeedbackData {
   /** All mode switches with timestamps for time analysis */
   modeSwaps: ModeSwap[];
+  /** Node exploration tracking by node ID (first exploration only) */
+  nodeExplorations: { [nodeId: string]: NodeExploration };
   /** User feedback responses */
   feedback: UserFeedback;
-  /** When data collection started */
-  startedAt: Date;
+  /** When visualization data collection started */
+  visualizationStartedAt: Date;
+  /** When feedback phase was entered */
+  feedbackEnteredAt?: Date;
   /** When feedback was completed */
   completedAt?: Date;
 }
@@ -72,6 +86,8 @@ export interface VisualizationContextType {
   // Actions
   /** Switch between 2D and 3D modes */
   switchMode: (mode: VisualizationMode) => void;
+  /** Track node exploration (first time only per mode) */
+  trackNodeExploration: (nodeId: string) => void;
   /** Update feedback responses */
   updateFeedback: (feedback: Partial<UserFeedback>) => void;
   /** Go to a specific phase */

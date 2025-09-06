@@ -166,7 +166,8 @@ export const QuestionnaireProvider: React.FC<QuestionnaireProviderProps> = ({ ch
           ...savedSession,
           startTime: new Date(savedSession.startTime),
           lastUpdated: new Date(savedSession.lastUpdated),
-          completedAt: savedSession.completedAt ? new Date(savedSession.completedAt) : undefined
+          questionnaireStartedAt: savedSession.questionnaireStartedAt ? new Date(savedSession.questionnaireStartedAt) : undefined,
+          questionnaireCompletedAt: savedSession.questionnaireCompletedAt ? new Date(savedSession.questionnaireCompletedAt) : undefined
         };
 
         if (isSessionExpired(sessionMetadata)) {
@@ -314,10 +315,15 @@ export const QuestionnaireProvider: React.FC<QuestionnaireProviderProps> = ({ ch
   };
 
   const setPhase = (phase: QuestionnairePhase): void => {
+    const now = new Date();
     setMetadata(prev => prev ? {
       ...prev,
       currentPhase: phase,
-      lastUpdated: new Date()
+      lastUpdated: now,
+      // Track when questionnaire phase starts for research timing
+      ...(phase === "questionnaire" && !prev.questionnaireStartedAt && {
+        questionnaireStartedAt: now
+      })
     } : null);
   };
 
@@ -327,7 +333,7 @@ export const QuestionnaireProvider: React.FC<QuestionnaireProviderProps> = ({ ch
     setMetadata(prev => prev ? {
       ...prev,
       currentPhase: "complete",
-      completedAt: now,
+      questionnaireCompletedAt: now,
       lastUpdated: now
     } : null);
   };

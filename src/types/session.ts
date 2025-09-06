@@ -24,14 +24,16 @@ export interface SessionMetadata {
   sessionId: string;
   /** Optional user ID */
   userId?: string;
-  /** Session start timestamp */
+  /** Session start timestamp (when demographics submitted) */
   startTime: Date;
+  /** When questionnaire phase started */
+  questionnaireStartedAt?: Date;
   /** Current questionnaire phase */
   currentPhase: QuestionnairePhase;
   /** Last activity timestamp */
   lastUpdated: Date;
-  /** Completion timestamp */
-  completedAt?: Date;
+  /** When questionnaire was completed */
+  questionnaireCompletedAt?: Date;
   /** Application version */
   version: string;
   /** Interface language */
