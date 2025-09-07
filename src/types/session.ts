@@ -17,6 +17,25 @@ import type { ValueProfile } from "@/lib/schwartz";
 export type QuestionnairePhase = "instructions" | "demographics" | "questionnaire" | "complete";
 
 /**
+ * Complete study phases including visualization for comprehensive dropout analysis
+ */
+export type StudyPhase = "demographics" | "questionnaire" | "exploration" | "feedback" | "complete";
+
+/**
+ * Progressive session status for dropout analysis
+ */
+export interface ProgressiveSessionStatus {
+  /** Current furthest phase reached */
+  furthestPhaseReached: StudyPhase;
+  /** Timestamp when this phase was reached */
+  phaseReachedAt: Date;
+  /** Whether session is currently active */
+  isActive: boolean;
+  /** Last activity timestamp */
+  lastActivityAt: Date;
+}
+
+/**
  * Session tracking metadata
  */
 export interface SessionMetadata {

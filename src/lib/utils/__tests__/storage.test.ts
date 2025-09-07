@@ -5,6 +5,7 @@
 
 import { describe, it, expect, beforeEach, vi } from "vitest";
 import { storage } from "../storage";
+import { STORAGE_KEYS } from "@/types";
 
 // Mock localStorage using modern vi.stubGlobal pattern
 const mockLocalStorage = {
@@ -153,10 +154,10 @@ describe("Storage Utilities", () => {
 
       // Check that all expected keys are removed (order may vary)
       // Note: Progress is computed from responses, not stored separately
-      expect(mockLocalStorage.removeItem).toHaveBeenCalledTimes(3);
-      expect(mockLocalStorage.removeItem).toHaveBeenCalledWith("pvq_rr_demographics");
-      expect(mockLocalStorage.removeItem).toHaveBeenCalledWith("pvq_rr_responses");
-      expect(mockLocalStorage.removeItem).toHaveBeenCalledWith("pvq_rr_session_id");
+      expect(mockLocalStorage.removeItem).toHaveBeenCalledTimes(Object.values(STORAGE_KEYS).length);
+      Object.values(STORAGE_KEYS).forEach(key => {
+        expect(mockLocalStorage.removeItem).toHaveBeenCalledWith(key);
+      });
     });
   });
 

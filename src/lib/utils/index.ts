@@ -18,3 +18,14 @@ export {
 
 // String utilities
 export { slugify } from "./stringUtils";
+
+// Session analytics utilities
+export {
+  calculateModeTimeDistribution,
+  calculateNodeExplorationCoverage,
+  calculateSessionCompletionMetrics,
+  calculateSessionAnalytics,
+  createIncrementalSessionData,
+  formatDuration,
+  logAnalyticsSummary,
+} from "./session-analytics";

@@ -23,6 +23,7 @@ const createInitialUserFeedbackData = (): UserFeedbackData => ({
   feedback: {
     preference: null,
     helpfulness: null,
+    valueLearnings: "",
     additionalThoughts: "",
   },
   visualizationStartedAt: new Date(),

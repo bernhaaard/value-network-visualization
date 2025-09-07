@@ -35,6 +35,8 @@ export interface UserFeedback {
   preference: FeedbackPreference | null;
   /** Which visualization was more helpful for understanding values? */
   helpfulness: FeedbackPreference | null;
+  /** What insights did user gain about their values? */
+  valueLearnings: string;
   /** Additional thoughts and open feedback */
   additionalThoughts: string;
 }

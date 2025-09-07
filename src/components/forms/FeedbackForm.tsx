@@ -123,6 +123,23 @@ export const FeedbackForm: React.FC<FeedbackFormProps> = ({ open, onOpenChange }
                 </HStack>
               </Field.Root>
 
+              {/* Personal Learnings Question */}
+              <Field.Root>
+                <Field.Label fontWeight="medium">
+                  What did you learn about your personal values?
+                </Field.Label>
+                <Field.HelperText color="fg.muted">
+                  Please share any insights, discoveries, or new understandings you gained about your values through this visualization.
+                </Field.HelperText>
+                <Textarea
+                  value={userFeedbackData.feedback.valueLearnings}
+                  onChange={(e) => updateFeedback({ valueLearnings: e.target.value })}
+                  placeholder="I learned that my most important values are... OR I discovered that I value... OR I was surprised to see..."
+                  rows={4}
+                  mt={2}
+                />
+              </Field.Root>
+
               {/* Additional Thoughts */}
               <Field.Root>
                 <Field.Label fontWeight="medium">

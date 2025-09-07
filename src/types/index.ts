@@ -25,6 +25,8 @@ export type { Gender, EducationLevel, UserDemographics } from "./demographics";
 // Session & Context Types
 export type {
   QuestionnairePhase,
+  StudyPhase,
+  ProgressiveSessionStatus,
   SessionMetadata,
   QuestionnaireState,
   PersistenceStatus,
@@ -40,7 +42,18 @@ export type {
   UserFeedback,
   UserFeedbackData,
   VisualizationContextType,
+  NodeExploration,
 } from "./visualization";
+
+// Analytics Types
+export type {
+  ModeTimeDistribution,
+  NodeExplorationCoverage,
+  SessionCompletionMetrics,
+  SessionAnalytics,
+  IncrementalSessionData,
+  SessionAnalyticsInput,
+} from "./analytics";
 
 // Constants
 export { STORAGE_KEYS, QUESTIONNAIRE_CONFIG } from "./constants";
