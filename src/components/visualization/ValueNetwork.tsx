@@ -201,6 +201,15 @@ export function ValueNetwork() {
   const [hoverHUD, setHoverHUD] = useState<HoverScreenInfo | null>(null);
   const [hoveredNodeId, setHoveredNodeId] = useState<string | null>(null);
 
+  // Create Y-axis line
+  const yAxisLine = useMemo(() => {
+    const geometry = new THREE.BufferGeometry();
+    const positions = new Float32Array([0, 0, 0, 0, 300, 0]);
+    geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+    const material = new THREE.LineBasicMaterial({ color: "hsla(210, 100%, 70%, 0.5)" });
+    return new THREE.Line(geometry, material);
+  }, []);
+
   // Debounced node exploration tracking 
   // 500ms debounce to avoid spam/accidental hovers when rotating the camera
   const debouncedTrackExploration = useCallback(
@@ -276,10 +285,10 @@ export function ValueNetwork() {
         />
 
         {/* Grid Helper */}
-        {/* <gridHelper args={[800, 20]} /> */}
+        <gridHelper args={[1000, 300, "hsla(30, 90%, 80%, 0.5)", "hsla(0, 0%, 25%, 0.001)"]} />
 
-        {/* Debug: Axes Helper */}
-        <axesHelper args={[300]} />
+        {/* Y-Axis Only */}
+        <primitive object={yAxisLine} />
 
         {/* Controls */}
         <OrbitControls
