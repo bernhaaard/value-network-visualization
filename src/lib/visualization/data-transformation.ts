@@ -75,10 +75,10 @@ const createValueNode = (
   // Debug logging
   if (process.env.NODE_ENV === "development") {
     console.log(
-      `ValueId: ${valueCategory}, 
-      Score: ${rawScore}/${maxUserScore}, 
-      Size: ${nodeSize}, 
-      Radius: ${radius}, 
+      `ValueId: ${valueCategory},
+      Score: ${rawScore}/${maxUserScore},
+      Size: ${nodeSize},
+      Radius: ${radius},
       Theta: ${theta}`,
     );
   }

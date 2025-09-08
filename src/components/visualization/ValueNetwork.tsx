@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useEffect, useMemo, useState, useCallback } from "react";
+import React, { useRef, useEffect, useMemo, useState } from "react";
 import { debounce } from "lodash";
 import { Box } from "@chakra-ui/react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
@@ -210,14 +210,12 @@ export function ValueNetwork() {
     return new THREE.Line(geometry, material);
   }, []);
 
-  // Debounced node exploration tracking 
-  // 500ms debounce to avoid spam/accidental hovers when rotating the camera
-  const debouncedTrackExploration = useCallback(
-    debounce((nodeId: string) => {
+  // Debounced node exploration tracking (stable instance)
+  const debouncedTrackExploration = useMemo(() => {
+    return debounce((nodeId: string) => {
       trackNodeExploration(nodeId);
-    }, 500),
-    [trackNodeExploration]
-  );
+    }, 500);
+  }, [trackNodeExploration]);
 
   // Cleanup debounced function on unmount
   useEffect(() => {

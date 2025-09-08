@@ -146,7 +146,7 @@ export interface QuestionnaireContextType {
   /** Update current questionnaire phase */
   setPhase: (phase: QuestionnairePhase) => void;
   /** Mark questionnaire as completed */
-  completeQuestionnaire: () => void;
+  completeQuestionnaire: () => Promise<void>;
   /** Calculate and store value profile from responses */
   calculateAndStoreValueProfile: () => void;
   /** Clear all session data */

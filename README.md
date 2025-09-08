@@ -36,9 +36,9 @@ npm install
 Create a `.env.local` file in the project root:
 
 ```bash
-# Supabase Configuration
-NEXT_PUBLIC_SUPABASE_URL=your_supabase_project_url
-NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+# Supabase Configuration (server-side only - never exposed to client)
+SUPABASE_URL=your_supabase_project_url
+SUPABASE_ANON_KEY=your_supabase_anon_key
 ```
 
 **To get your Supabase credentials:**

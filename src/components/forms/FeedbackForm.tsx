@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import {
   Box,
   Button,
@@ -11,8 +11,13 @@ import {
   Heading,
   Text,
   Dialog,
+  Alert,
 } from "@chakra-ui/react";
 import { useVisualization } from "@/lib/context";
+import { apiCompleteStudy } from "@/lib/database/api-client";
+import { storage } from "@/lib/utils";
+import { STORAGE_KEYS } from "@/types/constants";
+import type { SessionMetadata } from "@/types";
 
 interface FeedbackFormProps {
   open: boolean;
@@ -24,7 +29,8 @@ interface FeedbackFormProps {
  * Renders as a dialog overlay on top of the visualization
  */
 export const FeedbackForm: React.FC<FeedbackFormProps> = ({ open, onOpenChange }) => {
-  const { userFeedbackData, updateFeedback, goToPhase } = useVisualization();
+  const { userFeedbackData, updateFeedback, goToPhase, valueProfile } = useVisualization();
+  const [submissionError, setSubmissionError] = useState<string | null>(null);
 
   const canSubmit = userFeedbackData.feedback.preference && userFeedbackData.feedback.helpfulness;
 
@@ -33,7 +39,37 @@ export const FeedbackForm: React.FC<FeedbackFormProps> = ({ open, onOpenChange }
     onOpenChange(false);
   };
 
-  const handleComplete = () => {
+  const handleComplete = async () => {
+    // Clear any previous errors
+    setSubmissionError(null);
+
+    // Final analytics calculation and database save
+    try {
+      const sessionData = storage.load(STORAGE_KEYS.SESSION_ID) as SessionMetadata | null;
+      if (sessionData && valueProfile) {
+        const updatedUserFeedbackData = {
+          ...userFeedbackData,
+          completedAt: new Date(),
+        };
+
+        await apiCompleteStudy({
+          sessionMetadata: sessionData,
+          userFeedbackData: updatedUserFeedbackData,
+          valueProfile,
+        });
+
+        if (process.env.NODE_ENV === "development") {
+          console.log("🎯 Final study data saved to database");
+        }
+      }
+    } catch (error) {
+      console.error("Failed to save final study data:", error);
+      setSubmissionError("Your responses could not be saved. Please check your internet connection and try submitting again.");
+      // Don't continue - let user retry
+      return;
+    }
+
+    // Update UI state
     goToPhase("complete");
     onOpenChange(false);
   };
@@ -157,6 +193,15 @@ export const FeedbackForm: React.FC<FeedbackFormProps> = ({ open, onOpenChange }
                 />
               </Field.Root>
 
+              {/* Submission Error */}
+              {submissionError && (
+                <Alert.Root status="warning" bg="bg.subtle" color="status.error" border="1px solid" borderColor="status.error" size="sm" width="full">
+                  <Alert.Indicator />
+                  <Alert.Content>
+                    <Alert.Title>{submissionError}</Alert.Title>
+                  </Alert.Content>
+                </Alert.Root>
+              )}
 
               <HStack mt={4} textAlign="center">
                 {/* Back to Exploration Button */}

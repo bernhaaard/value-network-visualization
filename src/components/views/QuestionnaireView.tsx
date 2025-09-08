@@ -43,7 +43,6 @@ export function QuestionnaireView() {
     answerQuestion,
     goToQuestion,
     completeQuestionnaire,
-    calculateAndStoreValueProfile,
     isLoading,
     error,
     canAnswerQuestions,
@@ -107,13 +106,16 @@ export function QuestionnaireView() {
   const canGoNext = currentResponse !== undefined;
   const isLastQuestion = navigationIndex === totalItems - 1;
 
-  const handleNext = () => {
+  const handleNext = async () => {
     if (canGoNext) {
       setAttemptedNext(false);
       if (isLastQuestion) {
-        // Complete questionnaire , then calculate value profile
-        completeQuestionnaire();
-        calculateAndStoreValueProfile();
+        // Complete questionnaire (local + server create)
+        try {
+          await completeQuestionnaire();
+        } catch (error) {
+          console.error("Failed to complete questionnaire:", error);
+        }
       } else {
         goToQuestion(navigationIndex + 1);
       }

@@ -21,6 +21,7 @@ import { isAttentionCheckId } from "@/types/questionnaire";
 import { storage, isLocalStorageAvailable } from "@/lib/utils";
 import { useDebouncedSave } from "@/hooks";
 import { validateResponseCompleteness, calculateValueProfile, type ValueProfile } from "@/lib/schwartz";
+import { apiCreateSession } from "@/lib/database/api-client";
 
 /**
  * Calculates accurate progress excluding attention checks for user feedback.
@@ -327,9 +328,43 @@ export const QuestionnaireProvider: React.FC<QuestionnaireProviderProps> = ({ ch
     } : null);
   };
 
-  const completeQuestionnaire = (): void => {
-    validateResponseCompleteness(responses);
+  const completeQuestionnaire = async (): Promise<void> => {
+    const isResponsesComplete = validateResponseCompleteness(responses);
+
+    if (!isResponsesComplete) {
+      throw new Error("Cannot complete questionnaire: responses incomplete");
+    }
+
     const now = new Date();
+    const profile = calculateValueProfile(responses);
+    setValueProfile(profile);
+
+    // Save session data to database
+    try {
+      if (metadata && demographics) {
+        await apiCreateSession({
+          sessionMetadata: {
+            ...metadata,
+            questionnaireCompletedAt: now,
+            lastUpdated: now,
+          },
+          demographics,
+          valueProfile: profile,
+          responses,
+        });
+
+        if (process.env.NODE_ENV === "development") {
+          console.log("🎯 Session data saved to database");
+        }
+      }
+    } catch (error) {
+      console.error("Failed to save session to database:", error);
+      setError("Failed to save your data. Please check your internet connection and try again.");
+      // Don't continue - let user retry
+      return;
+    }
+
+    // Only set completion phase after successful database save
     setMetadata(prev => prev ? {
       ...prev,
       currentPhase: "complete",

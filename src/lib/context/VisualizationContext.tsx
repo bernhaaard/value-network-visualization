@@ -8,7 +8,7 @@ import type {
   UserFeedback,
   ModeSwap,
   VisualizationContextType,
-} from "@/types/visualization";
+} from "@/types";
 import type { ValueProfile } from "@/lib/schwartz";
 import { STORAGE_KEYS } from "@/types/constants";
 import { storage } from "@/lib/utils";
@@ -67,7 +67,12 @@ export const VisualizationProvider: React.FC<VisualizationProviderProps> = ({ ch
       // Load value profile (calculated in QuestionnaireContext)
       const savedProfile = storage.load(STORAGE_KEYS.VALUE_PROFILE) as ValueProfile | null;
       if (savedProfile) {
-        setValueProfile(savedProfile);
+        // Restore calculatedAt date from JSON
+        const restoredProfile: ValueProfile = {
+          ...savedProfile,
+          calculatedAt: new Date(savedProfile.calculatedAt),
+        };
+        setValueProfile(restoredProfile);
       }
 
       // Load user feedback data
@@ -150,10 +155,6 @@ export const VisualizationProvider: React.FC<VisualizationProviderProps> = ({ ch
         },
       };
     });
-
-    if (process.env.NODE_ENV === "development") {
-      console.log(`🎯 Node ${nodeId} explored in ${currentMode} mode`);
-    }
   }, [currentMode]);
 
   const updateFeedback = useCallback((feedback: Partial<UserFeedback>): void => {
@@ -173,7 +174,7 @@ export const VisualizationProvider: React.FC<VisualizationProviderProps> = ({ ch
       // Track when feedback phase is entered
       setUserFeedbackData(prev => ({
         ...prev,
-        feedbackEnteredAt: prev.feedbackEnteredAt || now, // Only set if not already set
+        feedbackEnteredAt: prev.feedbackEnteredAt || now,
       }));
     } else if (phase === "complete") {
       setCurrentPhase("complete");
