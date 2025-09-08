@@ -97,13 +97,15 @@ export async function completeStudySession(data: {
 
   // Convert node explorations from JSON
   const nodeExplorationsWithDates: Record<string, NodeExploration> = Object.fromEntries(
-    Object.entries(userFeedbackData.nodeExplorations || {}).map(([nodeId, ex]: [string, any]) => [
-      nodeId,
-      {
-        first2DExploration: ex.first2DExploration ? new Date(ex.first2DExploration) : undefined,
-        first3DExploration: ex.first3DExploration ? new Date(ex.first3DExploration) : undefined,
-      },
-    ]),
+    Object.entries(userFeedbackData.nodeExplorations || {}).map(
+      ([nodeId, ex]: [string, NodeExploration]) => [
+        nodeId,
+        {
+          first2DExploration: ex.first2DExploration ? new Date(ex.first2DExploration) : undefined,
+          first3DExploration: ex.first3DExploration ? new Date(ex.first3DExploration) : undefined,
+        },
+      ],
+    ),
   );
 
   // Calculate time spent in each mode and exploration coverage
