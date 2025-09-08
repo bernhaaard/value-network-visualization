@@ -65,7 +65,7 @@ export interface HoverScreenInfo {
   id: string;
   name?: string;
   domain?: HigherOrderDomain;
-  rawScore?: number;
+  definition?: string;
 }
 
 /**

@@ -4,3 +4,4 @@ export { Provider } from "./provider";
 export { Toaster } from "./toaster";
 export { Tooltip } from "./tooltip";
 export { ErrorDisplay } from "./error-display";
+export { ConsentDialog } from "./consent-dialog";

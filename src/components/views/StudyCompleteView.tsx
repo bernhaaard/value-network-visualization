@@ -34,7 +34,7 @@ export function StudyCompleteView() {
 
         <VStack gap={6}>
           <Box
-            p={6}
+            p={{ base: 6, md: 8 }}
             bg="bg.muted"
             borderRadius="md"
             borderWidth="1px"
@@ -46,7 +46,7 @@ export function StudyCompleteView() {
             </Text>
             <Text color="fg.muted">
               Your feedback will contribute to understanding how different visualization approaches
-              affect comprehension of personal values.
+              affect comprehension of personal values. I appreciate your time and effort!
             </Text>
           </Box>
 

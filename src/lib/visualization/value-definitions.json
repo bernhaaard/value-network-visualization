@@ -1,0 +1,59 @@
+{
+  "self_direction_thought": {
+    "definition": "The drive to form your own opinions and cultivate original ideas. This Openness to Change value represents growth-oriented thinking—you expand your understanding through curiosity, creativity, and intellectual independence rather than accepting received wisdom."
+  },
+  "self_direction_action": {
+    "definition": "The need to make your own life choices and control your personal decisions. Part of Openness to Change, this growth-focused value means you seek freedom to determine your path rather than having others dictate your actions."
+  },
+  "stimulation": {
+    "definition": "The craving for excitement, novelty, and new experiences in life. This Openness to Change value embodies growth through expansion—you thrive on variety and challenge rather than routine and predictability."
+  },
+  "hedonism": {
+    "definition": "The pursuit of pleasure, enjoyment, and sensuous gratification. Bridging Openness to Change and Self-Enhancement, this moderately growth-oriented value means you seek satisfaction and fun as worthwhile ends in themselves."
+  },
+  "achievement": {
+    "definition": "The desire to demonstrate competence and gain recognition for your accomplishments. This Self-Enhancement value balances growth and self-protection equally—success serves both personal development and security."
+  },
+  "power_dominance": {
+    "definition": "The drive to influence others and have authority over people. This Self-Enhancement value leans toward self-protection. You seek control over social situations to manage uncertainty and ensure your interests are prioritized."
+  },
+  "power_resources": {
+    "definition": "The desire for material wealth and valuable possessions. Part of Self-Enhancement with protective focus, this value means you accumulate resources as security against scarcity and to maintain independence."
+  },
+  "face": {
+    "definition": "The need to maintain your reputation and avoid public embarrassment. Bridging Self-Enhancement and Conservation, this self-protection-focused value means you carefully manage how others perceive you to preserve social standing."
+  },
+  "security_personal": {
+    "definition": "The need for safety and stability in your immediate environment. This Conservation value emphasizes self-protection. You prioritize the physical and emotional safety of yourself and those closest to you."
+  },
+  "security_societal": {
+    "definition": "The desire for a stable, well-ordered society with strong institutions. Part of Conservation with self-protection orientation, this value means you support systems that maintain social order and prevent chaos."
+  },
+  "tradition": {
+    "definition": "Respect for cultural customs, religious practices, and inherited wisdom. This Conservation value embodies self-protection through continuity. You honor established ways because they provide proven guidance and social cohesion."
+  },
+  "conformity_rules": {
+    "definition": "The importance of following laws, regulations, and formal obligations. This Conservation value reflects self-protection through compliance. You believe adhering to official rules maintains order and prevents conflict."
+  },
+  "conformity_interpersonal": {
+    "definition": "The drive to avoid upsetting others through considerate, tactful behavior. Part of Conservation with protective focus, this value means you restrain impulses that might damage relationships or create social friction."
+  },
+  "humility": {
+    "definition": "Recognizing your place in the larger scheme and being content with what you have. Bridging Conservation and Self-Transcendence, this value balances growth and self-protection equally. Wisdom through modest self-acceptance."
+  },
+  "universalism_nature": {
+    "definition": "Commitment to protecting the natural environment and all living things. This Self-Transcendence value represents growth through expanded care. You extend concern beyond humanity to the broader ecosystem that sustains life."
+  },
+  "universalism_concern": {
+    "definition": "The belief that all people deserve equality, justice, and protection. Central to Self-Transcendence, this growth-oriented value means you expand your circle of moral concern to include everyone, not just your own group."
+  },
+  "universalism_tolerance": {
+    "definition": "Openness to different lifestyles, beliefs, and ways of being human. This Self-Transcendence value embodies growth through understanding. You embrace diversity rather than fearing or rejecting what seems foreign."
+  },
+  "benevolence_care": {
+    "definition": "Devotion to the wellbeing of family, friends, and other close relationships. This Self-Transcendence value represents growth through love. You expand yourself to include others' welfare as part of your own."
+  },
+  "benevolence_dependability": {
+    "definition": "Being someone others can count on for support and reliability. Part of Self-Transcendence with growth orientation, this value means you strengthen relationships by consistently showing up when needed."
+  }
+}

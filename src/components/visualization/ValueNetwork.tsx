@@ -2,7 +2,7 @@
 
 import React, { useRef, useEffect, useMemo, useState } from "react";
 import { debounce } from "lodash";
-import { Box } from "@chakra-ui/react";
+import { Box, HStack, Text, Slider } from "@chakra-ui/react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
 import dynamic from "next/dynamic";
@@ -11,17 +11,21 @@ import {
   type GraphData,
   transformValueProfileToGraphData,
   createNetworkConfig,
-  type HoverScreenInfo
+  type HoverScreenInfo,
+  DOMAIN_COLORS,
+  calculateAnxietyWeight
 } from "@/lib/visualization";
 import {
   getNodeColorWithHover,
   getLinkColorWithHover,
   getLinkWidthWithHover
 } from "@/lib/utils";
+import type { ValueCategory } from "@/lib/schwartz";
 import * as THREE from "three";
 import type { Object3D } from "three";
 import type { LinkObject, NodeObject, GraphMethods } from "r3f-forcegraph";
 import { useColorModeValue } from "../ui/color-mode";
+import valueDefinitions from "@/lib/visualization/value-definitions.json";
 
 const R3fForceGraph = dynamic(() => import("r3f-forcegraph"), { ssr: false });
 
@@ -43,11 +47,14 @@ function GraphVisualization({ graphData, mode, hoveredNodeId, onHover, onHovered
     }
 
     const n = node as NodeObject;
+    const nodeId = String(n.id);
+    const valueDefinition = nodeId !== "center" ? valueDefinitions[nodeId as ValueCategory] : undefined;
+
     onHover({
-      id: String(n.id),
+      id: nodeId,
       name: n.name,
       domain: (n as NodeObject).domain,
-      rawScore: (n as NodeObject).rawScore,
+      definition: valueDefinition?.definition,
     });
   };
 
@@ -323,29 +330,55 @@ export function ValueNetwork() {
           bg="bg.overlay"
           color="fg"
           borderWidth="1px"
-          borderColor="border.subtle"
-          boxShadow="md"
+          borderColor={hoverHUD.domain ? DOMAIN_COLORS[hoverHUD.domain] : "border.subtle"}
+          boxShadow="lg"
           px={4}
           py={3}
-          rounded="md"
+          rounded="lg"
           pointerEvents="none"
           fontSize="sm"
           lineHeight="short"
-          maxW="280px"
+          maxW="400px"
         >
-          <Box fontWeight="semibold" mb={hoverHUD.id === "center" ? 0 : 2} color="fg">
-            {hoverHUD.name}
+          <Box fontWeight="semibold" mb={hoverHUD.id === "center" ? 0 : 3} color="fg">
+            {hoverHUD.name} {" "}
+            <Box as="span" color="fg.muted">
+              ({(hoverHUD.domain || '').toString().replaceAll('_', ' ').replace(/\b\w/g, l => l.toUpperCase())})
+            </Box>
           </Box>
-          {hoverHUD.id !== "center" && (
-            <Box opacity={0.9} fontSize="xs">
-              <Box mb={1}>
-                <Box as="span" fontWeight="medium">Domain: {(hoverHUD.domain || '').toString().replaceAll('_', ' ').replace(/\b\w/g, l => l.toUpperCase())}</Box>
-              </Box>
 
-              {hoverHUD.rawScore != null && (
-                <Box>
-                  <Box as="span" fontWeight="medium">Importance:</Box>{" "}
-                  {Number(hoverHUD.rawScore).toFixed(2)} / 6.0
+          {hoverHUD.id !== "center" && (
+            <Box opacity={0.95} fontSize="xs" gap={2}>
+              {hoverHUD.definition && (
+                <Box mb={3} color="fg.muted" lineHeight="relaxed">
+                  {hoverHUD.definition}
+                </Box>
+              )}
+
+              {/* Anxiety-Aversion Dimension Slider */}
+              {currentMode === "3d" && (
+                <Box mb={3}>
+                  <HStack gap={2} alignItems="center">
+                    <Text fontSize="2xs" color="fg.subtle" minW="10">Growth</Text>
+                    <Box flex={1}>
+                      <Slider.Root
+                        value={[((calculateAnxietyWeight(hoverHUD.id as ValueCategory) + 1) / 2) * 100]}
+                        min={0}
+                        max={100}
+                        size="sm"
+                        disabled
+                        colorPalette="gray"
+                      >
+                        <Slider.Control>
+                          <Slider.Track bg="gray.200" _dark={{ bg: "gray.600" }}>
+                            <Slider.Range bg="gray.400" _dark={{ bg: "gray.400" }} />
+                          </Slider.Track>
+                          <Slider.Thumb index={0} bg="fg" boxSize={3} />
+                        </Slider.Control>
+                      </Slider.Root>
+                    </Box>
+                    <Text fontSize="2xs" color="fg.subtle" minW="10">Self-Protection</Text>
+                  </HStack>
                 </Box>
               )}
             </Box>

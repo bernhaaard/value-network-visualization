@@ -12,10 +12,10 @@ export function InstructionsView() {
         {/* Header */}
         <Box textAlign="center">
           <Heading size="2xl" mb={4} color="fg">
-            Welcome to the Study
+            Alright, here we go!
           </Heading>
           <Text fontSize="lg" color="fg.muted">
-            Thank you for participating in my research on human value visualizations.
+            Thank you for taking part in my research on human value visualizations.
           </Text>
         </Box>
 
@@ -27,25 +27,17 @@ export function InstructionsView() {
           borderWidth="1px"
           borderColor="border.subtle"
         >
-          <Heading size="lg" mb={4} color="fg">
-            Instructions for the PVQ-RR Questionnaire
-          </Heading>
           <Text mb={4} color="fg">
-            You will now complete the Portrait Values Questionnaire-Revised (PVQ-RR).
-            This questionnaire measures your personal values and what&apos;s important to you in life.
+            You&apos;re about to take something called the Portrait Values Questionnaire. You will see various descriptions of different people.
           </Text>
-          <Text mb={4} color="fg" fontWeight="medium">
-            How it works:
+          <Text mb={4} color="fg">
+            You should rate how much that person is like you using the scale from 1 (Not like me at all) to 6 (Very much like me).
           </Text>
-          <Text as="ul" ml={1} mb={4} color="fg.muted" pl={4} borderLeftWidth="4px" borderLeftColor="orange.dark">
-            <Text as="li" mb={2}>You&apos;ll see 57 short descriptions of different people</Text>
-            <Text as="li" mb={2}>For each person, decide how similar they are to you</Text>
-            <Text as="li" mb={2}>Use the 6-point scale from &ldquo;Not like me at all&rdquo; to &ldquo;Very much like me&rdquo;</Text>
-            <Text as="li" mb={2}>There are no right or wrong answers - just be honest</Text>
-            <Text as="li" mb={2}>The questionnaire takes about 10-15 minutes</Text>
+          <Text mb={4} color="fg">
+            The key thing is being honest - there are no right or wrong answers, just your authentic responses. Some descriptions might sound a bit formal or repetitive, but that&apos;s normal for these research questionnaires.
           </Text>
           <Text fontSize="sm" color="fg.subtle">
-            Please read each description carefully and answer honestly.
+            This part takes about 10-15 minutes, then the fun visualization stuff begins!
           </Text>
         </Box>
 
@@ -60,7 +52,7 @@ export function InstructionsView() {
             fontSize="lg"
             _hover={{ bg: "interactive.hover" }}
           >
-            Start Questionnaire
+            Start Questions
           </Button>
         </Box>
       </VStack>

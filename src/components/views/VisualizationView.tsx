@@ -106,18 +106,21 @@ export function VisualizationView() {
               borderColor="border.subtle"
             >
               <Text fontSize="sm" fontWeight="medium" mb={3} color="fg">
-                Legend
+                How to Read Your Network
               </Text>
-              <VStack gap={3} align="stretch">
-                <Text fontSize="xs" color="fg.muted">The big white node in the center represents you</Text>
-                <Text fontSize="xs" color="fg.muted">The 4 colors represent higher-order value domains</Text>
+              <VStack gap={2} align="stretch">
+                <Text fontSize="xs" color="fg" fontWeight="medium">Closer to center = More Important</Text>
+                <Text fontSize="xs" color="fg.muted">Nearby values work are similar</Text>
+                <Text fontSize="xs" color="fg.muted">Opposing values usually conflict</Text>
+                <Text fontSize="xs" color="fg.muted" mt={2} mb={0}>Value Domains:</Text>
                 <VStack gap={1} align="start" pl={2}>
                   <Text fontSize="xs" color="fg.muted"><Text as="span" color="openness_to_change">🟠 Orange: </Text>Openness to Change</Text>
                   <Text fontSize="xs" color="fg.muted"><Text as="span" color="self_enhancement">🔴 Red: </Text>Self-Enhancement</Text>
                   <Text fontSize="xs" color="fg.muted"><Text as="span" color="conservation">🔵 Blue: </Text>Conservation</Text>
                   <Text fontSize="xs" color="fg.muted"><Text as="span" color="self_transcendence">🟢 Green: </Text>Self-Transcendence</Text>
                 </VStack>
-                <Text fontSize="xs" color="fg.muted">Distance from center as well as node size show relative importance for that value</Text>
+                <Text fontSize="xs" color="fg.muted" mt={2} display={currentMode === "3d" ? "block" : "none"}>Up/down in 3D = Growth vs self-protection focus</Text>
+                <Text fontSize="xs" color="fg.subtle" mt={2}>Controls: Drag to rotate, scroll to zoom, hover for details</Text>
               </VStack>
             </Box>
           </VStack>
