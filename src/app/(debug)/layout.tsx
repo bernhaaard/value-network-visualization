@@ -28,20 +28,6 @@ export default function DebugLayout({
             <Flex gap={1} flexWrap="wrap">
               <Link
                 as={NextLink}
-                href="/tools"
-                px={3}
-                py={2}
-                borderRadius="md"
-                color="fg"
-                fontWeight="medium"
-                fontSize="sm"
-                _hover={{ bg: "bg.muted" }}
-                transition="background-color 0.2s"
-              >
-                Dashboard
-              </Link>
-              <Link
-                as={NextLink}
                 href="/tests/context"
                 px={3}
                 py={2}
@@ -53,35 +39,6 @@ export default function DebugLayout({
                 transition="background-color 0.2s"
               >
                 Context Tests
-              </Link>
-              <Link
-                as={NextLink}
-                href="/tests/components"
-                px={3}
-                py={2}
-                borderRadius="md"
-                color="fg.muted"
-                fontWeight="medium"
-                fontSize="sm"
-                _hover={{ bg: "bg.muted", color: "fg" }}
-                transition="background-color 0.2s"
-              >
-                Components
-              </Link>
-
-              <Link
-                as={NextLink}
-                href="/tools/system-status"
-                px={3}
-                py={2}
-                borderRadius="md"
-                color="fg.muted"
-                fontWeight="medium"
-                fontSize="sm"
-                _hover={{ bg: "bg.muted", color: "fg" }}
-                transition="background-color 0.2s"
-              >
-                System Status
               </Link>
 
               <Box h="6" w="1px" bg="border" mx={2} alignSelf="center" />
