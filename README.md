@@ -80,6 +80,7 @@ npm run type-check   # Run TypeScript type checking
 ├── docs
 │   ├── methodology.md
 │   ├── PVQ-RR
+│   │   ├── Analysis_instructions_PVQ-RR.md
 │   │   └── PVQ-RR_Eng_M&F.md
 │   └── research-notes.md
 ├── eslint.config.mjs
@@ -89,50 +90,38 @@ npm run type-check   # Run TypeScript type checking
 ├── package.json
 ├── postcss.config.mjs
 ├── public
+│   └── ValueNetworkExample*.png    # Network visualization previews
 ├── README.md
 ├── src
 │   ├── app
-│   │   ├── (admin)        # Admin dashboard routes
-│   │   │   ├── analytics
-│   │   │   └── data-export
-│   │   ├── (debug)        # Development & evaluation tools
-│   │   │   ├── tests      # Testing infrastructure
-│   │   │   │   ├── context
-│   │   │   │   └── components
-│   │   │   └── tools      # Development utilities & dashboard
-│   │   │       ├── page.tsx (dashboard)
-│   │   │       ├── data-export
-│   │   │       └── system-status
-│   │   ├── (playground)   # Free exploration routes
-│   │   │   ├── explore
-│   │   │   └── feedback
-│   │   ├── (public)       # Static public pages
-│   │   │   └── instructions
-│   │   ├── (study)        # Complete user study flow
-│   │   │   ├── consent
-│   │   │   ├── questionnaire
-│   │   │   ├── visualization
-│   │   │   └── debrief
+│   │   ├── (study)                 # Complete user study flow
+│   │   │   ├── questionnaire       # Demographics → PVQ-RR questions
+│   │   │   └── visualization       # 2D/3D network exploration
+│   │   ├── api
+│   │   │   └── study               # Research data endpoints
+│   │   │       ├── complete        # Final data submission
+│   │   │       └── session         # Session management
 │   │   ├── favicon.ico
 │   │   ├── globals.css
 │   │   ├── layout.tsx
-│   │   └── page.tsx       # Landing page
+│   │   └── page.tsx                # Landing page with consent
 │   ├── components
-│   │   ├── forms          # Form components (Demographics, etc.)
-│   │   ├── views          # Page view components
-│   │   ├── ui             # Reusable UI components
-│   │   └── visualization  # Visualization components
-│   ├── hooks              # Custom React hooks
+│   │   ├── forms                   # Demographics & feedback forms
+│   │   ├── ui                      # Base UI components + consent dialog
+│   │   ├── views                   # Page view components
+│   │   └── visualization           # Value network visualization
+│   ├── hooks                       # Custom React hooks
 │   ├── lib
-│   │   ├── context        # React Context API
-│   │   ├── database       # Database utilities
-│   │   ├── questionnaire  # PVQ-RR questionnaire logic
-│   │   ├── schwartz       # Schwartz framework utilities
-│   │   ├── utils          # Utility functions
-│   │   └── visualization  # Network visualization logic
-│   └── types              # TypeScript type definitions
+│   │   ├── context                 # React Context API (questionnaire + viz)
+│   │   ├── database                # Supabase integration & study service
+│   │   ├── questionnaire           # PVQ-RR questionnaire data
+│   │   ├── schwartz                # Schwartz framework scoring & types
+│   │   ├── utils                   # Utility functions & session analytics
+│   │   └── visualization           # Network positioning & value definitions
+│   ├── theme                       # Chakra UI theme configuration
+│   └── types                       # TypeScript type definitions
 ├── tsconfig.json
-└── tsconfig.tsbuildinfo
+└── vitest.config.ts
 ```
 
 ## Research Documentation
