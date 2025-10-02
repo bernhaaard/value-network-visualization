@@ -142,4 +142,4 @@ self-reported insights?"
 
 ## License
 
-TBD (discuss with supervisor) // TODO
+MIT
